@@ -1,0 +1,34 @@
+{
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "text_motion_sim.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "text_motion_sim.py",
+            "console": "integratedTerminal",
+            "args":[
+                "run_dir=RUN_DIR",
+                "text='a man sets to do a backflips then fails back flip and falls to the ground'",
+                "npy=/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D/HumanML3D/new_joint_vecs/001034.npy",
+            ]
+        },
+        {
+            "name": "app.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "app.py",
+            "console": "integratedTerminal",
+        },
+        {
+            "name": "Python 调试程序: 当前文件",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal"
+        }
+    ]
+}

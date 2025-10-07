@@ -1,4 +1,8 @@
+
+import sys
+sys.path.append(sys.path[0] + r"/../")
 import os
+
 import logging
 import hydra
 from omegaconf import DictConfig

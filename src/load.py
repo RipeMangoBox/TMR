@@ -56,6 +56,7 @@ def load_model_from_cfg(cfg, ckpt_name="last", device="cpu", eval_mode=True):
         logger.info("The extracted model is not found. Split into submodules..")
         extract_ckpt(run_dir, ckpt_name)
 
+    assert os.path.exists(pt_path) and len(os.listdir(pt_path)) > 0
     for fname in os.listdir(pt_path):
         module_name, ext = os.path.splitext(fname)
 

@@ -1,0 +1,41 @@
+[07/10/25 14:45:13][__main__][INFO] - Loading the model
+[07/10/25 14:45:13][src.load][INFO] -     motion_decoder loaded
+[07/10/25 14:45:13][src.load][INFO] -     text_encoder loaded
+[07/10/25 14:45:13][src.load][INFO] -     motion_encoder loaded
+[07/10/25 14:45:13][src.load][INFO] - Loading previous checkpoint done
+[07/10/25 14:45:13][src.load][INFO] - Put the model on cuda
+[07/10/25 14:45:13][src.load][INFO] - Put the model in eval mode
+[07/10/25 14:46:12][__main__][INFO] - Loading the model
+[07/10/25 14:46:12][src.load][INFO] -     motion_decoder loaded
+[07/10/25 14:46:12][src.load][INFO] -     text_encoder loaded
+[07/10/25 14:46:12][src.load][INFO] -     motion_encoder loaded
+[07/10/25 14:46:12][src.load][INFO] - Loading previous checkpoint done
+[07/10/25 14:46:13][src.load][INFO] - Put the model on cuda
+[07/10/25 14:46:13][src.load][INFO] - Put the model in eval mode
+[07/10/25 14:46:13][lightning_fabric.utilities.seed][INFO] - Seed set to 1234
+[07/10/25 14:46:13][__main__][INFO] - Encoding done, latent saved in:
+RUN_DIR/encoded/01_01_poses.npy
+[07/10/25 14:47:25][__main__][INFO] - Loading the model
+[07/10/25 14:47:25][src.load][INFO] -     motion_decoder loaded
+[07/10/25 14:47:26][src.load][INFO] -     text_encoder loaded
+[07/10/25 14:47:26][src.load][INFO] -     motion_encoder loaded
+[07/10/25 14:47:26][src.load][INFO] - Loading previous checkpoint done
+[07/10/25 14:47:26][src.load][INFO] - Put the model on cuda
+[07/10/25 14:47:26][src.load][INFO] - Put the model in eval mode
+[07/10/25 14:48:46][__main__][INFO] - Loading the model
+[07/10/25 14:48:46][src.load][INFO] -     motion_decoder loaded
+[07/10/25 14:48:46][src.load][INFO] -     text_encoder loaded
+[07/10/25 14:48:46][src.load][INFO] -     motion_encoder loaded
+[07/10/25 14:48:46][src.load][INFO] - Loading previous checkpoint done
+[07/10/25 14:48:46][src.load][INFO] - Put the model on cuda
+[07/10/25 14:48:46][src.load][INFO] - Put the model in eval mode
+[07/10/25 14:48:53][__main__][INFO] - Loading the model
+[07/10/25 14:48:53][src.load][INFO] -     motion_decoder loaded
+[07/10/25 14:48:53][src.load][INFO] -     text_encoder loaded
+[07/10/25 14:48:53][src.load][INFO] -     motion_encoder loaded
+[07/10/25 14:48:53][src.load][INFO] - Loading previous checkpoint done
+[07/10/25 14:48:54][src.load][INFO] - Put the model on cuda
+[07/10/25 14:48:54][src.load][INFO] - Put the model in eval mode
+[07/10/25 14:48:54][lightning_fabric.utilities.seed][INFO] - Seed set to 1234
+[07/10/25 14:48:54][__main__][INFO] - Encoding done, latent saved in:
+RUN_DIR/encoded/001034.npy
