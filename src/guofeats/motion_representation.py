@@ -379,6 +379,49 @@ def _get_joints_to_guofeats():
 
     return transform
 
+def _get_global_joints():
+    this_folder = os.path.dirname(os.path.abspath(__file__))
+    skeleton_path = os.path.join(this_folder, "skeleton_example_h3d.npy")
+    # corresponds to the first frame of "000021"
+    # as used in the original ipynb
+
+    # Get offsets of target skeleton
+    example_data = torch.from_numpy(np.load(skeleton_path))
+
+    # Lower legs
+    l_idx1, l_idx2 = 5, 8
+    # Right/Left foot
+    fid_r, fid_l = [8, 11], [7, 10]
+    # Face direction, r_hip, l_hip, sdr_r, sdr_l
+    face_joint_indx = [2, 1, 17, 16]
+    # l_hip, r_hip
+    joints_num = 22
+
+    n_raw_offsets = torch.from_numpy(t2m_raw_offsets)
+    kinematic_chain = t2m_kinematic_chain
+
+    tgt_skel = Skeleton(n_raw_offsets, kinematic_chain, "cpu")
+    # (joints_num, 3)
+    tgt_offsets = tgt_skel.get_offsets_joints(example_data)
+    # print(tgt_offsets)
+
+    def transform(source_data):
+        source_data = source_data[:, :joints_num].copy()
+        data, ground_positions, positions, l_velocity = process_file(
+            source_data,
+            0.002,
+            tgt_offsets,
+            face_joint_indx,
+            fid_l,
+            fid_r,
+            n_raw_offsets,
+            kinematic_chain,
+            l_idx1,
+            l_idx2,
+        )
+        return ground_positions
+
+    return transform
 
 def _get_guofeats_to_joints():
     joints_num = 22
@@ -396,3 +439,4 @@ def _get_guofeats_to_joints():
 
 joints_to_guofeats = _get_joints_to_guofeats()
 guofeats_to_joints = _get_guofeats_to_joints()
+get_global_positions = _get_global_joints()

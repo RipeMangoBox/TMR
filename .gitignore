@@ -166,3 +166,4 @@ cython_debug/
 /RUN_DIR/logs/checkpoints
 /datasets/annotations/humanml3d/sent_embeddings/sentence-transformers
 /datasets/annotations/humanml3d/token_embeddings
+datasets/motions

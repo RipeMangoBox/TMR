@@ -119,12 +119,12 @@ hydra:
     - hydra.mode=RUN
     task: []
   job:
-    name: text_motion_sim
+    name: compute_guoh3dfeats
     chdir: null
     override_dirname: ''
     id: ???
     num: ???
-    config_name: text_motion_sim
+    config_name: compute_guoh3dfeats
     env_set: {}
     env_copy: []
     config:

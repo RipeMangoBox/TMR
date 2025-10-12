@@ -17,3 +17,23 @@
 [07/10/25 14:56:23][src.load][INFO] - Loading previous checkpoint done
 [07/10/25 14:56:23][src.load][INFO] - Put the model on cuda
 [07/10/25 14:56:23][src.load][INFO] - Put the model in eval mode
+[08/10/25 14:59:45][lightning_fabric.utilities.seed][INFO] - Seed set to 1234
+[08/10/25 14:59:45][__main__][INFO] - Loading the text model
+[08/10/25 14:59:48][__main__][INFO] - Loading the model
+[08/10/25 14:59:48][src.load][INFO] -     motion_decoder loaded
+[08/10/25 14:59:48][src.load][INFO] -     text_encoder loaded
+[08/10/25 14:59:48][src.load][INFO] -     motion_encoder loaded
+[08/10/25 14:59:48][src.load][INFO] - Loading previous checkpoint done
+[08/10/25 14:59:48][src.load][INFO] - Put the model on cuda
+[08/10/25 14:59:48][src.load][INFO] - Put the model in eval mode
+[08/10/25 14:59:48][__main__][INFO] - The similariy score s (0 <= s <= 1) between the text and the motion is: 0.962
+[08/10/25 15:45:22][lightning_fabric.utilities.seed][INFO] - Seed set to 1234
+[08/10/25 15:45:22][__main__][INFO] - Loading the text model
+[08/10/25 15:45:24][__main__][INFO] - Loading the model
+[08/10/25 15:45:24][src.load][INFO] -     motion_decoder loaded
+[08/10/25 15:45:24][src.load][INFO] -     text_encoder loaded
+[08/10/25 15:45:24][src.load][INFO] -     motion_encoder loaded
+[08/10/25 15:45:24][src.load][INFO] - Loading previous checkpoint done
+[08/10/25 15:45:24][src.load][INFO] - Put the model on cuda
+[08/10/25 15:45:24][src.load][INFO] - Put the model in eval mode
+[08/10/25 15:45:24][__main__][INFO] - The similariy score s (0 <= s <= 1) between the text and the motion is: 0.962

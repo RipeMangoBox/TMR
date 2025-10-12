@@ -1,8 +1,7 @@
 run_dir: logs
 seed: 1234
 logger_level: INFO
-npy: ???
-feats: false
-text: ???
-ckpt_name: last
-device: cuda
+base_folder: datasets/motions/pose_data
+output_folder: datasets/motions/guoh3dfeats
+video_folder: datasets/motions/guoh3dvideos
+force_redo: false
