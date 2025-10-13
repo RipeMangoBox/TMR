@@ -40,7 +40,7 @@ def swap_left_right(data):
 
 
 @hydra.main(
-    config_path="../configs", config_name="compute_guoh3dfeats", version_base="1.3"
+    config_path="../configs", config_name="compute_guoh3dfeats_fd", version_base="1.3"
 )
 def compute_guoh3dfeats(cfg: DictConfig):
     base_folder = cfg.base_folder

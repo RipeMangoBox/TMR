@@ -3,11 +3,12 @@ import hydra
 from omegaconf import DictConfig
 from hydra.utils import instantiate
 from src.config import read_config, save_config
+# import os
+# os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 
 logger = logging.getLogger(__name__)
 
-
-@hydra.main(config_path="configs", config_name="train", version_base="1.3")
+@hydra.main(config_path="configs", config_name="train_fd", version_base="1.3")
 def train(cfg: DictConfig):
     # Resuming if needed
     ckpt = None

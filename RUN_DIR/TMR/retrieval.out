@@ -1,0 +1,61 @@
+[06/10/25 17:29:51][lightning_fabric.utilities.seed][INFO] - Seed set to 1234
+[06/10/25 17:29:51][__main__][INFO] - Loading the model
+[06/10/25 17:29:51][src.load][INFO] - Loading previous checkpoint done
+[06/10/25 17:29:51][src.load][INFO] - Put the model on cuda
+[06/10/25 17:29:51][src.load][INFO] - Put the model in eval mode
+[06/10/25 17:29:56][__main__][INFO] - Testing done, metrics saved in:
+RUN_DIR/contrastive_metrics/normal.yaml
+[06/10/25 17:29:58][__main__][INFO] - Testing done, metrics saved in:
+RUN_DIR/contrastive_metrics/threshold_0.95.yaml
+[06/10/25 17:29:59][__main__][INFO] - Testing done, metrics saved in:
+RUN_DIR/contrastive_metrics/nsim.yaml
+[06/10/25 17:30:14][__main__][INFO] - Testing done, metrics saved in:
+RUN_DIR/contrastive_metrics/guo.yaml
+[06/10/25 17:51:38][lightning_fabric.utilities.seed][INFO] - Seed set to 1234
+[06/10/25 17:51:38][__main__][INFO] - Loading the model
+[06/10/25 17:52:32][lightning_fabric.utilities.seed][INFO] - Seed set to 1234
+[06/10/25 17:52:32][__main__][INFO] - Loading the model
+[06/10/25 17:52:32][src.load][INFO] - Loading previous checkpoint done
+[06/10/25 17:52:32][src.load][INFO] - Put the model on cuda
+[06/10/25 17:52:32][src.load][INFO] - Put the model in eval mode
+[06/10/25 17:52:40][__main__][INFO] - Testing done, metrics saved in:
+RUN_DIR/contrastive_metrics/normal.yaml
+[06/10/25 17:52:42][__main__][INFO] - Testing done, metrics saved in:
+RUN_DIR/contrastive_metrics/threshold_0.95.yaml
+[06/10/25 17:52:47][__main__][INFO] - Testing done, metrics saved in:
+RUN_DIR/contrastive_metrics/nsim.yaml
+[06/10/25 17:53:03][__main__][INFO] - Testing done, metrics saved in:
+RUN_DIR/contrastive_metrics/guo.yaml
+[06/10/25 17:53:41][lightning_fabric.utilities.seed][INFO] - Seed set to 1234
+[06/10/25 17:53:41][__main__][INFO] - Loading the model
+[06/10/25 17:53:41][src.load][INFO] - Loading previous checkpoint done
+[06/10/25 17:53:41][src.load][INFO] - Put the model on cuda
+[06/10/25 17:53:41][src.load][INFO] - Put the model in eval mode
+[06/10/25 17:53:46][__main__][INFO] - Testing done, metrics saved in:
+RUN_DIR/contrastive_metrics/normal.yaml
+[06/10/25 17:53:48][__main__][INFO] - Testing done, metrics saved in:
+RUN_DIR/contrastive_metrics/threshold_0.95.yaml
+[06/10/25 17:53:49][__main__][INFO] - Testing done, metrics saved in:
+RUN_DIR/contrastive_metrics/nsim.yaml
+[06/10/25 17:54:06][__main__][INFO] - Testing done, metrics saved in:
+RUN_DIR/contrastive_metrics/guo.yaml
+[06/10/25 17:54:21][lightning_fabric.utilities.seed][INFO] - Seed set to 1234
+[06/10/25 17:54:21][__main__][INFO] - Loading the model
+[06/10/25 17:54:41][lightning_fabric.utilities.seed][INFO] - Seed set to 1234
+[06/10/25 17:54:41][__main__][INFO] - Loading the model
+[06/10/25 17:58:11][lightning_fabric.utilities.seed][INFO] - Seed set to 1234
+[06/10/25 17:58:11][__main__][INFO] - Loading the model
+[06/10/25 17:58:23][src.load][INFO] -     motion_decoder loaded
+[06/10/25 17:58:23][src.load][INFO] -     text_encoder loaded
+[06/10/25 17:58:23][src.load][INFO] -     motion_encoder loaded
+[06/10/25 17:58:23][src.load][INFO] - Loading previous checkpoint done
+[06/10/25 17:58:23][src.load][INFO] - Put the model on cuda
+[06/10/25 17:58:23][src.load][INFO] - Put the model in eval mode
+[06/10/25 17:58:29][__main__][INFO] - Testing done, metrics saved in:
+RUN_DIR/contrastive_metrics/normal.yaml
+[06/10/25 17:58:31][__main__][INFO] - Testing done, metrics saved in:
+RUN_DIR/contrastive_metrics/threshold_0.95.yaml
+[06/10/25 17:58:32][__main__][INFO] - Testing done, metrics saved in:
+RUN_DIR/contrastive_metrics/nsim.yaml
+[06/10/25 17:58:53][__main__][INFO] - Testing done, metrics saved in:
+RUN_DIR/contrastive_metrics/guo.yaml

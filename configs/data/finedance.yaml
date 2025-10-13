@@ -1,0 +1,3 @@
+defaults:
+  - _base_fd
+  - _self_

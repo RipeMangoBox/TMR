@@ -1,0 +1,7 @@
+defaults:
+  - _base_fd
+  - _self_
+
+base_dir: datasets/motions/guoh3dfeats_fd
+fps: 20.0
+nfeats: 263

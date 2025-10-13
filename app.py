@@ -11,7 +11,7 @@ import argparse
 
 # parser for the model
 parser = argparse.ArgumentParser()
-parser.add_argument("--run_dir", default="RUN_DIR")
+parser.add_argument("--run_dir", default="RUN_DIR/MDR")
 args = parser.parse_args()
 MODEL_PATH = args.run_dir
 

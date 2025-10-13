@@ -1,5 +1,5 @@
 defaults:
-  - temos
+  - temos_fd
   - _self_
 
 _target_: src.model.TMR

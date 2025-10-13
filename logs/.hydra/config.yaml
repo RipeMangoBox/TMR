@@ -1,8 +1,0 @@
-run_dir: logs
-seed: 1234
-logger_level: INFO
-npy: ???
-feats: false
-text: ???
-ckpt_name: last
-device: cuda
