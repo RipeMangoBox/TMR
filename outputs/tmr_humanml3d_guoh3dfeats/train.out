@@ -566,3 +566,96 @@ outputs/tmr_humanml3d_guoh3dfeats/config.json
 224       Modules in train mode
 0         Modules in eval mode
 [07/10/25 15:20:43][src.callback.progress][INFO] - Training started
+[13/10/25 13:39:59][__main__][INFO] - Training script
+[13/10/25 13:39:59][__main__][INFO] - The config can be found here: 
+outputs/tmr_humanml3d_guoh3dfeats/config.json
+[13/10/25 13:40:03][lightning_fabric.utilities.seed][INFO] - Global seed set to 1234
+[13/10/25 13:40:03][__main__][INFO] - Loading the dataloaders
+[13/10/25 14:40:44][__main__][INFO] - Training script
+[13/10/25 14:40:44][__main__][INFO] - The config can be found here: 
+outputs/tmr_humanml3d_guoh3dfeats/config.json
+[13/10/25 14:40:48][lightning_fabric.utilities.seed][INFO] - Global seed set to 1234
+[13/10/25 14:40:48][__main__][INFO] - Loading the dataloaders
+[13/10/25 15:01:48][__main__][INFO] - Training script
+[13/10/25 15:01:48][__main__][INFO] - The config can be found here: 
+outputs/tmr_humanml3d_guoh3dfeats/config.json
+[13/10/25 15:01:53][lightning_fabric.utilities.seed][INFO] - Global seed set to 1234
+[13/10/25 15:01:53][__main__][INFO] - Loading the dataloaders
+[13/10/25 15:11:17][__main__][INFO] - Loading the model
+[13/10/25 15:11:17][__main__][INFO] - Training
+[13/10/25 15:11:18][pytorch_lightning.utilities.rank_zero][INFO] - GPU available: True (cuda), used: True
+[13/10/25 15:11:18][pytorch_lightning.utilities.rank_zero][INFO] - TPU available: False, using: 0 TPU cores
+[13/10/25 15:11:18][pytorch_lightning.utilities.rank_zero][INFO] - IPU available: False, using: 0 IPUs
+[13/10/25 15:11:18][pytorch_lightning.utilities.rank_zero][INFO] - HPU available: False, using: 0 HPUs
+[13/10/25 15:11:18][pytorch_lightning.accelerators.cuda][INFO] - LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [1]
+[13/10/25 15:11:18][pytorch_lightning.callbacks.model_summary][INFO] - 
+  | Name                   | Type              | Params
+-------------------------------------------------------------
+0 | motion_encoder         | ACTORStyleEncoder | 4.8 M 
+1 | text_encoder           | ACTORStyleEncoder | 4.9 M 
+2 | motion_decoder         | ACTORStyleDecoder | 6.4 M 
+3 | reconstruction_loss_fn | SmoothL1Loss      | 0     
+4 | latent_loss_fn         | SmoothL1Loss      | 0     
+-------------------------------------------------------------
+16.1 M    Trainable params
+0         Non-trainable params
+16.1 M    Total params
+64.523    Total estimated model params size (MB)
+[13/10/25 15:11:20][src.callback.progress][INFO] - Training started
+[13/10/25 17:06:00][__main__][INFO] - Training script
+[13/10/25 17:06:00][__main__][INFO] - The config can be found here: 
+outputs/tmr_humanml3d_guoh3dfeats/config.json
+[13/10/25 17:06:05][lightning_fabric.utilities.seed][INFO] - Global seed set to 1234
+[13/10/25 17:06:05][__main__][INFO] - Loading the dataloaders
+[13/10/25 18:21:03][__main__][INFO] - Training script
+[13/10/25 18:21:03][__main__][INFO] - The config can be found here: 
+outputs/tmr_humanml3d_guoh3dfeats/config.json
+[13/10/25 18:21:07][lightning_fabric.utilities.seed][INFO] - Global seed set to 1234
+[13/10/25 18:21:07][__main__][INFO] - Loading the dataloaders
+[13/10/25 18:21:22][__main__][INFO] - Loading the model
+[13/10/25 18:21:22][__main__][INFO] - Training
+[13/10/25 18:21:23][pytorch_lightning.utilities.rank_zero][INFO] - GPU available: True (cuda), used: True
+[13/10/25 18:21:23][pytorch_lightning.utilities.rank_zero][INFO] - TPU available: False, using: 0 TPU cores
+[13/10/25 18:21:23][pytorch_lightning.utilities.rank_zero][INFO] - IPU available: False, using: 0 IPUs
+[13/10/25 18:21:23][pytorch_lightning.utilities.rank_zero][INFO] - HPU available: False, using: 0 HPUs
+[13/10/25 18:21:23][pytorch_lightning.accelerators.cuda][INFO] - LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [1]
+[13/10/25 18:21:23][pytorch_lightning.callbacks.model_summary][INFO] - 
+  | Name                   | Type              | Params
+-------------------------------------------------------------
+0 | motion_encoder         | ACTORStyleEncoder | 4.8 M 
+1 | text_encoder           | ACTORStyleEncoder | 4.9 M 
+2 | motion_decoder         | ACTORStyleDecoder | 6.4 M 
+3 | reconstruction_loss_fn | SmoothL1Loss      | 0     
+4 | latent_loss_fn         | SmoothL1Loss      | 0     
+-------------------------------------------------------------
+16.1 M    Trainable params
+0         Non-trainable params
+16.1 M    Total params
+64.523    Total estimated model params size (MB)
+[13/10/25 18:21:24][src.callback.progress][INFO] - Training started
+[13/10/25 18:31:13][__main__][INFO] - Training script
+[13/10/25 18:31:13][__main__][INFO] - The config can be found here: 
+outputs/tmr_humanml3d_guoh3dfeats/config.json
+[13/10/25 18:31:15][lightning_fabric.utilities.seed][INFO] - Global seed set to 1234
+[13/10/25 18:31:15][__main__][INFO] - Loading the dataloaders
+[13/10/25 18:31:26][__main__][INFO] - Loading the model
+[13/10/25 18:31:26][__main__][INFO] - Training
+[13/10/25 18:31:26][pytorch_lightning.utilities.rank_zero][INFO] - GPU available: True (cuda), used: True
+[13/10/25 18:31:26][pytorch_lightning.utilities.rank_zero][INFO] - TPU available: False, using: 0 TPU cores
+[13/10/25 18:31:26][pytorch_lightning.utilities.rank_zero][INFO] - IPU available: False, using: 0 IPUs
+[13/10/25 18:31:26][pytorch_lightning.utilities.rank_zero][INFO] - HPU available: False, using: 0 HPUs
+[13/10/25 18:31:26][pytorch_lightning.accelerators.cuda][INFO] - LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [1]
+[13/10/25 18:31:26][pytorch_lightning.callbacks.model_summary][INFO] - 
+  | Name                   | Type              | Params
+-------------------------------------------------------------
+0 | motion_encoder         | ACTORStyleEncoder | 4.8 M 
+1 | text_encoder           | ACTORStyleEncoder | 4.9 M 
+2 | motion_decoder         | ACTORStyleDecoder | 6.4 M 
+3 | reconstruction_loss_fn | SmoothL1Loss      | 0     
+4 | latent_loss_fn         | SmoothL1Loss      | 0     
+-------------------------------------------------------------
+16.1 M    Trainable params
+0         Non-trainable params
+16.1 M    Total params
+64.523    Total estimated model params size (MB)
+[13/10/25 18:31:26][src.callback.progress][INFO] - Training started

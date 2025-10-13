@@ -1,5 +1,8 @@
 from functools import partial
 
+import os
+os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
+
 import torch
 import numpy as np
 import gradio as gr

@@ -6,6 +6,8 @@ from src.config import read_config, save_config
 
 logger = logging.getLogger(__name__)
 
+import os
+os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 
 @hydra.main(config_path="configs", config_name="train", version_base="1.3")
 def train(cfg: DictConfig):

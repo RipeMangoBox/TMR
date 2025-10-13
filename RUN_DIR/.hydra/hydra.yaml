@@ -139,18 +139,21 @@ hydra:
   runtime:
     version: 1.3.2
     version_base: '1.3'
-    cwd: /home/ripemangobox/Coding/Github/Motion/TMR
+    cwd: /sata/public/ripemangobox/Motion/TMR
     config_sources:
     - path: hydra.conf
       schema: pkg
       provider: hydra
-    - path: /home/ripemangobox/Coding/Github/Motion/TMR/configs
+    - path: /sata/public/ripemangobox/Motion/TMR/configs
       schema: file
       provider: main
+    - path: hydra_plugins.hydra_colorlog.conf
+      schema: pkg
+      provider: hydra-colorlog
     - path: ''
       schema: structured
       provider: schema
-    output_dir: /home/ripemangobox/Coding/Github/Motion/TMR/RUN_DIR
+    output_dir: /sata/public/ripemangobox/Motion/TMR/RUN_DIR
     choices:
       hydra/env: default
       hydra/callbacks: null

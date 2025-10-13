@@ -24,6 +24,13 @@
             "console": "integratedTerminal",
         },
         {
+        "name": "train.py",
+        "type": "debugpy",
+        "request": "launch",
+        "program": "train.py",
+        "console": "integratedTerminal",
+        },
+        {
             "name": "Python 调试程序: 当前文件",
             "type": "debugpy",
             "request": "launch",
