@@ -170,3 +170,8 @@ datasets/motions
 
 RUN_DIR_fd
 outputs/mdr_finedance_guoh3dfeats_fd
+
+*.pt
+*.pth
+*.ckpt
+!stats

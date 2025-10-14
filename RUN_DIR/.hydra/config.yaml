@@ -1,8 +1,8 @@
 run_dir: RUN_DIR
 seed: 1234
 logger_level: INFO
-npy: /home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D/HumanML3D/new_joint_vecs/001034.npy
-feats: false
-text: a man sets to do a backflips then fails back flip and falls to the ground
-ckpt_name: last
 device: cuda
+protocol: all
+threshold: 0.95
+ckpt: last
+batch_size: 256
