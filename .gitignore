@@ -175,3 +175,4 @@ outputs/mdr_finedance_guoh3dfeats_fd
 *.pth 
 *.checkpoints
 *.ckpt
+!stats

@@ -59,3 +59,6 @@ RUN_DIR/contrastive_metrics/threshold_0.95.yaml
 RUN_DIR/contrastive_metrics/nsim.yaml
 [06/10/25 17:58:53][__main__][INFO] - Testing done, metrics saved in:
 RUN_DIR/contrastive_metrics/guo.yaml
+[13/10/25 23:06:28][lightning_fabric.utilities.seed][INFO] - Seed set to 1234
+[13/10/25 23:06:28][__main__][INFO] - Loading the model
+[13/10/25 23:06:28][src.load][INFO] - The extracted model is not found. Split into submodules..
