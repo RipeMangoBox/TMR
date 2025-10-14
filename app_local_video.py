@@ -13,16 +13,16 @@ import argparse
 # 新增：是否使用本地视频
 # ======================
 use_local_video = True  # <-- 设置为 True 使用本地视频
-LOCAL_RENDER_DIR = "/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D/HumanML3D/animations"  # 本地视频存放目录（可修改）
+LOCAL_RENDER_DIR = "/home/ripemangobox/Coding/Github/Motion/datasets/FineDance/FineDance/animations"  # 本地视频存放目录（可修改）
 # parser for the model
 parser = argparse.ArgumentParser()
-parser.add_argument("--run_dir", default="models/tmr_humanml3d_guoh3dfeats")
+parser.add_argument("--run_dir", default="models/tmr_FineDance_guoh3dfeats")
 args = parser.parse_args()
 MODEL_PATH = args.run_dir
 
-# For now, only compatible with the humanml3d dataset
-DATASET = "humanml3d"
-assert DATASET == "humanml3d"
+# For now, only compatible with the finadance dataset
+DATASET = "finadance"
+assert DATASET == "finadance"
 
 WEBSITE = """
 <div class="embed_hidden">
@@ -105,7 +105,7 @@ DEFAULT_TEXT = "A person is "
 # ==============================================================================
 # 修改后的函数：支持本地视频
 # ==============================================================================
-def humanml3d_keyid_to_babel_rendered_url(h3d_index, amass_to_babel, keyid, use_local_video=False):
+def FineDance_keyid_to_babel_rendered_url(h3d_index, amass_to_babel, keyid, use_local_video=False):
     global LOCAL_RENDER_DIR
 
     # 如果使用本地视频，跳过镜像和 HumanAct12 的过滤（可选保留）
@@ -221,7 +221,7 @@ def get_video_html(data, video_id, width=700, height=700):
 
 Corresponding text: {text}
 
-HumanML3D keyid: {keyid}
+FineDance keyid: {keyid}
 
 BABEL keyid: {babel_id}
 
@@ -271,7 +271,7 @@ amass_to_babel = load_json("demo/amass_to_babel.json")
 # ================================
 # 修改：传入 use_local_video 参数
 # ================================
-keyid_to_url = partial(humanml3d_keyid_to_babel_rendered_url, h3d_index, amass_to_babel, use_local_video=use_local_video)
+keyid_to_url = partial(FineDance_keyid_to_babel_rendered_url, h3d_index, amass_to_babel, use_local_video=use_local_video)
 retrieve_function = partial(
     retrieve,
     model=model,
@@ -309,7 +309,7 @@ with gr.Blocks(css=CSS, theme=theme) as demo:
                         ["All motions", "Unseen motions"],
                         label="Gallery of motion",
                         value="All motions",
-                        info="The motion gallery is coming from HumanML3D",
+                        info="The motion gallery is coming from FineDance",
                     )
 
                 with gr.Column(scale=1):

@@ -23,7 +23,24 @@
             "program": "app.py",
             "console": "integratedTerminal",
         },
-                {
+        {
+            "name": "app_fd.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "app_fd.py",
+            "console": "integratedTerminal",
+        },
+        {
+            "name": "encode_dataset.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "encode_dataset.py",
+            "console": "integratedTerminal",
+            "args": [
+                "run_dir=RUN_DIR_fd"
+            ]
+        },
+        {
             "name": "train.py",
             "type": "debugpy",
             "request": "launch",

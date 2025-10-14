@@ -1129,3 +1129,13 @@ outputs/mdr_finedance_guoh3dfeats_fd/config.json
 [13/10/25 22:49:13][src.callback.progress][INFO] - Epoch 999: v_recons 7.298e-01  recons 2.394e-01  v_loss 9.655e-01  loss 2.422e-01  v_latent 1.360e+00  latent 4.943e-01  v_kl 1.261e+02  kl 2.375e+01  v_contrastive 2.344e+00  contrastive 2.519e-02  v_t2m/len 252  v_t2m/R01 30.55%  v_t2m/R02 41.66%  v_t2m/R03 46.02%  v_t2m/R05 54.75%  v_t2m/R10 64.68%  v_t2m/MedR 4.0%  v_m2t/len 252  v_m2t/R01 26.59%  v_m2t/R02 33.33%  v_m2t/R03 42.06%  v_m2t/R05 50.0%  v_m2t/R10 62.7%  v_m2t/MedR 5.5%
 [13/10/25 22:49:20][pytorch_lightning.utilities.rank_zero][INFO] - `Trainer.fit` stopped: `max_epochs=1000` reached.
 [13/10/25 22:49:20][src.callback.progress][INFO] - Training done
+[14/10/25 20:34:37][__main__][INFO] - Training script
+[14/10/25 20:34:37][__main__][INFO] - The config can be found here: 
+outputs/mdr_finedance_guoh3dfeats_fd/config.json
+[14/10/25 20:34:42][lightning_fabric.utilities.seed][INFO] - Global seed set to 1234
+[14/10/25 20:34:42][__main__][INFO] - Loading the dataloaders
+[14/10/25 21:26:19][__main__][INFO] - Training script
+[14/10/25 21:26:19][__main__][INFO] - The config can be found here: 
+outputs/mdr_finedance_guoh3dfeats_fd/config.json
+[14/10/25 21:26:24][lightning_fabric.utilities.seed][INFO] - Global seed set to 1234
+[14/10/25 21:26:24][__main__][INFO] - Loading the dataloaders

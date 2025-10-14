@@ -1,0 +1,39 @@
+[14/10/25 22:05:03][__main__][INFO] - Loading the model
+[14/10/25 22:05:03][src.load][INFO] -     motion_decoder loaded
+[14/10/25 22:05:03][src.load][INFO] -     motion_encoder loaded
+[14/10/25 22:05:03][src.load][INFO] -     text_encoder loaded
+[14/10/25 22:05:03][src.load][INFO] - Loading previous checkpoint done
+[14/10/25 22:05:03][src.load][INFO] - Put the model on cuda
+[14/10/25 22:05:03][src.load][INFO] - Put the model in eval mode
+[14/10/25 22:05:57][__main__][INFO] - Loading the model
+[14/10/25 22:05:57][src.load][INFO] -     motion_decoder loaded
+[14/10/25 22:05:57][src.load][INFO] -     motion_encoder loaded
+[14/10/25 22:05:57][src.load][INFO] -     text_encoder loaded
+[14/10/25 22:05:57][src.load][INFO] - Loading previous checkpoint done
+[14/10/25 22:05:57][src.load][INFO] - Put the model on cuda
+[14/10/25 22:05:57][src.load][INFO] - Put the model in eval mode
+[14/10/25 22:12:56][__main__][INFO] - Loading the model
+[14/10/25 22:12:56][src.load][INFO] -     motion_decoder loaded
+[14/10/25 22:12:56][src.load][INFO] -     motion_encoder loaded
+[14/10/25 22:12:56][src.load][INFO] -     text_encoder loaded
+[14/10/25 22:12:56][src.load][INFO] - Loading previous checkpoint done
+[14/10/25 22:12:56][src.load][INFO] - Put the model on cuda
+[14/10/25 22:12:56][src.load][INFO] - Put the model in eval mode
+[14/10/25 22:20:56][__main__][INFO] - Loading the model
+[14/10/25 22:20:56][src.load][INFO] -     motion_decoder loaded
+[14/10/25 22:20:56][src.load][INFO] -     motion_encoder loaded
+[14/10/25 22:20:56][src.load][INFO] -     text_encoder loaded
+[14/10/25 22:20:56][src.load][INFO] - Loading previous checkpoint done
+[14/10/25 22:20:56][src.load][INFO] - Put the model on cuda
+[14/10/25 22:20:56][src.load][INFO] - Put the model in eval mode
+[14/10/25 22:22:25][__main__][INFO] - Loading the model
+[14/10/25 22:22:25][src.load][INFO] -     motion_decoder loaded
+[14/10/25 22:22:25][src.load][INFO] -     motion_encoder loaded
+[14/10/25 22:22:25][src.load][INFO] -     text_encoder loaded
+[14/10/25 22:22:25][src.load][INFO] - Loading previous checkpoint done
+[14/10/25 22:22:25][src.load][INFO] - Put the model on cuda
+[14/10/25 22:22:25][src.load][INFO] - Put the model in eval mode
+[14/10/25 22:22:40][lightning_fabric.utilities.seed][INFO] - Global seed set to 1234
+[14/10/25 22:22:46][__main__][INFO] - Encoding the latents of all the splits in RUN_DIR_fd/latents/finedance_all.npy
+[14/10/25 22:22:46][__main__][INFO] - Encoding the unit latents of all the splits in RUN_DIR_fd/latents/finedance_all_unit.npy
+[14/10/25 22:22:46][__main__][INFO] - Writing the correspondance files

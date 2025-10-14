@@ -23,7 +23,7 @@ def write_json(data, path):
         ff.write(json.dumps(data, indent=4))
 
 
-@hydra.main(version_base=None, config_path="configs", config_name="encode_dataset")
+@hydra.main(version_base=None, config_path="configs", config_name="encode_dataset_fd")
 def encode_dataset(cfg: DictConfig) -> None:
     device = cfg.device
     run_dir = cfg.run_dir
