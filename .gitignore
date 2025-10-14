@@ -167,3 +167,6 @@ cython_debug/
 /datasets/annotations/humanml3d/sent_embeddings/sentence-transformers
 /datasets/annotations/humanml3d/token_embeddings
 datasets/motions
+
+RUN_DIR_fd
+outputs/mdr_finedance_guoh3dfeats_fd

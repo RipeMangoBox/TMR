@@ -29,3 +29,10 @@ trainer:
     _target_: src.logger.csv.CSVLogger
     save_dir: ${run_dir}
     name: logs
+
+  logger:
+    _target_: pytorch_lightning.loggers.TensorBoardLogger
+    save_dir: "outputs"  # 所有实验的根目录
+    # 实验名，可以动态生成。所有版本将在此文件夹下创建
+    name: "my_experiment_name" 
+    # version 会自动从 0 开始递增: version_0, version_1, ...
