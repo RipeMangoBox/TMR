@@ -58,7 +58,7 @@ def compute_sim_matrix(model, dataset, keyids, batch_size=256):
     return returned
 
 
-@hydra.main(version_base=None, config_path="configs", config_name="retrieval")
+@hydra.main(version_base=None, config_path="configs", config_name="retrieval_fd")
 def retrieval(newcfg: DictConfig) -> None:
     protocol = newcfg.protocol
     threshold_val = newcfg.threshold

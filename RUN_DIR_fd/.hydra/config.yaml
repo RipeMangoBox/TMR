@@ -1,0 +1,8 @@
+run_dir: RUN_DIR_fd
+seed: 1234
+logger_level: INFO
+device: cuda
+protocol: all
+threshold: 0.95
+ckpt: last
+batch_size: 256
