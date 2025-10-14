@@ -75,7 +75,7 @@
     },
     "trainer": {
         "_target_": "pytorch_lightning.Trainer",
-        "max_epochs": 500,
+        "max_epochs": 1000,
         "log_every_n_steps": 50,
         "num_sanity_val_steps": 0,
         "check_val_every_n_epoch": 1,
@@ -99,6 +99,14 @@
                 "save_last": false
             },
             {
+                "_target_": "pytorch_lightning.callbacks.ModelCheckpoint",
+                "monitor": "val_loss",
+                "mode": "min",
+                "save_top_k": 3,
+                "save_last": true,
+                "filename": "e_{epoch:03d}-val_{val:.2f}"
+            },
+            {
                 "_target_": "src.callback.progress.ProgressLogger",
                 "precision": 3
             },
@@ -107,9 +115,9 @@
             }
         ],
         "logger": {
-            "_target_": "src.logger.csv.CSVLogger",
+            "_target_": "pytorch_lightning.loggers.TensorBoardLogger",
             "save_dir": "outputs/tmr_humanml3d_guoh3dfeats",
-            "name": "logs"
+            "name": "tmr_humanml3d_guoh3dfeats"
         }
     },
     "run_dir": "outputs/tmr_humanml3d_guoh3dfeats",
