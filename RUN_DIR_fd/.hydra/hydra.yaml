@@ -117,15 +117,14 @@ hydra:
   overrides:
     hydra:
     - hydra.mode=RUN
-    task:
-    - run_dir=RUN_DIR_fd
+    task: []
   job:
-    name: encode_dataset
+    name: app_fd
     chdir: null
-    override_dirname: run_dir=RUN_DIR_fd
+    override_dirname: ''
     id: ???
     num: ???
-    config_name: encode_dataset_fd
+    config_name: retrieval_fd
     env_set: {}
     env_copy: []
     config:
@@ -152,8 +151,6 @@ hydra:
       provider: schema
     output_dir: /sata/public/ripemangobox/Motion/TMR/RUN_DIR_fd
     choices:
-      data: finedance
-      data/motion_loader: guoh3dfeats_fd
       hydra/env: default
       hydra/callbacks: null
       hydra/job_logging: tqdm

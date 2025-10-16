@@ -169,3 +169,6 @@ cython_debug/
 
 
 datasets/motions/pose_data_fd
+
+!stats
+!*.json

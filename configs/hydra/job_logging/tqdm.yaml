@@ -24,6 +24,8 @@ handlers:
   file_out:
     class: logging.FileHandler
     formatter: simple
+    # 现在 ${hydra:runtime.output_dir} 每次运行都会是一个全新的、唯一的时间戳路径
+    # filename: ${hydra:runtime.output_dir}/${hydra.job.name}.log
     filename: ${run_dir}/${hydra.job.name}.out
 
 root:

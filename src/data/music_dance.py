@@ -37,8 +37,8 @@ class MusicDanceDataset(Dataset):
         path: str,
         motion_loader,
         jukebox_feats_dir,
-        clap_token_feats_dir,
-        clap_sent_feats_dir,
+        music_token_feats_dir,
+        music_sent_feats_dir,
         split: str = "train",
         min_seconds: float = 2.0,
         max_seconds: float = 10.0,
@@ -53,8 +53,8 @@ class MusicDanceDataset(Dataset):
         self.keyids = read_split(path, split)
 
         # self.jukebox_feats = load_music_feats(jukebox_feats_dir)
-        self.clap_token_feats = load_music_feats(clap_token_feats_dir)
-        self.clap_sent_feats = load_music_feats(clap_sent_feats_dir)
+        self.music_token_feats = load_music_feats(music_token_feats_dir)
+        self.music_sent_feats = load_music_feats(music_sent_feats_dir)
         self.motion_loader = motion_loader
 
         self.min_seconds = min_seconds
@@ -96,15 +96,15 @@ class MusicDanceDataset(Dataset):
         annotation = annotations["annotations"][index]
 
         text_x_dict = {
-            'x': self.clap_token_feats[keyid],
-            'length': len(self.clap_token_feats[keyid]),
+            'x': self.music_token_feats[keyid],
+            'length': len(self.music_token_feats[keyid]),
         }
         motion_x_dict = self.motion_loader(
             path=annotations["path"],
             start=annotation["start"],
             end=annotation["end"],
         )
-        sent_emb = self.clap_sent_feats[keyid]
+        sent_emb = self.music_sent_feats[keyid]
 
         output = {
             "motion_x_dict": motion_x_dict,

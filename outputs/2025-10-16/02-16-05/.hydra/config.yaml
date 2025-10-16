@@ -1,0 +1,24 @@
+paths:
+  annotations_dir: datasets/annotations/finedance
+  splits_dir: ${paths.annotations_dir}/splits
+  train_split: ${paths.splits_dir}/train.txt
+  val_split: ${paths.splits_dir}/val.txt
+  test_split: ${paths.splits_dir}/test.txt
+  annotations_json: ${paths.annotations_dir}/annotations.json
+  metadata: fd_index.csv
+  video_dir: ../datasets/finedance/animations/fd_checked_music_partation
+  model_dir: RUN_DIR_fd
+dataset:
+  name: finedance
+ui:
+  retrieval_n_choices:
+  - 4
+  - 8
+  - 12
+  - 16
+  retrieval_n_default: 8
+  title: Music-to-Dance Retrieval
+  description: 选择一个舞蹈视频作为查询，系统将检索并展示与之音乐特征相似的其他舞蹈。
+server:
+  share: true
+  port: null

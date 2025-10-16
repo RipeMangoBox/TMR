@@ -13,7 +13,7 @@ motion_encoder:
 
 text_encoder:
   _target_: src.model.ACTORStyleEncoder
-  nfeats: 512
+  nfeats: 1024
   vae: true
   latent_dim: 256
   ff_size: 1024

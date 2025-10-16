@@ -1,0 +1,4 @@
+run_dir: outputs/mdr_finedance_guoh3dfeats_fd/tsh0.9_temp0.1
+seed: 1234
+logger_level: INFO
+ckpt: last

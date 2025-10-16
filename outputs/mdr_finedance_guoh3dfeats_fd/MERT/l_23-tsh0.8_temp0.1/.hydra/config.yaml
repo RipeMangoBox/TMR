@@ -1,0 +1,8 @@
+run_dir: outputs/mdr_finedance_guoh3dfeats_fd/MERT/l_23-tsh0.8_temp0.1
+seed: 1234
+logger_level: INFO
+device: cuda
+protocol: all
+threshold: 0.95
+ckpt: last
+batch_size: 256

@@ -1,26 +1,8 @@
-data:
-  motion_loader:
-    _target_: src.data.motion.AMASSMotionLoader
-    base_dir: datasets/motions/guoh3dfeats_fd
-    normalizer:
-      _target_: src.data.motion.Normalizer
-      base_dir: stats/${hydra:runtime.choices.data}/${hydra:runtime.choices.data/motion_loader}
-      eps: 1.0e-12
-    fps: 20.0
-    nfeats: 263
-  _target_: src.data.music_dance.MusicDanceDataset
-  path: datasets/annotations/${hydra:runtime.choices.data}
-  jukebox_feats_dir: ../datasets/finedance/fd_music_wav_checked_partation_jukebox
-  clap_token_feats_dir: ../datasets/finedance/fd_music_feats_clap_token
-  clap_sent_feats_dir: ../datasets/finedance/fd_music_feats_clap_sent
-  preload: true
 run_dir: RUN_DIR_fd
 seed: 1234
 logger_level: INFO
-dataloader:
-  _target_: torch.utils.data.DataLoader
-  batch_size: 64
-  num_workers: 8
-  shuffle: true
-ckpt_name: last
 device: cuda
+protocol: all
+threshold: 0.95
+ckpt: last
+batch_size: 256

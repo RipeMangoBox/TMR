@@ -6,8 +6,8 @@ _target_: src.data.music_dance.MusicDanceDataset
 
 path: datasets/annotations/${hydra:runtime.choices.data}
 
-jukebox_feats_dir: ../datasets/finedance/fd_music_wav_checked_partation_jukebox
-clap_token_feats_dir: ../datasets/finedance/fd_music_feats_clap_token
-clap_sent_feats_dir: ../datasets/finedance/fd_music_feats_clap_sent
+jukebox_feats_dir: datasets/music/fd_music_wav_checked_partation_jukebox
+music_token_feats_dir: datasets/music/fd_music_feats_mert_token/l_23
+music_sent_feats_dir: datasets/music/fd_music_feats_mert_sent/l_23
 
 preload: true

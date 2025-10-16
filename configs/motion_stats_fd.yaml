@@ -10,8 +10,8 @@ data:
       disable: true
   
   jukebox_feats_dir: ../datasets/finedance/fd_music_wav_checked_partation_jukebox
-  clap_token_feats_dir: ../datasets/finedance/fd_music_feats_clap_token
-  clap_sent_feats_dir: ../datasets/finedance/fd_music_feats_clap_sent
+  music_token_feats_dir: ../datasets/finedance/fd_music_feats_clap_token
+  music_sent_feats_dir: ../datasets/finedance/fd_music_feats_clap_sent
 
   # text_to_token_emb:
   #   disable: true

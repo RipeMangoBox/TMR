@@ -5,390 +5,349 @@ import torch
 import numpy as np
 import pandas as pd
 import gradio as gr
-
-from demo.model import MDR_music_CLAP_encoder
+import hydra  # <-- ADDED
+from omegaconf import DictConfig # <-- ADDED
+from demo.model import MDR_Music_Encoder
 from demo.load import load_unit_embeddings, load_splits, load_json
 
 import argparse
 
-# ==============================================================================
-# 1. SETUP & CONFIGURATION
-# ==============================================================================
+# --- 修改后 ---
+# --- 最终修改版 ---
+CSS = """
+/* 1. 全局宽度设置 */
+#root, .gradio-container {
+    width: 100% !important;
+    max-width: 100% !important;
+}
 
-# --- Paths (IMPORTANT: Please update these paths to match your project structure)
-METADATA_PATH = "fd_index.csv"
-split_dir = "datasets/annotations/finedance/splits"
-TRAIN_SPLIT_PATH = f"{split_dir}/train.txt"
-VAL_SPLIT_PATH = f"{split_dir}/val.txt"
-TEST_SPLIT_PATH = f"{split_dir}/test.txt"
-# This is the directory where your actual MP4 files are stored.
-# The path is constructed as: os.path.join(VIDEO_DIR, new_name + ".mp4")
-VIDEO_DIR = "/sata/public/ripemangobox/Motion/datasets/finedance/animations/fd_checked_music_partation"
-# 通过 realpath 对其进行规范化，解析所有符号链接等
-VIDEO_DIR = os.path.realpath(VIDEO_DIR)
+/* 2. .video-container (gr.Group) 的样式 */
+.video-container {
+    padding: 0 !important;
+    min-width: 150px !important;
+    /* 使用统一的浅灰背景，作为整个卡片的底色 */
+    background-color: #f0f0f0;
+    border: 1px solid #ddd; /* 可选：加个细边框更清晰 */
+    border-radius: var(--block-radius) !important;
+    overflow: hidden;
+}
 
-# --- Original Model/Demo Setup
-# parser for the model
-# Using default values directly instead of parsing for simplicity in this script
-# parser = argparse.ArgumentParser()
-# parser.add_argument("--run_dir", default="RUN_DIR/MDR")
-# args = parser.parse_args()
-# MODEL_PATH = args.run_dir
-MODEL_PATH = "RUN_DIR_fd" # Set your model path directly
+/* 3. 视频本身的样式 */
+.video-container video {
+    width: 100%;
+    display: block;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+}
 
-DATASET = "finedance"
-assert DATASET == "finedance"
+/* 4. 信息条的样式 —— 无内框，仅文字 */
+# .info-bar {
+#     width: 100%;
+#     /* ▼▼▼ 关键：背景透明，无内边距或极小 ▼▼▼ */
+#     background-color: transparent;
+#     color: black;
+#     padding: 2px 4px; /* 保留少量上下内边距，避免文字贴边 */
+#     font-size: 20px;
+#     text-align: left;
+#     # box-sizing: border-box;
+#     # word-wrap: break-word;
+#     margin: 0; /* 确保无外边距 */
+# }
 
-WEBSITE = """
-<div class="embed_hidden">
-<h1 style='text-align: center'>TMR: Text-to-Motion Retrieval Using Contrastive 3D Human Motion Synthesis </h1>
-<h3 style="text-align:center;">Music-to-Dance Adaptation</h3>
-<p>
-This space illustrates <a href='https://mathis.petrovich.fr/tmr/' target='_blank'><b>TMR</b></a>, adapted for music-to-dance retrieval. Select a dance video using the filters below. The system will use the video's text description to find other dances with similar motions from the FineDance gallery.
-</p>
-</div>
+.info-bar {
+    width: 100%;
+    background-color: transparent;
+    color: #333; /* 比黑色柔和，更易读 */
+    font-size: 18px;
+    line-height: 1.2; /* 让行高贴近字体，避免多余空间 */
+    text-align: left;
+    box-sizing: border-box;
+    word-wrap: break-word;
+    margin: 0;
+    /* 可选：让容器不撑开，只包裹文字 */
+    display: block;
+}
 """
 
-CSS = """
-.retrieved_video {
-    position: relative;
-    margin: 0;
-    box-shadow: var(--block-shadow);
-    border-width: var(--block-border-width);
-    border-color: #000000;
-    border-radius: var(--block-radius);
-    background: var(--block-background-fill);
-    width: 100%;
-    line-height: var(--line-sm);
+
+# --- 新增 JavaScript 代码 ---
+# [MODIFIED] --- 替换整个 JavaScript 字符串 ---
+js_functions = """
+// 辅助函数：健壮地获取所有视频元素
+function getAllVideos() {
+    const videos = [];
+
+    // 正确获取查询视频
+    const queryContainer = document.getElementById('query_video');
+    if (queryContainer) {
+        const videoEl = queryContainer.querySelector('video');
+        if (videoEl) videos.push(videoEl);
+    }
+
+    // 正确获取结果视频
+    for (let i = 0; i < 16; i++) {
+        const resultContainer = document.getElementById(`result_video_${i}`);
+        if (resultContainer) {
+            const videoEl = resultContainer.querySelector('video');
+            if (videoEl) videos.push(videoEl);
+        }
+    }
+    return videos;
+}
+
+// 后续函数无需修改
+function playAllVideos() {
+    getAllVideos().forEach(v => v.play());
+    return [];
+}
+
+function pauseAllVideos() {
+    getAllVideos().forEach(v => v.pause());
+    return [];
+}
+
+function muteAllVideos() {
+    getAllVideos().forEach(v => v.muted = true);
+    return [];
+}
+
+function unmuteAllVideos() {
+    getAllVideos().forEach(v => v.muted = false);
+    return [];
 }
 """
 
 # ==============================================================================
-# 2. NEW DATA LOADING FUNCTION FOR FINEDANCE
+# 2. DATA LOADING (与之前相同)
 # ==============================================================================
 
 def load_dance_data(metadata_path, train_path, val_path, test_path):
-    """
-    Loads dance metadata from CSV and merges it with train/val/test splits.
-    """
     try:
         df = pd.read_csv(metadata_path)
-        # --- MODIFICATION START ---
-        # Remove the .npy extension from the 'new_name' column
         df['new_name'] = df['new_name'].str.replace('.npy', '', regex=False)
     except FileNotFoundError:
         raise FileNotFoundError(f"Metadata file not found at: {metadata_path}. Please check the METADATA_PATH variable.")
 
-    # Read split files
-    with open(train_path, 'r') as f:
-        train_files = {line.strip() for line in f}
-    with open(val_path, 'r') as f:
-        val_files = {line.strip() for line in f}
-    with open(test_path, 'r') as f:
-        test_files = {line.strip() for line in f}
+    with open(train_path, 'r') as f: train_files = {line.strip() for line in f}
+    with open(val_path, 'r') as f: val_files = {line.strip() for line in f}
+    with open(test_path, 'r') as f: test_files = {line.strip() for line in f}
 
-    # Assign split to each row
     def get_split(new_name):
-        if new_name in train_files:
-            return 'train'
-        elif new_name in val_files:
-            return 'val'
-        elif new_name in test_files:
-            return 'test'
+        if new_name in train_files: return 'train'
+        elif new_name in val_files: return 'val'
+        elif new_name in test_files: return 'test'
         return 'unknown'
 
     df['split'] = df['new_name'].apply(get_split)
     
-    # Pre-calculate unique values for filters
     splits = ['All', 'train', 'val', 'test']
     names = sorted(df['name'].unique().tolist())
     style1s = sorted(df['style1'].unique().tolist())
-    style2s = sorted(df['style2'].dropna().unique().tolist()) # dropna for optional styles
+    style2s = sorted(df['style2'].dropna().unique().tolist())
 
     print("Dance data loaded and processed successfully.")
     return df, splits, names, style1s, style2s
 
 
 # ==============================================================================
-# 3. CORE RETRIEVAL LOGIC (Mostly Unchanged, with modifications for local videos)
+# 3. CORE RETRIEVAL LOGIC (修改以返回绝对路径)
 # ==============================================================================
-
-def get_video_html_from_data(data, width=700, height=700):
-    """Generates HTML for a retrieved video."""
-    url = data["url"]
-    score = data["score"]
-    text = data["text"]
-    keyid = data["keyid"]
-    
-    title = f"""Score = {score}
-Corresponding text: {text}
-FineDance keyid: {keyid}"""
-
-    # Gradio serves local files using the /file=... path
-    # The original #t=start,end is not reliable for local files, so it's removed.
-    video_html = f"""
-<video class="retrieved_video" width="{width}" height="{height}" preload="auto" muted playsinline onpause="this.load()"
-autoplay loop disablepictureinpicture title="{title}">
-  <source src="{url}" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-"""
-    return video_html
-
-def get_html_for_local_video(file_path, title="Query Video", width=700, height=700):
-    """Generates HTML for a single local video, like the query video."""
-    if not os.path.exists(file_path):
-        return f"<p>Video not found at: {file_path}</p>"
-        
-    url = f"/file={os.path.abspath(file_path)}"
-    
-    video_html = f"""
-<video class="retrieved_video" width="{width}" height="{height}" preload="auto" muted playsinline onpause="this.load()"
-autoplay loop disablepictureinpicture title="{title}">
-  <source src="{url}" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-"""
-    return video_html
-
-
+# Modified to accept video_dir and h3d_index as arguments
 def retrieve(
     *,
     model,
     unit_motion_embs,
     all_keyids,
-    text,
+    music_feat_path,
     keyids_index,
+    video_dir,          # <-- MODIFIED: Passed in
+    h3d_index,          # <-- MODIFIED: Passed in
     split="test",
     nmax=8,
 ):
-    # This function is the core TMR model inference logic. It remains largely the same.
-    # Note: The keyid mapping to video files is now different for finedance,
-    # but the retrieval logic based on embeddings is the same.
     keyids_in_split = [x for x in all_keyids[split] if x in keyids_index]
     index = [keyids_index[x] for x in keyids_in_split]
-
     unit_embs = unit_motion_embs[index]
-
-    scores = model.compute_scores(text, unit_embs=unit_embs, device=device)
-
+    scores = model.compute_scores(music_feat_path, unit_embs=unit_embs)
     keyids_in_split = np.array(keyids_in_split)
     sorted_idxs = np.argsort(-scores)
     best_keyids = keyids_in_split[sorted_idxs]
     best_scores = scores[sorted_idxs]
 
     datas = []
-    # This part needs to be adapted to your data structure.
-    # Assuming `h3d_index` maps keyid to text and other info.
     for keyid, score in zip(best_keyids, best_scores):
         if len(datas) == nmax:
             break
         
-        # We need a way to get from a TMR keyid back to a video file.
-        # This is the most complex part of the adaptation. For now, let's assume
-        # the keyid is the `new_name` without extension, or we can map it.
-        # Let's assume `keyid` is the filename for simplicity here.
-        video_path = os.path.join(VIDEO_DIR, f"{keyid}.mp4")
+        video_path = os.path.join(video_dir, f"{keyid}.mp4") # <-- MODIFIED: Use passed-in var
         if not os.path.exists(video_path):
             continue
 
         data = {
-            "url": f"/file={os.path.abspath(video_path)}",
+            "absolute_path": os.path.abspath(video_path),
             "score": round(float(score), 2),
-            "text": h3d_index.get(keyid, {}).get("annotations", [{}])[0].get("text", "N/A"),
+            "text": h3d_index.get(keyid, {}).get("annotations", [{}])[0].get("seg_id", "N/A"),
             "keyid": keyid,
         }
         datas.append(data)
     return datas
 
+
 # ==============================================================================
 # 4. LOADING MODELS AND DATA
 # ==============================================================================
-
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
-# --- Load TMR Model and Embeddings
-print("Loading TMR model...")
-model = MDR_music_CLAP_encoder(MODEL_PATH).to(device)
-print("Loading unit motion embeddings...")
-unit_motion_embs, keyids_index, index_keyids = load_unit_embeddings(
-    MODEL_PATH, DATASET, device
-)
-all_keyids = load_splits(DATASET, splits=["test", "all"])
-# This index maps TMR's internal keyid to annotations like text
-h3d_index = load_json(f"datasets/annotations/{DATASET}/annotations.json")
-
-# --- Load Custom Dance Data
-print("Loading FineDance metadata...")
-dance_df, ui_splits, ui_names, ui_style1s, ui_style2s = load_dance_data(
-    METADATA_PATH, TRAIN_SPLIT_PATH, VAL_SPLIT_PATH, TEST_SPLIT_PATH
-)
-
-# --- Create the main retrieval function with loaded models
-retrieve_function = partial(
-    retrieve,
-    model=model,
-    unit_motion_embs=unit_motion_embs,
-    all_keyids=all_keyids,
-    keyids_index=keyids_index,
-)
-
-# ==============================================================================
-# 5. GRADIO UI AND INTERACTIVITY
-# ==============================================================================
-
-theme = gr.themes.Default(primary_hue="blue", secondary_hue="gray")
-
-with gr.Blocks(css=CSS, theme=theme) as demo:
-    gr.Markdown(WEBSITE)
+# The decorator that enables Hydra
+@hydra.main(version_base=None, config_path="configs", config_name="app_fd")
+def retrieval_app(cfg: DictConfig) -> None:
+    # ==============================================================================
+    # 1. SETUP & CONFIGURATION (from Hydra's cfg object)
+    # ==============================================================================
     
-    # --- UI for Filtering and Selection
-    with gr.Row():
-        with gr.Column(scale=2):
-            split_dropdown = gr.Dropdown(choices=ui_splits, label="Split", value="All")
-            name_dropdown = gr.Dropdown(choices=["All"] + ui_names, label="Name", value="All")
-            style1_dropdown = gr.Dropdown(choices=["All"] + ui_style1s, label="Style 1", value="All")
-            style2_dropdown = gr.Dropdown(choices=["All"] + ui_style2s, label="Style 2", value="All")
-            
-            file_dropdown = gr.Dropdown([], label="Select a File", info="File list updates based on filters above.")
-            
-            with gr.Row():
-                btn = gr.Button("Retrieve Similar Dances", variant="primary")
-                clear = gr.Button("Clear", variant="secondary")
-        
-        with gr.Column(scale=1):
-            nvideo_slider = gr.Radio(
-                [4, 8, 12, 16],
-                label="Videos to Retrieve",
-                value=8,
-                info="Number of similar videos to display.",
-            )
-            gr.Markdown("### Query Video")
-            query_video_display = gr.HTML(value=None)
+    # Assert that the dataset is correct
+    assert cfg.dataset.name == "finedance", "This app is configured for the finedance dataset."
+    
+    # --- UI Strings and Styles (can also be moved to config if desired)
+    WEBSITE = f"""
+    <div class="embed_hidden">
+    <h1 style='text-align: center'>{cfg.ui.title}</h1>
+    <p>{cfg.ui.description}</p>
+    </div>
+    """
 
+    # ==============================================================================
+    # 2. LOADING MODELS AND DATA (Using paths from cfg)
+    # ==============================================================================
 
-    # --- UI for Displaying Results
-    gr.Markdown("---")
-    gr.Markdown("### Retrieved Videos")
-    result_videos = []
-    i = -1
-    for _ in range(4): # 4 rows
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+    print("Loading TMR model...")
+    model = MDR_Music_Encoder(cfg.paths.model_dir, music_encoder_type='clap').to(device)
+    
+    print("Loading unit motion embeddings...")
+    unit_motion_embs, keyids_index, index_keyids = load_unit_embeddings(cfg.paths.model_dir, cfg.dataset.name, device)
+    
+    all_keyids = load_splits(cfg.dataset.name, splits=["test", "val", "train", "all"])
+    h3d_index = load_json(cfg.paths.annotations_json)
+
+    print("Loading FineDance metadata...")
+    dance_df, ui_splits, ui_names, ui_style1s, ui_style2s = load_dance_data(
+        cfg.paths.metadata, cfg.paths.train_split, cfg.paths.val_split, cfg.paths.test_split
+    )
+
+    retrieve_function = partial(
+        retrieve,
+        model=model,
+        unit_motion_embs=unit_motion_embs,
+        all_keyids=all_keyids,
+        keyids_index=keyids_index,
+        video_dir=cfg.paths.video_dir,  # <-- Bind necessary args from cfg
+        h3d_index=h3d_index             # <-- Bind necessary args from cfg
+    )
+
+    # ==============================================================================
+    # 3. GRADIO UI AND INTERACTIVITY
+    # ==============================================================================
+    
+    theme = gr.themes.Default(primary_hue="blue", secondary_hue="gray")
+
+    # All Gradio logic is now inside the main function
+    with gr.Blocks(css=CSS, theme=theme) as demo:
+        gr.Markdown(WEBSITE)
+    
         with gr.Row():
-            for _ in range(4): # 4 columns
-                i += 1
-                video = gr.HTML()
-                result_videos.append(video)
-
-    # --- Backend Functions for UI Interactivity
-    
-    def update_filter_options(split):
-        """Updates name/style dropdowns based on the selected split."""
-        if split == "All":
-            df_filtered = dance_df
-        else:
-            df_filtered = dance_df[dance_df['split'] == split]
-        
-        names = ["All"] + sorted(df_filtered['name'].unique().tolist())
-        style1s = ["All"] + sorted(df_filtered['style1'].unique().tolist())
-        style2s = ["All"] + sorted(df_filtered['style2'].dropna().unique().tolist())
-        
-        # When updating filters, also clear the file list
-        return (
-            gr.Dropdown(choices=names, value="All", interactive=True),
-            gr.Dropdown(choices=style1s, value="All", interactive=True),
-            gr.Dropdown(choices=style2s, value="All", interactive=True),
-            gr.Dropdown(choices=[], value=None, interactive=True) # Clear file list
-        )
-
-    def update_file_list(split, name, style1, style2):
-        """Updates the file dropdown based on all active filters."""
-        df_filtered = dance_df.copy()
-        
-        if split != "All":
-            df_filtered = df_filtered[df_filtered['split'] == split]
-        if name != "All":
-            df_filtered = df_filtered[df_filtered['name'] == name]
-        if style1 != "All":
-            df_filtered = df_filtered[df_filtered['style1'] == style1]
-        if style2 != "All":
-            df_filtered = df_filtered[df_filtered['style2'] == style2]
+            with gr.Column(scale=2):
+                split_dropdown = gr.Dropdown(choices=ui_splits, label="Split", value="All")
+                name_dropdown = gr.Dropdown(choices=["All"] + ui_names, label="Name", value="All")
+                style1_dropdown = gr.Dropdown(choices=["All"] + ui_style1s, label="Style 1", value="All")
+                style2_dropdown = gr.Dropdown(choices=["All"] + ui_style2s, label="Style 2", value="All")
+                file_dropdown = gr.Dropdown([], label="Select a File", info="File list updates based on filters above.")
+                
+                with gr.Row():
+                    btn = gr.Button("Retrieve Similar Dances", variant="primary")
+                    clear = gr.Button("Clear", variant="secondary")
             
-        files = sorted(df_filtered['new_name'].tolist())
-        return gr.Dropdown(choices=files, value=None, interactive=True)
+            with gr.Column(scale=1):
+                # Use values from the config file
+                nvideo_slider = gr.Radio(cfg.ui.retrieval_n_choices, label="Videos to Retrieve", value=cfg.ui.retrieval_n_default)
+                gr.Markdown("### Query Video")
+                with gr.Column(elem_classes=["video-container"]):
+                    query_video_display = gr.Video(label="Query", interactive=False, elem_id="query_video")
+                    query_html_display = gr.HTML()
 
-    def show_and_retrieve(file_name, nvids, gallery_split_choice):
-        """Main function: displays query video and retrieves similar ones."""
-        if not file_name:
-            # Clear everything if no file is selected
-            return [None] * (1 + len(result_videos))
+        gr.Markdown("---")
+        gr.Markdown("### Retrieved Videos")
 
-        # --- 1. Display the selected query video
-        # Construct path by adding .mp4, as file_name is now extension-less.
-        query_video_path = os.path.join(VIDEO_DIR, f"{file_name}.mp4")
-        query_html = get_html_for_local_video(query_video_path, title=f"Query: {file_name}")
+        result_video_outputs = []
+        result_html_outputs = []
+        for row in range(4):
+            with gr.Row():
+                for col in range(4):
+                    i = row * 4 + col
+                    with gr.Group(elem_classes=["video-container"]):
+                        video_comp = gr.Video(interactive=False, show_label=False, elem_id=f"result_video_{i}")
+                        html_comp = gr.HTML()
+                        result_video_outputs.append(video_comp)
+                        result_html_outputs.append(html_comp)
+        
+        # --- Backend Functions ---
+        # These are now nested functions, they can access `dance_df`, `cfg`, etc. from the outer scope
+        def update_file_list(split, name, style1, style2):
+            df_filtered = dance_df.copy()
+            if split != "All": df_filtered = df_filtered[df_filtered['split'] == split]
+            if name != "All": df_filtered = df_filtered[df_filtered['name'] == name]
+            if style1 != "All": df_filtered = df_filtered[df_filtered['style1'] == style1]
+            if style2 != "All": df_filtered = df_filtered[df_filtered['style2'] == style2]
+            files = sorted(df_filtered['new_name'].tolist())
+            return gr.Dropdown(choices=files, value=None, interactive=True)
 
-        # --- 2. Find the text description for the selected file
-        # --- NO CHANGE NEEDED HERE, but note the logic: ---
-        # The file_name from the dropdown now matches the clean 'new_name' in the DataFrame.
-        file_info = dance_df[dance_df['new_name'] == file_name].iloc[0]
-        # 'query_keyid' is now correctly assigned the extension-less filename.
-        # query_keyid = file_name
-        # query_text = h3d_index.get(query_keyid, {}).get("annotations", [{}])[0].get("seg_id", "")
-        
-        # if not query_text:
-        #     print(f"Warning: No text description found for {file_name}. Retrieval may not be meaningful.")
-        #     # Still show the query video but can't retrieve
-        #     return [query_html] + [None] * len(result_videos)
+        def show_and_retrieve(file_name, nvids, gallery_split_choice):
+            if not file_name:
+                num_outputs = 2 + len(result_video_outputs) * 2
+                return [None] * num_outputs
 
-        # --- 3. Retrieve similar motions using the text
-        # The gallery can be "all" or "test" (unseen)
-        gallery_split = "test" if "Unseen" in gallery_split_choice else "all"
-        
-        retrieved_datas = retrieve_function(text=query_video_path, split=gallery_split, nmax=nvids)
-        
-        # --- 4. Generate HTML for retrieved videos
-        result_htmls = [get_video_html_from_data(data) for data in retrieved_datas]
-        # Pad with Nones if fewer videos are found than requested
-        result_htmls += [None] * (len(result_videos) - len(result_htmls))
-        
-        return [query_html] + result_htmls
-        
-    def clear_all():
-        """Clears all inputs and outputs."""
-        return (
-            [None] * (1 + len(result_videos)) + # Clear query video + result videos
-            [gr.Dropdown(value="All"), gr.Dropdown(value="All"), gr.Dropdown(value="All"), gr.Dropdown(value="All"), gr.Dropdown(choices=[], value=None)]
-        )
+            # Use cfg for the video directory path
+            query_video_path = os.path.abspath(os.path.join(cfg.paths.video_dir, f"{file_name}.mp4"))
+            query_html_info = '<div class="info-bar"><b>Query:</b> ' + file_name + '</div>'
+            
+            gallery_split = "test" if "Unseen" in gallery_split_choice else "all"
+            retrieved_datas = retrieve_function(music_feat_path=query_video_path, split=gallery_split, nmax=nvids)
+            
+            result_paths = [data["absolute_path"] for data in retrieved_datas]
+            result_htmls = []
+            for data in retrieved_datas:
+                info_content = (
+                    f'<span style="margin-right: 24px;"><b>Score:</b> {data["score"]}</span>'
+                    f'<span style="margin-right: 24px;"><b>KeyID:</b> {data["keyid"]}</span>'
+                )
+                result_htmls.append(f'<div class="info-bar">{info_content}</div>')
 
-    # --- Event Listeners
-    split_dropdown.change(
-        fn=update_filter_options,
-        inputs=[split_dropdown],
-        outputs=[name_dropdown, style1_dropdown, style2_dropdown, file_dropdown]
+            result_paths += [None] * (len(result_video_outputs) - len(result_paths))
+            result_htmls += [None] * (len(result_html_outputs) - len(result_htmls))
+            
+            return [query_video_path, query_html_info] + result_paths + result_htmls
+            
+        def clear_all():
+            num_ui_to_clear = 2 + len(result_video_outputs) * 2
+            return [None] * num_ui_to_clear + [gr.Dropdown(value="All"), gr.Dropdown(value="All"), gr.Dropdown(value="All"), gr.Dropdown(value="All"), gr.Dropdown(choices=[], value=None)]
+        
+        # --- Event Listeners (No changes needed here) ---
+        for dropdown in [split_dropdown, name_dropdown, style1_dropdown, style2_dropdown]:
+            dropdown.change(fn=update_file_list, inputs=[split_dropdown, name_dropdown, style1_dropdown, style2_dropdown], outputs=[file_dropdown])
+        btn.click(fn=show_and_retrieve, inputs=[file_dropdown, nvideo_slider, split_dropdown], outputs=[query_video_display, query_html_display] + result_video_outputs + result_html_outputs)
+        clear.click(fn=clear_all, outputs=[query_video_display, query_html_display] + result_video_outputs + result_html_outputs + [split_dropdown, name_dropdown, style1_dropdown, style2_dropdown, file_dropdown])
+        demo.load(fn=update_file_list, inputs=[split_dropdown, name_dropdown, style1_dropdown, style2_dropdown], outputs=[file_dropdown])
+
+    # --- Launch the server using settings from the config ---
+    absolute_video_dir = os.path.abspath(cfg.paths.video_dir)
+    print(f"Gradio is allowed to serve files from: {absolute_video_dir}")
+
+    demo.launch(
+        share=cfg.server.share,
+        server_port=cfg.server.port, 
+        allowed_paths=[absolute_video_dir]
     )
-    
-    for dropdown in [split_dropdown, name_dropdown, style1_dropdown, style2_dropdown]:
-        dropdown.change(
-            fn=update_file_list,
-            inputs=[split_dropdown, name_dropdown, style1_dropdown, style2_dropdown],
-            outputs=[file_dropdown]
-        )
 
-    btn.click(
-        fn=show_and_retrieve,
-        inputs=[file_dropdown, nvideo_slider, split_dropdown], # Using split_dropdown to decide gallery
-        outputs=[query_video_display] + result_videos
-    )
-    
-    clear.click(
-        fn=clear_all,
-        outputs=[query_video_display] + result_videos + [split_dropdown, name_dropdown, style1_dropdown, style2_dropdown, file_dropdown]
-    )
-
-
-demo.launch(
-    share=True, 
-    allowed_paths=[
-        "/sata/public/ripemangobox/Motion/datasets/finedance/animations/fd_checked_music_partation",
-    ]
-)
+# --- Standard Hydra entry point ---
+if __name__ == "__main__":
+    retrieval_app()

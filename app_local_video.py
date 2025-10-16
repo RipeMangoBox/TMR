@@ -1,5 +1,7 @@
 from functools import partial
 import os
+os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
+
 import torch
 import numpy as np
 import gradio as gr
@@ -12,17 +14,21 @@ import argparse
 # ======================
 # 新增：是否使用本地视频
 # ======================
-use_local_video = True  # <-- 设置为 True 使用本地视频
-LOCAL_RENDER_DIR = "/home/ripemangobox/Coding/Github/Motion/datasets/FineDance/FineDance/animations"  # 本地视频存放目录（可修改）
+LOCAL_RENDER_DIR = "/sata/public/ripemangobox/Motion/datasets/finedance/animations/fd_checked_music_partation"  # 本地视频存放目录（可修改）
+# ===== 新增下面这行代码 =====
+# 通过 realpath 对其进行规范化，解析所有符号链接等
+LOCAL_RENDER_DIR = os.path.realpath(LOCAL_RENDER_DIR)
+
+# ============================
 # parser for the model
 parser = argparse.ArgumentParser()
-parser.add_argument("--run_dir", default="models/tmr_FineDance_guoh3dfeats")
+parser.add_argument("--run_dir", default="models/tmr_humanml3d_guoh3dfeats")
 args = parser.parse_args()
 MODEL_PATH = args.run_dir
 
-# For now, only compatible with the finadance dataset
-DATASET = "finadance"
-assert DATASET == "finadance"
+# For now, only compatible with the humanml3d dataset
+DATASET = "humanml3d"
+assert DATASET == "humanml3d"
 
 WEBSITE = """
 <div class="embed_hidden">
@@ -105,60 +111,39 @@ DEFAULT_TEXT = "A person is "
 # ==============================================================================
 # 修改后的函数：支持本地视频
 # ==============================================================================
-def FineDance_keyid_to_babel_rendered_url(h3d_index, amass_to_babel, keyid, use_local_video=False):
+def humanml3d_keyid_to_babel_rendered_url(h3d_index, amass_to_babel, keyid):
     global LOCAL_RENDER_DIR
+  
+    # 本地视频逻辑
+    dico = h3d_index[keyid]
+    path = dico["path"]
 
-    # 如果使用本地视频，跳过镜像和 HumanAct12 的过滤（可选保留）
-    if not use_local_video:
-        # 原逻辑：跳过镜像
-        if "M" in keyid:
-            return None
+    if path not in amass_to_babel:
+        return None
 
-        dico = h3d_index[keyid]
-        path = dico["path"]
+    babel_id = amass_to_babel[path].zfill(6)
+    local_path = os.path.join(LOCAL_RENDER_DIR, f"000016.mp4")
+    print(os.path.exists(local_path))
 
-        # 跳过 HumanAct12
-        if "humanact12" in path:
-            return None
+    if not os.path.exists(local_path):
+        print(f"Warning: Local video not found: {local_path}")
+        return None
+    final_url_path = os.path.abspath(local_path) # <--- 获取最终路径
+    print(f"[调试] 函数返回的视频绝对路径: {final_url_path}") # <--- 打印它
+    
+    # Gradio 静态文件服务语法
+    url = f"/file={final_url_path}"
 
-        if path not in amass_to_babel:
-            return None
-
-        babel_id = amass_to_babel[path].zfill(6)
-        url = f"https://babel-renders.s3.eu-central-1.amazonaws.com/{babel_id}.mp4"
-
-        ann = dico["annotations"][0]
-        start = ann["start"]
-        end = ann["end"]
-        text = ann["text"]
-
-    else:
-        # 本地视频逻辑
-        dico = h3d_index[keyid]
-        path = dico["path"]
-
-        if path not in amass_to_babel:
-            return None
-
-        babel_id = amass_to_babel[path].zfill(6)
-        local_path = os.path.join(LOCAL_RENDER_DIR, f"{babel_id}.mp4")
-
-        if not os.path.exists(local_path):
-            print(f"Warning: Local video not found: {local_path}")
-            return None
-
-        # Gradio 静态文件服务语法
-        url = f"/file={os.path.abspath(local_path)}"
-
-        ann = dico["annotations"][0]
-        start = ann["start"]
-        end = ann["end"]
-        text = ann["text"]
+    ann = dico["annotations"][0]
+    start = ann["start"]
+    end = ann["end"]
+    text = ann["text"]
 
     data = {
-        "url": url,
-        "start": start,
-        "end": end,
+        "url": url, # 这个可以保留，以防万一
+        "raw_path": final_url_path, # <--- 新增！这是给 gr.Video 用的真实路径
+        "start": 0.00,
+        "end": 1.00,
         "text": text,
         "keyid": keyid,
         "babel_id": babel_id,
@@ -204,39 +189,6 @@ def retrieve(
         datas.append(data)
     return datas
 
-
-def get_video_html(data, video_id, width=700, height=700):
-    url = data["url"]
-    start = data["start"]
-    end = data["end"]
-    score = data["score"]
-    text = data["text"]
-    keyid = data["keyid"]
-    babel_id = data["babel_id"]
-    path = data["path"]
-
-    # 注意：本地视频无法可靠使用 #t=start,end，但保留以兼容远程
-    trim = f"#t={start},{end}"
-    title = f"""Score = {score}
-
-Corresponding text: {text}
-
-FineDance keyid: {keyid}
-
-BABEL keyid: {babel_id}
-
-AMASS path: {path}"""
-
-    video_html = f"""
-<video class="retrieved_video" width="{width}" height="{height}" preload="auto" muted playsinline onpause="this.load()"
-autoplay loop disablepictureinpicture id="{video_id}" title="{title}">
-  <source src="{url}{trim}" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-"""
-    return video_html
-
-
 def retrieve_component(retrieve_function, text, splits_choice, nvids, n_component=24):
     if text == DEFAULT_TEXT or text == "" or text is None:
         return [None for _ in range(n_component)]
@@ -249,10 +201,10 @@ def retrieve_component(retrieve_function, text, splits_choice, nvids, n_componen
         split = "all"
 
     datas = retrieve_function(text=text, split=split, nmax=nvids)
-    htmls = [get_video_html(data, idx) for idx, data in enumerate(datas)]
-    htmls = htmls + [None for _ in range(max(0, n_component - nvids))]
-    return htmls
-
+    # ===== 核心修改：返回一个真实文件路径的列表 =====
+    video_paths = [data["raw_path"] for data in datas]
+    video_paths = video_paths + [None for _ in range(max(0, n_component - nvids))]
+    return video_paths
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -264,14 +216,10 @@ unit_motion_embs, keyids_index, index_keyids = load_unit_embeddings(
 )
 
 all_keyids = load_splits(DATASET, splits=["test", "all"])
-
 h3d_index = load_json(f"datasets/annotations/{DATASET}/annotations.json")
 amass_to_babel = load_json("demo/amass_to_babel.json")
 
-# ================================
-# 修改：传入 use_local_video 参数
-# ================================
-keyid_to_url = partial(FineDance_keyid_to_babel_rendered_url, h3d_index, amass_to_babel, use_local_video=use_local_video)
+keyid_to_url = partial(humanml3d_keyid_to_babel_rendered_url, h3d_index, amass_to_babel)
 retrieve_function = partial(
     retrieve,
     model=model,
@@ -309,7 +257,7 @@ with gr.Blocks(css=CSS, theme=theme) as demo:
                         ["All motions", "Unseen motions"],
                         label="Gallery of motion",
                         value="All motions",
-                        info="The motion gallery is coming from FineDance",
+                        info="The motion gallery is coming from HumanML3D",
                     )
 
                 with gr.Column(scale=1):
@@ -339,7 +287,8 @@ with gr.Blocks(css=CSS, theme=theme) as demo:
         with gr.Row():
             for _ in range(4):
                 i += 1
-                video = gr.HTML()
+                # 使用 gr.Video，并设置一些参数让它看起来更干净
+                video = gr.Video(interactive=False, label=None, show_label=False)
                 videos.append(video)
 
     examples.outputs = videos
@@ -383,4 +332,8 @@ with gr.Blocks(css=CSS, theme=theme) as demo:
 
     clear.click(fn=clear_videos, outputs=videos + [text])
 
-demo.launch(share=True)
+# 在您的脚本末尾，launch之前
+demo.launch(
+    share=True, 
+    allowed_paths=["/sata/public/ripemangobox/Motion/datasets/finedance/animations/fd_checked_music_partation"]
+)

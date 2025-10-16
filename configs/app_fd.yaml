@@ -1,0 +1,32 @@
+# Paths to data, models, and other assets
+paths:
+  # Base directory for annotations
+  annotations_dir: "datasets/annotations/finedance"
+  
+  # Using interpolation to build paths from the base directory
+  splits_dir: ${paths.annotations_dir}/splits
+  train_split: ${paths.splits_dir}/train.txt
+  val_split: ${paths.splits_dir}/val.txt
+  test_split: ${paths.splits_dir}/test.txt
+  annotations_json: ${paths.annotations_dir}/annotations.json
+  
+  # Other paths
+  metadata: "fd_index.csv"
+  video_dir: "../datasets/finedance/animations/fd_checked_music_partation"
+  model_dir: "RUN_DIR_fd"
+
+# Dataset-specific configurations
+dataset:
+  name: "finedance"
+
+# Gradio UI settings
+ui:
+  retrieval_n_choices: [4, 8, 12, 16]
+  retrieval_n_default: 8
+  title: "Music-to-Dance Retrieval"
+  description: "选择一个舞蹈视频作为查询，系统将检索并展示与之音乐特征相似的其他舞蹈。"
+
+# Gradio server launch settings
+server:
+  share: True
+  port: null # Let Gradio choose a port by default, or set a specific one e.g., 7860

@@ -1,7 +1,7 @@
 import os
 import json
 from omegaconf import DictConfig, OmegaConf
-
+import hydra  # 确保导入 hydra
 
 def save_config(cfg: DictConfig) -> str:
     path = os.path.join(cfg.run_dir, "config.json")
@@ -10,7 +10,6 @@ def save_config(cfg: DictConfig) -> str:
         string = json.dumps(config, indent=4)
         f.write(string)
     return path
-
 
 def read_config(run_dir: str, return_json=False) -> DictConfig:
     path = os.path.join(run_dir, "config.json")

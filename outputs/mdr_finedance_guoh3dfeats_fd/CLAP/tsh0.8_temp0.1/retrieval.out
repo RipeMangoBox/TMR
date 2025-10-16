@@ -1,0 +1,16 @@
+[15/10/25 22:11:55][lightning_fabric.utilities.seed][INFO] - Global seed set to 1234
+[15/10/25 22:11:55][__main__][INFO] - Loading the model
+[15/10/25 22:11:55][src.load][INFO] -     motion_decoder loaded
+[15/10/25 22:11:55][src.load][INFO] -     motion_encoder loaded
+[15/10/25 22:11:55][src.load][INFO] -     text_encoder loaded
+[15/10/25 22:11:55][src.load][INFO] - Loading previous checkpoint done
+[15/10/25 22:11:56][src.load][INFO] - Put the model on cuda
+[15/10/25 22:11:56][src.load][INFO] - Put the model in eval mode
+[15/10/25 22:11:58][__main__][INFO] - Testing done, metrics saved in:
+outputs/mdr_finedance_guoh3dfeats_fd/tsh0.8_temp0.1/contrastive_metrics/normal.yaml
+[15/10/25 22:11:58][__main__][INFO] - Testing done, metrics saved in:
+outputs/mdr_finedance_guoh3dfeats_fd/tsh0.8_temp0.1/contrastive_metrics/threshold_0.95.yaml
+[15/10/25 22:11:59][__main__][INFO] - Testing done, metrics saved in:
+outputs/mdr_finedance_guoh3dfeats_fd/tsh0.8_temp0.1/contrastive_metrics/nsim.yaml
+[15/10/25 22:12:01][__main__][INFO] - Testing done, metrics saved in:
+outputs/mdr_finedance_guoh3dfeats_fd/tsh0.8_temp0.1/contrastive_metrics/guo.yaml
