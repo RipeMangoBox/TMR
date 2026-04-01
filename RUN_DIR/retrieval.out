@@ -62,3 +62,19 @@ RUN_DIR/contrastive_metrics/guo.yaml
 [13/10/25 23:06:28][lightning_fabric.utilities.seed][INFO] - Seed set to 1234
 [13/10/25 23:06:28][__main__][INFO] - Loading the model
 [13/10/25 23:06:28][src.load][INFO] - The extracted model is not found. Split into submodules..
+[01/04/26 13:22:22][lightning_fabric.utilities.seed][INFO] - Seed set to 1234
+[01/04/26 13:22:22][__main__][INFO] - Loading the model
+[01/04/26 13:22:22][src.load][INFO] -     motion_decoder loaded
+[01/04/26 13:22:22][src.load][INFO] -     text_encoder loaded
+[01/04/26 13:22:22][src.load][INFO] -     motion_encoder loaded
+[01/04/26 13:22:22][src.load][INFO] - Loading previous checkpoint done
+[01/04/26 13:22:22][src.load][INFO] - Put the model on cuda
+[01/04/26 13:22:22][src.load][INFO] - Put the model in eval mode
+[01/04/26 13:22:34][__main__][INFO] - Testing done, metrics saved in:
+RUN_DIR/contrastive_metrics/normal.yaml
+[01/04/26 13:22:36][__main__][INFO] - Testing done, metrics saved in:
+RUN_DIR/contrastive_metrics/threshold_0.95.yaml
+[01/04/26 13:22:42][__main__][INFO] - Testing done, metrics saved in:
+RUN_DIR/contrastive_metrics/nsim.yaml
+[01/04/26 13:23:03][__main__][INFO] - Testing done, metrics saved in:
+RUN_DIR/contrastive_metrics/guo.yaml

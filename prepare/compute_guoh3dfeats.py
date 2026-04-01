@@ -155,5 +155,5 @@ def compute_global_positions(cfg: DictConfig):
         np.save(new_motion_path_M, gpositions_m)
 
 if __name__ == "__main__":
-    # compute_guoh3dfeats()
-    compute_global_positions()
+    compute_guoh3dfeats()
+    # compute_global_positions()

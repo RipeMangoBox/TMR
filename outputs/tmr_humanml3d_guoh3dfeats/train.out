@@ -1187,3 +1187,44 @@ outputs/tmr_humanml3d_guoh3dfeats/config.json
 [14/10/25 20:19:44][src.callback.progress][INFO] - Epoch 498: v_recons 3.355e-01  recons 1.604e-01  v_loss 4.256e-01  loss 1.649e-01  v_latent 1.144e+00  latent 7.166e-01  v_kl 8.197e+01  kl 4.156e+01  v_contrastive 8.930e-01  contrastive 4.033e-02  v_t2m/len 1368  v_t2m/R01 22.21%  v_t2m/R02 26.89%  v_t2m/R03 35.75%  v_t2m/R05 45.09%  v_t2m/R10 57.97%  v_t2m/MedR 7.0%  v_m2t/len 1368  v_m2t/R01 23.76%  v_m2t/R02 27.7%  v_m2t/R03 37.27%  v_m2t/R05 45.02%  v_m2t/R10 55.77%  v_m2t/MedR 7.0%
 [14/10/25 20:20:31][src.callback.progress][INFO] - Epoch 499: v_recons 3.358e-01  recons 1.610e-01  v_loss 4.257e-01  loss 1.654e-01  v_latent 1.147e+00  latent 7.151e-01  v_kl 8.160e+01  kl 4.144e+01  v_contrastive 8.899e-01  contrastive 3.967e-02  v_t2m/len 1368  v_t2m/R01 23.03%  v_t2m/R02 27.4%  v_t2m/R03 34.79%  v_t2m/R05 43.49%  v_t2m/R10 57.52%  v_t2m/MedR 8.0%  v_m2t/len 1368  v_m2t/R01 23.76%  v_m2t/R02 26.54%  v_m2t/R03 36.77%  v_m2t/R05 44.52%  v_m2t/R10 55.77%  v_m2t/MedR 8.0%
 [14/10/25 20:21:19][src.callback.progress][INFO] - Epoch 500: v_recons 3.343e-01  recons 1.598e-01  v_loss 4.257e-01  loss 1.641e-01  v_latent 1.151e+00  latent 7.098e-01  v_kl 8.254e+01  kl 4.112e+01  v_contrastive 9.050e-01  contrastive 3.928e-02  v_t2m/len 1368  v_t2m/R01 22.65%  v_t2m/R02 27.48%  v_t2m/R03 35.45%  v_t2m/R05 44.88%  v_t2m/R10 57.38%  v_t2m/MedR 7.0%  v_m2t/len 1368  v_m2t/R01 23.54%  v_m2t/R02 27.04%  v_m2t/R03 36.11%  v_m2t/R05 44.81%  v_m2t/R10 55.63%  v_m2t/MedR 7.0%
+[16/10/25 15:23:48][__main__][INFO] - Training script
+[16/10/25 15:23:48][__main__][INFO] - The config can be found here: 
+outputs/tmr_humanml3d_guoh3dfeats/config.json
+[16/10/25 15:23:51][lightning_fabric.utilities.seed][INFO] - Seed set to 1234
+[16/10/25 15:23:51][__main__][INFO] - Loading the dataloaders
+[16/10/25 15:24:15][__main__][INFO] - Loading the model
+[16/10/25 15:24:15][__main__][INFO] - Training
+[16/10/25 15:26:02][__main__][INFO] - Training script
+[16/10/25 15:26:02][__main__][INFO] - The config can be found here: 
+outputs/tmr_humanml3d_guoh3dfeats/config.json
+[16/10/25 15:26:05][lightning_fabric.utilities.seed][INFO] - Seed set to 1234
+[16/10/25 15:26:05][__main__][INFO] - Loading the dataloaders
+[16/10/25 15:26:20][__main__][INFO] - Loading the model
+[16/10/25 15:26:20][__main__][INFO] - Training
+[16/10/25 15:26:33][__main__][INFO] - Training script
+[16/10/25 15:26:33][__main__][INFO] - The config can be found here: 
+outputs/tmr_humanml3d_guoh3dfeats/config.json
+[16/10/25 15:26:36][lightning_fabric.utilities.seed][INFO] - Seed set to 1234
+[16/10/25 15:26:36][__main__][INFO] - Loading the dataloaders
+[16/10/25 15:26:48][__main__][INFO] - Loading the model
+[16/10/25 15:26:48][__main__][INFO] - Training
+[16/10/25 15:26:48][pytorch_lightning.utilities.rank_zero][INFO] - GPU available: True (cuda), used: True
+[16/10/25 15:26:48][pytorch_lightning.utilities.rank_zero][INFO] - TPU available: False, using: 0 TPU cores
+[16/10/25 15:26:48][pytorch_lightning.utilities.rank_zero][INFO] - HPU available: False, using: 0 HPUs
+[16/10/25 15:26:48][pytorch_lightning.accelerators.cuda][INFO] - LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+[16/10/25 15:26:48][pytorch_lightning.callbacks.model_summary][INFO] - 
+  | Name                   | Type              | Params | Mode 
+---------------------------------------------------------------------
+0 | motion_encoder         | ACTORStyleEncoder | 4.8 M  | train
+1 | text_encoder           | ACTORStyleEncoder | 4.9 M  | train
+2 | motion_decoder         | ACTORStyleDecoder | 6.4 M  | train
+3 | reconstruction_loss_fn | SmoothL1Loss      | 0      | train
+4 | latent_loss_fn         | SmoothL1Loss      | 0      | train
+---------------------------------------------------------------------
+16.1 M    Trainable params
+0         Non-trainable params
+16.1 M    Total params
+64.523    Total estimated model params size (MB)
+224       Modules in train mode
+0         Modules in eval mode
+[16/10/25 15:26:49][src.callback.progress][INFO] - Training started
