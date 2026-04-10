@@ -185,6 +185,32 @@ python retrieval.py run_dir=RUN_DIR
 
 It will compute the metrics, show them and save them in this folder ``RUN_DIR/contrastive_metrics/``.
 
+### Summarize retrieval metrics across TMR / MotionPatches / EventT2M
+
+After each repository has exported its YAML metrics, you can build the comparison summary with:
+
+```bash
+bash run_retrieval_summary.sh
+```
+
+By default it reads:
+- `RUN_DIR/contrastive_metrics`
+- `MotionPatches-main/checkpoints/pretrained/HumanML3D/contrastive_metrics`
+- `EventT2M-codes-main/checkpoints/pretrained/HumanML3D/eval`
+
+For EventT2M, the retrieval-style TMR-aligned exports are expected as `normal.yaml`, `threshold_0.95.yaml`, `nsim.yaml`, and `guo.yaml`, while its original diffusion/native report is expected as `E-native_normal.yaml`.
+
+The summary is written to `retrieval_results_summary.md` in the TMR root. The wrapper script prints these three input paths and the default output path before running. You can still override paths with the original Python arguments, for example:
+
+```bash
+bash run_retrieval_summary.sh \
+  --eval-dir RUN_DIR/contrastive_metrics \
+  --eval-dir MotionPatches-main/checkpoints/pretrained/HumanML3D/contrastive_metrics \
+  --eval-dir EventT2M-codes-main/checkpoints/pretrained/HumanML3D/eval \
+  --name TMR --name MotionPatches --name EventT2M \
+  --output retrieval_results_summary.md
+```
+
 
 ## Usage :computer:
 

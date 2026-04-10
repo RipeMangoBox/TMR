@@ -1,112 +1,131 @@
-# TAMR Technical Reference
+---
+name: tamr-research
+description: Provides formal context for the TAMR (Temporal-Aware Motion-Text Retrieval) research project. Use when the user asks about TAMR design, TMR codebase modifications, EventT2M integration, HumanML3D-E dataset, temporal-aware contrastive learning, motion-text retrieval experiments, or related tasks.
+---
 
-Detailed technical reference for TAMR implementation. Read this when working on specific modules.
+# TAMR Research Context
 
-## TMR Model Internals
+TAMR = Temporal-Aware Motion-text Retrieval. The goal is to extend the TMR retrieval backbone with temporal awareness for event ordering, grounding, and temporal constraints.
 
-### ACTORStyleEncoder (src/model/actor.py)
-```python
-# Input: (batch, seq_len, input_dim) + lengths
-# 1. Linear(input_dim, latent_dim)
-# 2. Prepend learnable tokens: 1 (deterministic) or 2 (VAE: mu + logvar)
-# 3. Sinusoidal positional encoding
-# 4. nn.TransformerEncoder(nhead=4, dim_feedforward=1024, num_layers=6, activation=GELU)
-# 5. Extract prepended token outputs → mu, logvar (or just z)
-# Output: distribution or deterministic latent [batch, 256]
+## 1. Codebase Layout
+
+```
+TMR/                              # Main workspace (this repo, fork of Mathux/TMR)
+├── train.py                      # TMR training entry (Hydra + PyTorch Lightning)
+├── retrieval.py                  # Retrieval evaluation entry
+├── extract.py / encode_*.py      # Checkpoint extraction & dataset encoding
+├── src/
+│   ├── model/
+│   │   ├── temos.py              # Base VAE: motion_encoder + text_encoder + motion_decoder
+│   │   ├── tmr.py                # TMR = TEMOS + InfoNCE contrastive loss
+│   │   ├── actor.py              # ACTORStyleEncoder/Decoder
+│   │   ├── losses.py             # Contrastive loss
+│   │   └── text_encoder.py       # Text embedding pipeline
+│   ├── data/
+│   │   ├── humanml3d.py          # HumanML3D dataset class
+│   │   └── text.py               # Text loading & tokenization
+│   └── config.py                 # Hydra structured configs
+├── configs/                      # Hydra YAML configs
+├── datasets/                     # Annotation splits & text files
+├── stats/                        # mean.pt / std.pt normalization
+├── EventT2M-codes-main/          # Event-T2M reference implementation
+└── Codex/                        # Research notes & paper analyses
 ```
 
-### InfoNCE_with_filtering (src/model/losses.py)
-```python
-# sim_matrix = cosine_sim(text_latents, motion_latents) / temperature  # τ=0.1
-# For false negative filtering:
-#   sent_emb = sentence_transformer(texts)  # all-mpnet-base-v2
-#   self_sim = cosine_sim(sent_emb, sent_emb)
-#   mask = (self_sim > threshold)  # threshold=0.80
-#   sim_matrix[mask] = -inf  (except diagonal)
-# loss = (cross_entropy(sim, labels_t2m) + cross_entropy(sim.T, labels_m2t)) / 2
+## 2. TMR Architecture
+
+TMR is a VAE + contrastive dual-tower retrieval model:
+
+- **Motion encoder**: `ACTORStyleEncoder` maps 263-dim Guo features to a 256-dim latent.
+- **Text encoder**: `ACTORStyleEncoder` maps DistilBERT token features to a 256-dim latent.
+- **Motion decoder**: `ACTORStyleDecoder` reconstructs motion from the latent.
+- **Contrastive objective**: `InfoNCE_with_filtering` computes symmetric retrieval loss with false-negative filtering.
+- **Retrieval**: `get_sim_matrix()` uses cosine similarity of normalized latents.
+
+Key property: baseline TMR does not explicitly model temporal ordering.
+
+## 3. EventT2M Reference
+
+EventT2M decomposes text into sub-events for motion generation and serves as a temporal modeling reference.
+
+```
+EventT2M-codes-main/
+├── src/
+│   ├── train.py / eval.py
+│   ├── models/
+│   │   ├── event_final.py
+│   │   └── nets/
+│   │       ├── event_final.py
+│   │       └── text_encoder.py
+│   ├── data/
+│   │   ├── hml3d_event.py
+│   │   └── humanml/dataset.py
+│   └── tools/
+│       ├── data_decompose.py
+│       └── data_preprocess_decomposed.py
+├── TMR_model_wrapper.py
+└── configs/
 ```
 
-### TMR Training Config Defaults
-- latent_dim: 256
-- text_model: distilbert-base-uncased (tokens), sentence-transformers/all-mpnet-base-v2 (sentences)
-- motion_features: 263-dim Guo (22 joints)
-- optimizer: AdamW, lr=1e-4
-- loss weights: recons=1.0, latent=1e-5, kl=1e-5, contrastive=0.1
-- contrastive threshold: 0.80, temperature: 0.1
+Key architecture: EventT2M uses `MiniConformer` blocks with cross-attention to decomposed event embeddings, enabling explicit event-level conditioning.
 
-### TMR Retrieval Protocols (retrieval.py)
-1. **All**: full test set, all-vs-all similarity
-2. **Dissect**: per-sample retrieval within subsets
-3. **Threshold**: filter by text similarity threshold (e.g., 0.95)
-4. **NSim**: normalized similarity scoring
+## 4. HumanML3D-E Dataset
 
-## EventT2M Model Internals
+Event-annotated extension of HumanML3D. Expected structure:
 
-### EventT2M Denoiser (src/models/nets/event_final.py)
-```python
-class EventT2M(nn.Module):
-    # Input: motion [B, T, 263], mask [B, T], timestep [B], text [B, 512],
-    #        decomposed_embed [B, max_events, 512], decomposed_mask [B, max_events]
-    # Architecture:
-    #   1. Linear(263, base_dim=256)
-    #   2. Sinusoidal pos encoding + timestep embedding
-    #   3. Prepend time token
-    #   4. N StageBlocks (default 4, all dim=256):
-    #      StageBlock = LocalModule → MixedModule → LocalModule
-    #      MixedModule:
-    #        - Patch motion into segments
-    #        - Conv downsample
-    #        - Gated text fusion (text_embed * gate + motion)
-    #        - MiniConformer with cross-attention to decomposed events
-    #        - Upsample back
-    #   5. Linear(base_dim, 263)
+```
+dataset/HumanML3D/
+├── {train,val,test}.txt
+├── Mean.npy / Std.npy
+├── new_joint_vecs/*.npy
+├── texts/*.txt
+├── texts_decomposed/*.txt
+├── data_{train,val,test}.npy
+└── data_test_condition{2,3,4}.npy
 ```
 
-### MiniConformer Block
-```
-FFN(half-step) → SelfAttention → CrossAttention(to events) → DepthwiseConv → FFN(half-step)
-```
-All with pre-norm (LayerNorm) and residual connections.
+`texts_decomposed/` stores decomposed event captions aligned to original captions.
 
-### Data Preprocessing (data_preprocess_decomposed.py)
-```python
-# Output: data_{split}.npy = dict of:
-# {
-#   "motion_id": {
-#     "motion": np.array [T, 263],
-#     "length": int,
-#     "text": [
-#       {
-#         "caption": "full caption text",
-#         "tokens": "POS/tagged/tokens",
-#         "decomposed": [
-#           {"caption": "sub-event 1", "tokens": "POS/tagged"},
-#           {"caption": "sub-event 2", "tokens": "POS/tagged"},
-#         ]
-#       },
-#       ...  # multiple captions per motion
-#     ]
-#   }
-# }
+## 5. TAMR Design
+
+### Module A: Event-Aware Text Encoding
+- Decompose text into an ordered event list with inter-event relations.
+- Encode each event independently and fuse relation-aware representations.
+
+### Module B: Temporal-Aware Contrastive Learning
+- Combine global InfoNCE with event-level alignment loss and temporal hard negative loss.
+- Temporal hard negatives include ordering shuffle, parallel-to-sequential conversion, negation, causal reversal, duration modification, and sync-to-async conversion.
+- Use normalized timeline tokens for temporal alignment.
+
+### Module C: Unified Retrieval-Localization Head
+- Retrieval uses global cosine similarity for ranking.
+- Localization uses event-level alignment for temporal boundary prediction.
+
+### Loss
+```
+L = α·L_global_infonce + β·L_event_align + γ·L_temporal_hardneg + δ·L_localization
 ```
 
-## Ablation Experiment IDs
+## 6. Evaluation Metrics
 
-| ID | Config | Purpose |
-|----|--------|---------|
-| A1 | w/o event decomposition (global align only) | Event decomposition gain |
-| A2 | w/o temporal hard negatives | Temporal negative gain |
-| A3 | w/o localization loss | Joint training benefit |
-| A4 | ordering-only vs 6 constraints | Extended constraint gain |
-| A5 | global InfoNCE vs event-level align | Fine-grained alignment gain |
-| A6 | w/o timestamp tokens | Explicit time discretization gain |
-| A7 | frozen TMR vs fine-tuned TMR | Transfer effectiveness |
+| Metric | Purpose |
+|--------|---------|
+| R@1/5/10 | Standard retrieval |
+| CAR@K | Chronologically accurate retrieval |
+| TAR@K | Temporal-constraint-aware retrieval |
+| IoU@0.5/0.7, mIoU | Temporal grounding accuracy |
 
-## Comparison Table (from PST paper, HumanML3D All protocol)
+## 7. Key Baselines
 
-| Method | T2M R@1 | T2M R@5 | T2M R@10 | MedR↓ |
-|--------|---------|---------|----------|-------|
-| TMR | 8.92 | 22.06 | 33.37 | 25 |
-| MotionPatch | 10.80 | 26.72 | 38.02 | 19 |
-| PST | 12.45 | 33.65 | 48.22 | 10 |
-| PST++ | 13.83 | 34.82 | 49.15 | 10 |
+| Asset | Role | Repo |
+|-------|------|------|
+| TMR | Main backbone | github.com/Mathux/TMR |
+| ChronAccRet | Ordering negatives code | github.com/line/ChronAccRet |
+| Event-T2M | Event decomposition + HumanML3D-E | github.com/tjswodud/EventT2M-codes |
+| FineMotion | Temporal annotation source | github.com/CVI-SZU/FineMotion |
+| LaMP | Comparison baseline | github.com/gentlefress/LaMP |
+| PST | Spatial fine-grained alignment baseline | Not open-sourced |
+
+## 8. Positioning Against PST
+
+PST focuses on spatial fine-grained alignment, while TAMR focuses on temporal fine-grained alignment, including event ordering and grounding. The two directions are complementary rather than equivalent.

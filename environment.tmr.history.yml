@@ -1,0 +1,6 @@
+name: TMR
+channels:
+  - defaults
+dependencies:
+  - python=3.10
+prefix: /home/ripemangobox/miniconda3/envs/TMR

@@ -78,3 +78,45 @@ RUN_DIR/contrastive_metrics/threshold_0.95.yaml
 RUN_DIR/contrastive_metrics/nsim.yaml
 [01/04/26 13:23:03][__main__][INFO] - Testing done, metrics saved in:
 RUN_DIR/contrastive_metrics/guo.yaml
+[03/04/26 19:27:52][lightning_fabric.utilities.seed][INFO] - Seed set to 1234
+[03/04/26 19:27:52][__main__][INFO] - Loading the model
+[03/04/26 19:27:52][src.load][INFO] -     motion_decoder loaded
+[03/04/26 19:27:52][src.load][INFO] -     text_encoder loaded
+[03/04/26 19:27:52][src.load][INFO] -     motion_encoder loaded
+[03/04/26 19:27:52][src.load][INFO] - Loading previous checkpoint done
+[03/04/26 19:27:52][src.load][INFO] - Put the model on cuda
+[03/04/26 19:27:52][src.load][INFO] - Put the model in eval mode
+[03/04/26 19:52:49][lightning_fabric.utilities.seed][INFO] - Seed set to 1234
+[03/04/26 19:52:49][__main__][INFO] - Loading the model
+[03/04/26 19:52:49][src.load][INFO] -     motion_decoder loaded
+[03/04/26 19:52:49][src.load][INFO] -     text_encoder loaded
+[03/04/26 19:52:49][src.load][INFO] -     motion_encoder loaded
+[03/04/26 19:52:49][src.load][INFO] - Loading previous checkpoint done
+[03/04/26 19:52:49][src.load][INFO] - Put the model on cuda
+[03/04/26 19:52:49][src.load][INFO] - Put the model in eval mode
+[03/04/26 19:52:50][src.data.motion][WARNING] - Motion file fallback activated: using datasets/motions/guoh3dfeats1 instead of datasets/motions/guoh3dfeats
+[03/04/26 19:52:57][__main__][INFO] - Testing done, metrics saved in:
+RUN_DIR/contrastive_metrics/normal.yaml
+[03/04/26 19:52:59][__main__][INFO] - Testing done, metrics saved in:
+RUN_DIR/contrastive_metrics/threshold_0.95.yaml
+[03/04/26 19:53:02][src.data.motion][WARNING] - Motion file fallback activated: using datasets/motions/guoh3dfeats1 instead of datasets/motions/guoh3dfeats
+[03/04/26 19:53:02][__main__][INFO] - Testing done, metrics saved in:
+RUN_DIR/contrastive_metrics/nsim.yaml
+[03/04/26 19:53:27][__main__][INFO] - Testing done, metrics saved in:
+RUN_DIR/contrastive_metrics/guo.yaml
+[03/04/26 21:31:09][lightning_fabric.utilities.seed][INFO] - Seed set to 1234
+[03/04/26 21:31:09][__main__][INFO] - Loading the model
+[03/04/26 21:31:09][src.load][INFO] -     motion_decoder loaded
+[03/04/26 21:31:09][src.load][INFO] -     text_encoder loaded
+[03/04/26 21:31:09][src.load][INFO] -     motion_encoder loaded
+[03/04/26 21:31:09][src.load][INFO] - Loading previous checkpoint done
+[03/04/26 21:31:09][src.load][INFO] - Put the model on cuda
+[03/04/26 21:31:09][src.load][INFO] - Put the model in eval mode
+[03/04/26 21:31:18][__main__][INFO] - Testing done, metrics saved in:
+RUN_DIR/contrastive_metrics/normal.yaml
+[03/04/26 21:31:20][__main__][INFO] - Testing done, metrics saved in:
+RUN_DIR/contrastive_metrics/threshold_0.95.yaml
+[03/04/26 21:31:23][__main__][INFO] - Testing done, metrics saved in:
+RUN_DIR/contrastive_metrics/nsim.yaml
+[03/04/26 21:31:43][__main__][INFO] - Testing done, metrics saved in:
+RUN_DIR/contrastive_metrics/guo.yaml
