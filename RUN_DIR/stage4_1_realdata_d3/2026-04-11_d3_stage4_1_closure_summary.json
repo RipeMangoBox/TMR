@@ -1,0 +1,582 @@
+{
+  "report_date": "2026-04-11",
+  "trusted_data_files": [
+    "/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E/data_train.npy",
+    "/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E/data_val.npy",
+    "/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E/data_test.npy",
+    "/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E/data_test_condition2.npy",
+    "/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E/data_test_condition3.npy",
+    "/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E/data_test_condition4.npy"
+  ],
+  "d0": {
+    "meta": {
+      "report_type": "data_audit_only",
+      "training_dependency": "none",
+      "reliability_scope": "D0 is computed directly from the six trusted HumanML3D-E npy files and is not affected by whether D1/D1.5/D2a/D2b training finished full epochs.",
+      "gate_scope": "D0 only decides whether corrected real data justify launching D1; it is not a model-performance verdict.",
+      "dataset_root": "/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E",
+      "splits": [
+        "train",
+        "val",
+        "test"
+      ],
+      "total_samples": 30722,
+      "total_captions": 83347,
+      "valid_captions": 83347,
+      "invalid_captions": 0,
+      "event_extraction_coverage": 1.0,
+      "captions_with_canonical_decomposed": 83347,
+      "canonical_decomposed_coverage": 1.0,
+      "caption_style_breakdown": {
+        "plain_caption": 83347
+      },
+      "event_source_breakdown": {
+        "decomposed": 83347
+      },
+      "motion_level_text_count_distribution": {
+        "1": 2952,
+        "2": 2941,
+        "3": 24803,
+        "4": 26
+      },
+      "overlap_rulebook": [
+        "while",
+        "meanwhile",
+        "simultaneous",
+        "at_same_time",
+        "during",
+        "concurrent"
+      ]
+    },
+    "split_entry_counts": {
+      "train": 24546,
+      "val": 1530,
+      "test": 4646
+    },
+    "condition_subset_stats": {
+      "condition2": {
+        "entries": 2622,
+        "overlap_with_data_test": 2446,
+        "text_count_distribution": {
+          "1": 1699,
+          "2": 738,
+          "3": 185
+        },
+        "event_count_distribution": {
+          "1": 191,
+          "2": 1752,
+          "3": 1157,
+          "4": 390,
+          "5": 169,
+          "6": 48,
+          "7": 20,
+          "8": 2,
+          "9": 1
+        }
+      },
+      "condition3": {
+        "entries": 927,
+        "overlap_with_data_test": 874,
+        "text_count_distribution": {
+          "1": 802,
+          "2": 123,
+          "3": 2
+        },
+        "event_count_distribution": {
+          "1": 43,
+          "2": 42,
+          "3": 466,
+          "4": 250,
+          "5": 141,
+          "6": 61,
+          "7": 23,
+          "8": 15,
+          "9": 10,
+          "10": 3
+        }
+      },
+      "condition4": {
+        "entries": 260,
+        "overlap_with_data_test": 251,
+        "text_count_distribution": {
+          "1": 246,
+          "2": 14
+        },
+        "event_count_distribution": {
+          "1": 4,
+          "2": 5,
+          "3": 11,
+          "4": 128,
+          "5": 63,
+          "6": 28,
+          "7": 15,
+          "8": 11,
+          "9": 7,
+          "10": 1,
+          "11": 1
+        }
+      }
+    },
+    "k_distribution": {
+      "1": {
+        "count": 42261,
+        "ratio_over_valid": 0.507
+      },
+      "2": {
+        "count": 28859,
+        "ratio_over_valid": 0.3463
+      },
+      "3": {
+        "count": 8794,
+        "ratio_over_valid": 0.1055
+      },
+      "4": {
+        "count": 2493,
+        "ratio_over_valid": 0.0299
+      },
+      "5": {
+        "count": 670,
+        "ratio_over_valid": 0.008
+      },
+      "6": {
+        "count": 186,
+        "ratio_over_valid": 0.0022
+      },
+      "7": {
+        "count": 58,
+        "ratio_over_valid": 0.0007
+      },
+      "8": {
+        "count": 20,
+        "ratio_over_valid": 0.0002
+      },
+      "9": {
+        "count": 3,
+        "ratio_over_valid": 0.0
+      },
+      "10": {
+        "count": 3,
+        "ratio_over_valid": 0.0
+      }
+    },
+    "key_ratios": {
+      "k_eq_1": {
+        "count": 42261,
+        "ratio_over_valid": 0.507
+      },
+      "k_ge_2": {
+        "count": 41086,
+        "ratio_over_valid": 0.493
+      },
+      "overlap_rule_based": {
+        "count": 1508,
+        "ratio_over_valid": 0.0181
+      }
+    },
+    "event_length_words": {
+      "caption_avg_event_words": {
+        "mean": 7.9648,
+        "median": 7.0,
+        "p25": 5.5,
+        "p75": 9.5
+      },
+      "event_word_count": {
+        "mean": 7.6074,
+        "median": 7.0,
+        "p25": 5.0,
+        "p75": 9.0
+      }
+    },
+    "event_length_frames_proxy": {
+      "caption_avg_frames_per_event": {
+        "mean": 101.5603,
+        "median": 93.0,
+        "p25": 60.0,
+        "p75": 133.0
+      }
+    },
+    "per_split": {
+      "train": {
+        "entries": 24546,
+        "captions_total": 66636,
+        "captions_valid": 66636,
+        "captions_invalid": 0,
+        "captions_with_decomposed": 66636,
+        "overlap_count": 895,
+        "text_count_distribution": {
+          "1": 2344,
+          "2": 2336,
+          "3": 19844,
+          "4": 22
+        },
+        "event_source_breakdown": {
+          "decomposed": 66636
+        },
+        "k_distribution": {
+          "1": 34673,
+          "2": 22962,
+          "3": 6524,
+          "4": 1837,
+          "5": 469,
+          "6": 118,
+          "7": 36,
+          "8": 13,
+          "9": 2,
+          "10": 2
+        }
+      },
+      "val": {
+        "entries": 1530,
+        "captions_total": 4176,
+        "captions_valid": 4176,
+        "captions_invalid": 0,
+        "captions_with_decomposed": 4176,
+        "overlap_count": 56,
+        "text_count_distribution": {
+          "1": 134,
+          "2": 146,
+          "3": 1250
+        },
+        "event_source_breakdown": {
+          "decomposed": 4176
+        },
+        "k_distribution": {
+          "1": 2190,
+          "2": 1394,
+          "3": 435,
+          "4": 120,
+          "5": 26,
+          "6": 9,
+          "7": 2
+        }
+      },
+      "test": {
+        "entries": 4646,
+        "captions_total": 12535,
+        "captions_valid": 12535,
+        "captions_invalid": 0,
+        "captions_with_decomposed": 12535,
+        "overlap_count": 557,
+        "text_count_distribution": {
+          "1": 474,
+          "2": 459,
+          "3": 3709,
+          "4": 4
+        },
+        "event_source_breakdown": {
+          "decomposed": 12535
+        },
+        "k_distribution": {
+          "1": 5398,
+          "2": 4503,
+          "3": 1835,
+          "4": 536,
+          "5": 175,
+          "6": 59,
+          "7": 20,
+          "8": 7,
+          "9": 1,
+          "10": 1
+        }
+      }
+    },
+    "gates": {
+      "gate_1": {
+        "condition": "K>=2 ratio < 40%",
+        "value": 0.493,
+        "triggered": false
+      },
+      "gate_2": {
+        "condition": "K=1 ratio > 60%",
+        "value": 0.507,
+        "triggered": false
+      },
+      "gate_3": {
+        "condition": "rule-based overlap ratio > 15%",
+        "value": 0.0181,
+        "triggered": false
+      },
+      "recommendation": "DATA-GATE GO: corrected real data support launching D1 frozen minimal event-time head."
+    },
+    "samples": {
+      "invalid_examples": [],
+      "overlap_examples": [
+        {
+          "split": "train",
+          "sample_id": "000004",
+          "cues": "while",
+          "caption": "a person bends forward at the waist while both hands are tucked inside their armpits and elbows move up and down.",
+          "events": [
+            "a person bends forward at the waist while both hands are.",
+            "a person tucked inside their armpits and elbows.",
+            "a person move."
+          ]
+        },
+        {
+          "split": "train",
+          "sample_id": "000094",
+          "cues": "while",
+          "caption": "while standing, a person makes a series of small gestures near their face using both hands.",
+          "events": [
+            "while standing, a person makes a series of small gestures near their face using both hands."
+          ]
+        },
+        {
+          "split": "train",
+          "sample_id": "000102",
+          "cues": "simultaneous",
+          "caption": "the person walks to the left and stops, they raise their hands up above shoulders. then moving both hands together to the left simultaneously and back. again but only with left hand,",
+          "events": [
+            "the person walks to the left and stops, they.",
+            "the person raise their hands up above shoulders.",
+            "the person moving both hands together to the left simultaneously and back. again but only with left hand,."
+          ]
+        },
+        {
+          "split": "train",
+          "sample_id": "000169",
+          "cues": "while",
+          "caption": "a person moves their right hand from the right side of their body towards the left side and makes a petting or digging motion while the left arm hangs at their side.",
+          "events": [
+            "a person moves their right hand from the right side of their body towards the left side.",
+            "a person makes a petting.",
+            "a person digging motion while the left arm.",
+            "a person hangs at their side."
+          ]
+        },
+        {
+          "split": "train",
+          "sample_id": "000251",
+          "cues": "while",
+          "caption": "a person takes a giant leap forward while his arms flail out to his sides.",
+          "events": [
+            "a person takes a giant leap forward while his arms.",
+            "a person flail out to his sides."
+          ]
+        },
+        {
+          "split": "train",
+          "sample_id": "000242",
+          "cues": "while",
+          "caption": "a person slightly wobbly walks foreward while grabbing onto railings at both sides.",
+          "events": [
+            "a person slightly wobbly walks foreward while grabbing onto railings at both sides."
+          ]
+        },
+        {
+          "split": "train",
+          "sample_id": "000280",
+          "cues": "simultaneous",
+          "caption": "raise both arms simultaneously with little spirit, keep them there for a moment and drop them lifelessly",
+          "events": [
+            "raise both arms simultaneously with little spirit, keep them there for a moment.",
+            "drop them."
+          ]
+        },
+        {
+          "split": "train",
+          "sample_id": "000368",
+          "cues": "while",
+          "caption": "a person jumps up while simultanesouly moving their arms/hands inward & upward towards their armpits, after they land they move both arms out at 45 degree angles away from their sides and does a slight jog serveral steps forward.",
+          "events": [
+            "a person jumps up while simultanesouly.",
+            "a person moving their arms/hands hand inward upward towards their armpits, after they.",
+            "a person land they move both arms out at degree angles away from their sides and does a slight jog serveral steps."
+          ]
+        },
+        {
+          "split": "train",
+          "sample_id": "000394",
+          "cues": "while",
+          "caption": "a person climbs stairs while using the railing",
+          "events": [
+            "a person climbs stairs while using the railing"
+          ]
+        },
+        {
+          "split": "train",
+          "sample_id": "000441",
+          "cues": "while",
+          "caption": "a person shrugs shoulders while leaving both arms flaccid and then shrugs shoulders while bending elbows and making hand gesture.",
+          "events": [
+            "a person shrugs shoulders while leaving both arms flaccid.",
+            "a person shrugs shoulders while shrugs shoulders.",
+            "a person shrugs shoulders while bending elbows.",
+            "a person shrugs shoulders while making hand gesture."
+          ]
+        },
+        {
+          "split": "train",
+          "sample_id": "000446",
+          "cues": "at_same_time",
+          "caption": "person swings arms back whilst bending slightly at the knee and then leaps forward with both feet at the same time.",
+          "events": [
+            "person swings arms back whilst bending slightly at the knee.",
+            "person swings arms back whilst leaps forward with both foot at the same time."
+          ]
+        },
+        {
+          "split": "train",
+          "sample_id": "000455",
+          "cues": "while",
+          "caption": "a person turns clockwise while standing in place then slowly stretches arms outward to their side.",
+          "events": [
+            "a person turns clockwise while standing in place.",
+            "a person turns clockwise while stretches arms outward to their side."
+          ]
+        },
+        {
+          "split": "train",
+          "sample_id": "000471",
+          "cues": "while",
+          "caption": "while a person is standing, they bend their knees and jump forward.",
+          "events": [
+            "while a person is standing, they bend their knees.",
+            "while a person is jump."
+          ]
+        },
+        {
+          "split": "train",
+          "sample_id": "000518",
+          "cues": "while",
+          "caption": "stand on the left foot while right leg makes a wide circle out and back down to the left foot.",
+          "events": [
+            "stand on the left foot while right leg.",
+            "makes a wide circle.",
+            "back down to the left foot."
+          ]
+        },
+        {
+          "split": "train",
+          "sample_id": "000542",
+          "cues": "while",
+          "caption": "a person does a light skip while walking",
+          "events": [
+            "a person does a light skip while walking"
+          ]
+        },
+        {
+          "split": "train",
+          "sample_id": "000555",
+          "cues": "while",
+          "caption": "putting the arms to the chest with a slight blend to the knees, then bringing the left arm to the hip while the right goes in a circle.",
+          "events": [
+            "putting the arms to the chest with a slight blend to the knees,.",
+            "bringing the left arm to the hip while the right.",
+            "goes in a circle."
+          ]
+        },
+        {
+          "split": "train",
+          "sample_id": "000560",
+          "cues": "while",
+          "caption": "person starts with arms held out to the sides, steps forward with right foot, bends down, reaches for an item with right hand, retrieves item and holds with both hands, turns left, steadies item with right hand on top, walks forward, turns right and bends down holding item with left hand while right hand reaches up and makes repeated stroking motions towards the item held in left hand.",
+          "events": [
+            "person starts with arms holds out top, the side step forward with right foot bend down reach for an item with right hand. retrieve item.",
+            "person holds with both hand turn left steady item with right hand on top walk forward turn right.",
+            "person bend down hold item with left hand while right hand.",
+            "person reach.",
+            "person make repeat stroke motion towards the item hold in left hand."
+          ]
+        },
+        {
+          "split": "train",
+          "sample_id": "000583",
+          "cues": "while",
+          "caption": "someone is doing arm exercises and dancing a little while they are doing so.",
+          "events": [
+            "someone is doing arm exercises and dancing a little while they are.",
+            "someone is doing arm exercises and doing."
+          ]
+        },
+        {
+          "split": "train",
+          "sample_id": "000606",
+          "cues": "while",
+          "caption": "walks forward and moves to the left slitghtly while walkng",
+          "events": [
+            "walks.",
+            "moves to the left slitghtly while walkng."
+          ]
+        },
+        {
+          "split": "train",
+          "sample_id": "000676",
+          "cues": "at_same_time",
+          "caption": "a person slowly hops up and down on both legs at the same time.",
+          "events": [
+            "a person slowly hops up and down on both legs at the same time."
+          ]
+        }
+      ]
+    }
+  },
+  "stages": [
+    {
+      "stage_key": "d1",
+      "stage_label": "D1",
+      "run_dir": "/home/ripemangobox/Coding/Github/Motion/TMR/RUN_DIR/stage4_1_realdata_d1",
+      "config": null,
+      "metrics": {
+        "normal": null,
+        "threshold_0.95": null,
+        "nsim": null,
+        "guo": null
+      },
+      "status": "pending",
+      "primary_score": null,
+      "last_checkpoint": null,
+      "has_last_weights": false
+    },
+    {
+      "stage_key": "d1_5",
+      "stage_label": "D1.5",
+      "run_dir": "/home/ripemangobox/Coding/Github/Motion/TMR/RUN_DIR/stage4_1_realdata_d1_5",
+      "config": null,
+      "metrics": {
+        "normal": null,
+        "threshold_0.95": null,
+        "nsim": null,
+        "guo": null
+      },
+      "status": "pending",
+      "primary_score": null,
+      "last_checkpoint": null,
+      "has_last_weights": false
+    },
+    {
+      "stage_key": "d2a",
+      "stage_label": "D2a",
+      "run_dir": "/home/ripemangobox/Coding/Github/Motion/TMR/RUN_DIR/stage4_1_realdata_d2a",
+      "config": null,
+      "metrics": {
+        "normal": null,
+        "threshold_0.95": null,
+        "nsim": null,
+        "guo": null
+      },
+      "status": "pending",
+      "primary_score": null,
+      "last_checkpoint": null,
+      "has_last_weights": false
+    },
+    {
+      "stage_key": "d2b",
+      "stage_label": "D2b",
+      "run_dir": "/home/ripemangobox/Coding/Github/Motion/TMR/RUN_DIR/stage4_1_realdata_d2b",
+      "config": null,
+      "metrics": {
+        "normal": null,
+        "threshold_0.95": null,
+        "nsim": null,
+        "guo": null
+      },
+      "status": "pending",
+      "primary_score": null,
+      "last_checkpoint": null,
+      "has_last_weights": false
+    }
+  ],
+  "recommendation": "Pending: wait for corrected D1/D1.5/D2a/D2b retrieval metrics.",
+  "winner": null
+}

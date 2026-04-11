@@ -1,0 +1,30 @@
+defaults:
+  - temos
+  - _self_
+
+_target_: src.model.tmr_d1_5.TMRD15FrozenMinimalHeadUniformPool
+
+# HumanML3D-E guoh3dfeats dimensionality
+motion_encoder:
+  nfeats: 263
+
+motion_decoder:
+  nfeats: 263
+
+lmd:
+  global: 0.1
+  evt_align: 1.0
+
+lr: 1e-4
+temperature: 0.1
+threshold_selfsim: 0.80
+threshold_selfsim_metrics: 0.95
+event_align_tau: 0.1
+
+# Match D1 warm-start exactly for a fair control.
+warm_start_weights_dir: models/tmr_humanml3d_guoh3dfeats/last_weights
+warm_start_ckpt: null
+
+freeze_motion_backbone: true
+freeze_text_encoder: true
+freeze_motion_decoder: true

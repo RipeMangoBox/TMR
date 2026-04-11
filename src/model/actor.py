@@ -72,7 +72,7 @@ class ACTORStyleEncoder(nn.Module):
             seq_trans_encoder_layer, num_layers=num_layers
         )
 
-    def forward(self, x_dict: Dict) -> Tensor:
+    def forward(self, x_dict: Dict, return_temporal: bool = False):
         x = x_dict["x"]
         mask = x_dict["mask"]
 
@@ -90,7 +90,12 @@ class ACTORStyleEncoder(nn.Module):
         # add positional encoding
         xseq = self.sequence_pos_encoding(xseq)
         final = self.seqTransEncoder(xseq, src_key_padding_mask=~aug_mask)
-        return final[:, : self.nbtokens]
+        tokens = final[:, : self.nbtokens]
+        if return_temporal:
+            temporal = final[:, self.nbtokens :]
+            temporal[~mask] = 0
+            return tokens, temporal
+        return tokens
 
 
 class ACTORStyleDecoder(nn.Module):

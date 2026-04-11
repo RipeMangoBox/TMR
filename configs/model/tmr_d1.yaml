@@ -1,0 +1,30 @@
+defaults:
+  - temos
+  - _self_
+
+_target_: src.model.TMRD1FrozenMinimalHead
+
+# HumanML3D-E guoh3dfeats dimensionality
+motion_encoder:
+  nfeats: 263
+
+motion_decoder:
+  nfeats: 263
+
+lmd:
+  global: 0.1
+  evt_align: 1.0
+
+lr: 1e-4
+temperature: 0.1
+threshold_selfsim: 0.80
+threshold_selfsim_metrics: 0.95
+event_align_tau: 0.1
+
+# stage2_gt warm-start (update this path if you use another run)
+warm_start_weights_dir: models/tmr_humanml3d_guoh3dfeats/last_weights
+warm_start_ckpt: null
+
+freeze_motion_backbone: true
+freeze_text_encoder: true
+freeze_motion_decoder: true

@@ -57,3 +57,71 @@ def collate_text_motion(lst_elements: List, *, device: Optional[str] = None) -> 
     for key in x_dict_keys:
         batch[key] = collate_x_dict([x[key] for x in lst_elements], device=device)
     return batch
+
+
+def collate_text_motion_event(
+    lst_elements: List, *, device: Optional[str] = None
+) -> Dict:
+    one_el = lst_elements[0]
+    keys = one_el.keys()
+
+    # Keep nested event keys out of default_collate (variable lengths).
+    skip_keys = {"event_text_x_dicts", "event_texts"}
+    x_dict_keys = [
+        key
+        for key in keys
+        if "x_dict" in key and key not in {"event_text_x_dict", "event_text_x_dicts"}
+    ]
+    other_keys = [
+        key for key in keys if "x_dict" not in key and key not in skip_keys
+    ]
+
+    batch = {key: default_collate([x[key] for x in lst_elements]) for key in other_keys}
+    for key, val in batch.items():
+        if isinstance(val, torch.Tensor) and device is not None:
+            batch[key] = val.to(device)
+
+    for key in x_dict_keys:
+        batch[key] = collate_x_dict([x[key] for x in lst_elements], device=device)
+
+    bs = len(lst_elements)
+    max_events = max(len(x["event_text_x_dicts"]) for x in lst_elements)
+    event_mask = torch.zeros((bs, max_events), dtype=torch.bool)
+
+    event_x_dicts = []
+    event_sample_idx = []
+    event_slot_idx = []
+    for sample_idx, element in enumerate(lst_elements):
+        sample_event_x = element["event_text_x_dicts"]
+        sample_event_text = element["event_texts"]
+        k = len(sample_event_x)
+        if k > 0:
+            event_mask[sample_idx, :k] = True
+        for slot_idx, x_dict in enumerate(sample_event_x):
+            event_x_dicts.append(x_dict)
+            event_sample_idx.append(sample_idx)
+            event_slot_idx.append(slot_idx)
+
+    if event_x_dicts:
+        batch["event_text_x_dict"] = collate_x_dict(event_x_dicts, device=device)
+        sample_idx_tensor = torch.tensor(event_sample_idx, dtype=torch.long)
+        slot_idx_tensor = torch.tensor(event_slot_idx, dtype=torch.long)
+    else:
+        batch["event_text_x_dict"] = {
+            "x": torch.empty(0, 1, batch["text_x_dict"]["x"].shape[-1]),
+            "length": [],
+            "mask": torch.empty(0, 1, dtype=torch.bool),
+        }
+        sample_idx_tensor = torch.empty(0, dtype=torch.long)
+        slot_idx_tensor = torch.empty(0, dtype=torch.long)
+
+    if device is not None:
+        event_mask = event_mask.to(device)
+        sample_idx_tensor = sample_idx_tensor.to(device)
+        slot_idx_tensor = slot_idx_tensor.to(device)
+
+    batch["event_mask"] = event_mask
+    batch["event_sample_idx"] = sample_idx_tensor
+    batch["event_slot_idx"] = slot_idx_tensor
+    batch["event_texts"] = [x["event_texts"] for x in lst_elements]
+    return batch

@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 from omegaconf import DictConfig
 import logging
 import hydra
@@ -8,12 +9,31 @@ from src.config import read_config
 logger = logging.getLogger(__name__)
 
 
+def _resolve_ckpt_path(run_dir, ckpt_name="last"):
+    default_path = os.path.join(run_dir, f"logs/checkpoints/{ckpt_name}.ckpt")
+    if os.path.exists(default_path):
+        return default_path
+
+    run_dir_path = Path(run_dir)
+    direct_matches = sorted(run_dir_path.glob(f"**/checkpoints/{ckpt_name}.ckpt"))
+    if direct_matches:
+        return str(direct_matches[0])
+
+    versioned_matches = sorted(run_dir_path.glob(f"**/checkpoints/{ckpt_name}-v*.ckpt"))
+    if versioned_matches:
+        return str(versioned_matches[0])
+
+    raise FileNotFoundError(
+        f"Could not find checkpoint '{ckpt_name}.ckpt' under run_dir={run_dir}"
+    )
+
+
 # split the lightning checkpoint into
 # seperate state_dict modules for faster loading
 def extract_ckpt(run_dir, ckpt_name="last"):
     import torch
 
-    ckpt_path = os.path.join(run_dir, f"logs/checkpoints/{ckpt_name}.ckpt")
+    ckpt_path = _resolve_ckpt_path(run_dir, ckpt_name)
 
     extracted_path = os.path.join(run_dir, f"{ckpt_name}_weights")
     os.makedirs(extracted_path, exist_ok=True)
@@ -52,7 +72,7 @@ def load_model_from_cfg(cfg, ckpt_name="last", device="cpu", eval_mode=True):
     # motion_encoder / text_encoder / text_decoder
     pt_path = os.path.join(run_dir, f"{ckpt_name}_weights")
 
-    if not os.path.exists(pt_path):
+    if not os.path.exists(pt_path) or len(os.listdir(pt_path)) == 0:
         logger.info("The extracted model is not found. Split into submodules..")
         extract_ckpt(run_dir, ckpt_name)
 

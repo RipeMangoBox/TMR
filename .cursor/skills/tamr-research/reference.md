@@ -7,6 +7,10 @@ description: Provides formal context for the TAMR (Temporal-Aware Motion-Text Re
 
 TAMR = Temporal-Aware Motion-text Retrieval. The goal is to extend the TMR retrieval backbone with temporal awareness for event ordering, grounding, and temporal constraints.
 
+Live experiment handoff / progress tracking:
+- See `TAMR_PROGRESS.md` in the TMR repo root for the current corrected real-data rerun status and server launch commands.
+- See `STAGE4_1_REALDATA_RUNBOOK.md` in the TMR repo root for the strict serial execution commands and resume procedure.
+
 ## 1. Codebase Layout
 
 ```
