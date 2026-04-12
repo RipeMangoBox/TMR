@@ -88,7 +88,7 @@ def main() -> None:
     parser.add_argument(
         "--output-dir",
         type=Path,
-        default=Path("RUN_DIR/stage4_1_realdata_d0"),
+        default=Path("RUN_DIR/stage4_1_realdata_e50_b128_d0"),
         help="Directory to save JSON/CSV/Markdown outputs.",
     )
     parser.add_argument(

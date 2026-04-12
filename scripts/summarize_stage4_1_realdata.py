@@ -11,14 +11,7 @@ import yaml
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_D0_DIR = REPO_ROOT / "RUN_DIR" / "stage4_1_realdata_d0"
-DEFAULT_D3_DIR = REPO_ROOT / "RUN_DIR" / "stage4_1_realdata_d3"
-STAGE_SPECS = [
-    ("d1", "D1", REPO_ROOT / "RUN_DIR" / "stage4_1_realdata_d1"),
-    ("d1_5", "D1.5", REPO_ROOT / "RUN_DIR" / "stage4_1_realdata_d1_5"),
-    ("d2a", "D2a", REPO_ROOT / "RUN_DIR" / "stage4_1_realdata_d2a"),
-    ("d2b", "D2b", REPO_ROOT / "RUN_DIR" / "stage4_1_realdata_d2b"),
-]
+DEFAULT_RUN_PREFIX = "stage4_1_realdata_e50_b128"
 PROTOCOLS = ["normal", "threshold_0.95", "nsim", "guo"]
 QUICK_METRICS = [
     "t2m/R01",
@@ -40,6 +33,23 @@ TRUSTED_DATA_FILES = [
     "/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E/data_test_condition3.npy",
     "/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E/data_test_condition4.npy",
 ]
+
+
+def build_stage_specs(run_prefix: str) -> List[Tuple[str, str, Path]]:
+    return [
+        ("d1", "D1", REPO_ROOT / "RUN_DIR" / f"{run_prefix}_d1"),
+        ("d1_5", "D1.5", REPO_ROOT / "RUN_DIR" / f"{run_prefix}_d1_5"),
+        ("d2a", "D2a", REPO_ROOT / "RUN_DIR" / f"{run_prefix}_d2a"),
+        ("d2b", "D2b", REPO_ROOT / "RUN_DIR" / f"{run_prefix}_d2b"),
+    ]
+
+
+def default_d0_dir(run_prefix: str) -> Path:
+    return REPO_ROOT / "RUN_DIR" / f"{run_prefix}_d0"
+
+
+def default_d3_dir(run_prefix: str) -> Path:
+    return REPO_ROOT / "RUN_DIR" / f"{run_prefix}_d3"
 
 
 def find_latest_file(directory: Path, pattern: str) -> Optional[Path]:
@@ -316,6 +326,11 @@ def parse_args() -> argparse.Namespace:
         description="Generate corrected real-data Stage4.1 per-stage reports and D3 closure summary."
     )
     parser.add_argument(
+        "--run-prefix",
+        default=DEFAULT_RUN_PREFIX,
+        help="RunDir prefix, e.g. stage4_1_realdata or stage4_1_realdata_e50_b128.",
+    )
+    parser.add_argument(
         "--report-date",
         default=str(date.today()),
         help="Date string used in output file names.",
@@ -323,13 +338,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--d0-dir",
         type=Path,
-        default=DEFAULT_D0_DIR,
+        default=None,
         help="Directory containing corrected D0 outputs.",
     )
     parser.add_argument(
         "--output-dir",
         type=Path,
-        default=DEFAULT_D3_DIR,
+        default=None,
         help="Directory to save the D3 closure summary.",
     )
     return parser.parse_args()
@@ -338,12 +353,16 @@ def parse_args() -> argparse.Namespace:
 def main() -> None:
     args = parse_args()
 
-    d0_json_path = find_latest_file(args.d0_dir, "*_d0_realdata_event_stats.json")
+    d0_dir = args.d0_dir or default_d0_dir(args.run_prefix)
+    output_dir = args.output_dir or default_d3_dir(args.run_prefix)
+    stage_specs = build_stage_specs(args.run_prefix)
+
+    d0_json_path = find_latest_file(d0_dir, "*_d0_realdata_event_stats.json")
     d0_json = load_json(d0_json_path) if d0_json_path else None
 
     records = [
         stage_summary_record(stage_key, stage_label, run_dir)
-        for stage_key, stage_label, run_dir in STAGE_SPECS
+        for stage_key, stage_label, run_dir in stage_specs
     ]
 
     for record in records:
@@ -352,7 +371,7 @@ def main() -> None:
     json_path, md_path = build_d3_summary(
         records=records,
         d0_json=d0_json,
-        output_dir=args.output_dir,
+        output_dir=output_dir,
         report_date=args.report_date,
     )
 

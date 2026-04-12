@@ -4,25 +4,23 @@ set -euo pipefail
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "${REPO_DIR}"
 
-RUN_DIR_OVERRIDE="${RUN_DIR_OVERRIDE:-RUN_DIR/stage4_1_realdata_d2a}"
-WARM_START_WEIGHTS_DIR_OVERRIDE="${WARM_START_WEIGHTS_DIR_OVERRIDE:-RUN_DIR/stage4_1_realdata_d1/last_weights}"
-if [[ -n "${CONDA_EXE:-}" ]]; then
+RUN_DIR_OVERRIDE="${RUN_DIR_OVERRIDE:-RUN_DIR/stage4_1_realdata_e50_b128_d2a}"
+WARM_START_WEIGHTS_DIR_OVERRIDE="${WARM_START_WEIGHTS_DIR_OVERRIDE:-RUN_DIR/stage4_1_realdata_e50_b128_d1/last_weights}"
+
+if [[ -n "${CONDA_EXE:-}" && -x "${CONDA_EXE}" ]]; then
   CONDA_BIN="${CONDA_EXE}"
 elif command -v conda >/dev/null 2>&1; then
   CONDA_BIN="$(command -v conda)"
-else
+elif [[ -x "${HOME}/miniconda3/bin/conda" ]]; then
   CONDA_BIN="${HOME}/miniconda3/bin/conda"
-fi
-
-if ! "${CONDA_BIN}" --version >/dev/null 2>&1; then
-  echo "[D2a realdata] ERROR: unable to resolve conda executable (${CONDA_BIN})" >&2
+else
+  echo "[D2a realdata] ERROR: conda executable not found" >&2
   exit 1
 fi
 
 echo "[D2a realdata] repo: ${REPO_DIR}"
 echo "[D2a realdata] run_dir: ${RUN_DIR_OVERRIDE}"
 echo "[D2a realdata] warm_start: ${WARM_START_WEIGHTS_DIR_OVERRIDE}"
-echo "[D2a realdata] conda: ${CONDA_BIN}"
 
 "${CONDA_BIN}" run --live-stream -n TMR python train.py \
   model=tmr_d2a \

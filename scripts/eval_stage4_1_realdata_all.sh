@@ -8,7 +8,15 @@ RUN_RETRIEVAL=1
 FORCE_RETRIEVAL="${FORCE_RETRIEVAL:-0}"
 RETRIEVAL_BATCH_SIZE="${RETRIEVAL_BATCH_SIZE:-256}"
 REPORT_DATE="${REPORT_DATE:-$(date +%F)}"
+RUN_PREFIX="${RUN_PREFIX:-stage4_1_realdata_e50_b128}"
 DRY_RUN="${DRY_RUN:-0}"
+
+D0_RUN_DIR="RUN_DIR/${RUN_PREFIX}_d0"
+D1_RUN_DIR="RUN_DIR/${RUN_PREFIX}_d1"
+D1_5_RUN_DIR="RUN_DIR/${RUN_PREFIX}_d1_5"
+D2A_RUN_DIR="RUN_DIR/${RUN_PREFIX}_d2a"
+D2B_RUN_DIR="RUN_DIR/${RUN_PREFIX}_d2b"
+D3_RUN_DIR="RUN_DIR/${RUN_PREFIX}_d3"
 
 usage() {
   cat <<'EOF'
@@ -20,6 +28,7 @@ Options:
   --force-retrieval
   --retrieval-batch-size <int>
   --report-date <YYYY-MM-DD>
+  --run-prefix <prefix>
   --dry-run
   -h, --help
 
@@ -45,6 +54,16 @@ while [[ $# -gt 0 ]]; do
       ;;
     --report-date)
       REPORT_DATE="$2"
+      shift 2
+      ;;
+    --run-prefix)
+      RUN_PREFIX="$2"
+      D0_RUN_DIR="RUN_DIR/${RUN_PREFIX}_d0"
+      D1_RUN_DIR="RUN_DIR/${RUN_PREFIX}_d1"
+      D1_5_RUN_DIR="RUN_DIR/${RUN_PREFIX}_d1_5"
+      D2A_RUN_DIR="RUN_DIR/${RUN_PREFIX}_d2a"
+      D2B_RUN_DIR="RUN_DIR/${RUN_PREFIX}_d2b"
+      D3_RUN_DIR="RUN_DIR/${RUN_PREFIX}_d3"
       shift 2
       ;;
     --dry-run)
@@ -103,14 +122,16 @@ eval_one() {
 }
 
 for run_dir in \
-  RUN_DIR/stage4_1_realdata_d1 \
-  RUN_DIR/stage4_1_realdata_d1_5 \
-  RUN_DIR/stage4_1_realdata_d2a \
-  RUN_DIR/stage4_1_realdata_d2b
+  "${D1_RUN_DIR}" \
+  "${D1_5_RUN_DIR}" \
+  "${D2A_RUN_DIR}" \
+  "${D2B_RUN_DIR}"
 do
   eval_one "${run_dir}"
 done
 
 run_cmd conda run -n TMR python scripts/summarize_stage4_1_realdata.py \
-  --report-date "${REPORT_DATE}"
-
+  --report-date "${REPORT_DATE}" \
+  --run-prefix "${RUN_PREFIX}" \
+  --d0-dir "${D0_RUN_DIR}" \
+  --output-dir "${D3_RUN_DIR}"

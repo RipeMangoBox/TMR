@@ -22,7 +22,7 @@ threshold_selfsim_metrics: 0.95
 event_align_tau: 0.1
 
 # Keep D2a's minimal-head recipe and only expand the motion unfreeze scope.
-warm_start_weights_dir: RUN_DIR/stage4_1_d1/last_weights
+warm_start_weights_dir: RUN_DIR/stage4_1_realdata_e50_b128_d1/last_weights
 warm_start_ckpt: null
 warm_start_event_head: true
 

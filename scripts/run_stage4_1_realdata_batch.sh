@@ -10,10 +10,11 @@ cd "${REPO_DIR}"
 START_STAGE="${START_STAGE:-d0}"
 END_STAGE="${END_STAGE:-d3}"
 REPORT_DATE="${REPORT_DATE:-$(date +%F)}"
-TRAIN_EPOCHS="${TRAIN_EPOCHS:-2}"
-BATCH_SIZE="${BATCH_SIZE:-64}"
+TRAIN_EPOCHS="${TRAIN_EPOCHS:-50}"
+BATCH_SIZE="${BATCH_SIZE:-128}"
 NUM_WORKERS="${NUM_WORKERS:-8}"
 RETRIEVAL_BATCH_SIZE="${RETRIEVAL_BATCH_SIZE:-256}"
+RUN_PREFIX="${RUN_PREFIX:-stage4_1_realdata_e50_b128}"
 RUN_RETRIEVAL="${RUN_RETRIEVAL:-1}"
 RUN_SUMMARY="${RUN_SUMMARY:-1}"
 FORCE_RETRIEVAL="${FORCE_RETRIEVAL:-0}"
@@ -34,6 +35,7 @@ Options:
   --batch-size <int>
   --num-workers <int>
   --retrieval-batch-size <int>
+  --run-prefix <prefix>
   --skip-retrieval
   --skip-summary
   --force-retrieval
@@ -42,10 +44,11 @@ Options:
 
 Environment overrides are also supported:
   START_STAGE, END_STAGE, REPORT_DATE, TRAIN_EPOCHS, BATCH_SIZE, NUM_WORKERS,
-  RETRIEVAL_BATCH_SIZE, RUN_RETRIEVAL, RUN_SUMMARY, FORCE_RETRIEVAL, DRY_RUN
+  RETRIEVAL_BATCH_SIZE, RUN_PREFIX, RUN_RETRIEVAL, RUN_SUMMARY, FORCE_RETRIEVAL, DRY_RUN
 
 Examples:
   bash scripts/run_stage4_1_realdata_batch.sh --report-date 2026-04-11
+  bash scripts/run_stage4_1_realdata_batch.sh --run-prefix stage4_1_realdata_e50_b128
   bash scripts/run_stage4_1_realdata_batch.sh --start-stage d1 --end-stage d2b --epochs 3
   bash scripts/run_stage4_1_realdata_batch.sh --dry-run trainer.accelerator=gpu
 EOF
@@ -81,6 +84,10 @@ while [[ $# -gt 0 ]]; do
       RETRIEVAL_BATCH_SIZE="$2"
       shift 2
       ;;
+    --run-prefix)
+      RUN_PREFIX="$2"
+      shift 2
+      ;;
     --skip-retrieval)
       RUN_RETRIEVAL=0
       shift
@@ -109,6 +116,14 @@ while [[ $# -gt 0 ]]; do
 done
 
 STAGE_ORDER=(d0 d1 d1_5 d2a d2b d3)
+
+D0_RUN_DIR="RUN_DIR/${RUN_PREFIX}_d0"
+D1_RUN_DIR="RUN_DIR/${RUN_PREFIX}_d1"
+D1_5_RUN_DIR="RUN_DIR/${RUN_PREFIX}_d1_5"
+D2A_RUN_DIR="RUN_DIR/${RUN_PREFIX}_d2a"
+D2B_RUN_DIR="RUN_DIR/${RUN_PREFIX}_d2b"
+D3_RUN_DIR="RUN_DIR/${RUN_PREFIX}_d3"
+D1_LAST_WEIGHTS_DIR="${D1_RUN_DIR}/last_weights"
 
 stage_index() {
   local needle="$1"
@@ -151,28 +166,36 @@ stage_banner() {
 
 run_d0() {
   run_cmd conda run -n TMR python scripts/d0_humanml3de_event_stats.py \
-    --report-date "${REPORT_DATE}"
+    --report-date "${REPORT_DATE}" \
+    --output-dir "${D0_RUN_DIR}"
 }
 
 run_train_stage() {
   local stage_label="$1"
   local script_path="$2"
-  run_cmd bash "${script_path}" \
+  local run_dir="$3"
+  local warm_start_dir="${4:-}"
+  local -a cmd=(env "RUN_DIR_OVERRIDE=${run_dir}")
+  if [[ -n "${warm_start_dir}" ]]; then
+    cmd+=("WARM_START_WEIGHTS_DIR_OVERRIDE=${warm_start_dir}")
+  fi
+  cmd+=(bash "${script_path}" \
     trainer.max_epochs="${TRAIN_EPOCHS}" \
     dataloader.batch_size="${BATCH_SIZE}" \
     dataloader.num_workers="${NUM_WORKERS}" \
-    "${TRAIN_EXTRA_ARGS[@]}"
+    "${TRAIN_EXTRA_ARGS[@]}")
+  run_cmd "${cmd[@]}"
 }
 
 extract_d1_weights() {
-  if [[ -d "RUN_DIR/stage4_1_realdata_d1/last_weights" && -n "$(find RUN_DIR/stage4_1_realdata_d1/last_weights -maxdepth 1 -type f -name '*.pt' -print -quit)" ]]; then
+  if [[ -d "${D1_LAST_WEIGHTS_DIR}" && -n "$(find "${D1_LAST_WEIGHTS_DIR}" -maxdepth 1 -type f -name '*.pt' -print -quit)" ]]; then
     echo
     echo "[batch] D1 last_weights already exist, skip extraction."
     return 0
   fi
-  run_cmd conda run -n TMR python - <<'PY'
+  run_cmd conda run -n TMR python - <<PY
 from src.load import extract_ckpt
-extract_ckpt("RUN_DIR/stage4_1_realdata_d1")
+extract_ckpt("${D1_RUN_DIR}")
 PY
 }
 
@@ -207,12 +230,14 @@ run_retrieval_stage() {
 run_summary() {
   run_cmd bash scripts/eval_stage4_1_realdata_all.sh \
     --skip-retrieval \
-    --report-date "${REPORT_DATE}"
+    --report-date "${REPORT_DATE}" \
+    --run-prefix "${RUN_PREFIX}"
 }
 
 echo "[batch] repo=${REPO_DIR}"
 echo "[batch] start_stage=${START_STAGE} end_stage=${END_STAGE}"
 echo "[batch] report_date=${REPORT_DATE}"
+echo "[batch] run_prefix=${RUN_PREFIX}"
 echo "[batch] epochs=${TRAIN_EPOCHS} batch_size=${BATCH_SIZE} num_workers=${NUM_WORKERS}"
 echo "[batch] retrieval_batch_size=${RETRIEVAL_BATCH_SIZE}"
 echo "[batch] run_retrieval=${RUN_RETRIEVAL} run_summary=${RUN_SUMMARY} force_retrieval=${FORCE_RETRIEVAL} dry_run=${DRY_RUN}"
@@ -227,36 +252,36 @@ fi
 
 if should_run_stage d1; then
   stage_banner "D1"
-  run_train_stage "D1" "scripts/run_stage4_1_realdata_d1.sh"
+  run_train_stage "D1" "scripts/run_stage4_1_realdata_d1.sh" "${D1_RUN_DIR}"
   extract_d1_weights
   if [[ "${RUN_RETRIEVAL}" == "1" ]]; then
-    run_retrieval_stage "RUN_DIR/stage4_1_realdata_d1"
+    run_retrieval_stage "${D1_RUN_DIR}"
   fi
 fi
 
 if should_run_stage d1_5; then
   stage_banner "D1.5"
-  run_train_stage "D1.5" "scripts/run_stage4_1_realdata_d1_5.sh"
+  run_train_stage "D1.5" "scripts/run_stage4_1_realdata_d1_5.sh" "${D1_5_RUN_DIR}"
   if [[ "${RUN_RETRIEVAL}" == "1" ]]; then
-    run_retrieval_stage "RUN_DIR/stage4_1_realdata_d1_5"
+    run_retrieval_stage "${D1_5_RUN_DIR}"
   fi
 fi
 
 if should_run_stage d2a; then
   stage_banner "D2a"
   extract_d1_weights
-  run_train_stage "D2a" "scripts/run_stage4_1_realdata_d2a.sh"
+  run_train_stage "D2a" "scripts/run_stage4_1_realdata_d2a.sh" "${D2A_RUN_DIR}" "${D1_LAST_WEIGHTS_DIR}"
   if [[ "${RUN_RETRIEVAL}" == "1" ]]; then
-    run_retrieval_stage "RUN_DIR/stage4_1_realdata_d2a"
+    run_retrieval_stage "${D2A_RUN_DIR}"
   fi
 fi
 
 if should_run_stage d2b; then
   stage_banner "D2b"
   extract_d1_weights
-  run_train_stage "D2b" "scripts/run_stage4_1_realdata_d2b.sh"
+  run_train_stage "D2b" "scripts/run_stage4_1_realdata_d2b.sh" "${D2B_RUN_DIR}" "${D1_LAST_WEIGHTS_DIR}"
   if [[ "${RUN_RETRIEVAL}" == "1" ]]; then
-    run_retrieval_stage "RUN_DIR/stage4_1_realdata_d2b"
+    run_retrieval_stage "${D2B_RUN_DIR}"
   fi
 fi
 

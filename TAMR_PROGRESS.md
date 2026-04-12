@@ -1,250 +1,97 @@
 # TAMR Progress
 
-## 2026-04-11 Corrected HumanML3D-E Real-Data Rerun Handoff
+This file now keeps only the current effective Stage4.1 state. Older
+in-progress notes were removed after the corrected real-data rerun fully
+completed and the invalid artifact families were deleted.
 
-This section supersedes the earlier Stage4.1 D0-D3 chain that was run against the wrong HumanML3D-E source.
+## 2026-04-12 Current Canonical State
 
-Direct serial execution runbook:
-- `STAGE4_1_REALDATA_RUNBOOK.md`
+### Final Outcome
 
-### Status Table
-
-| Workstream | Status | Evidence / Output | Next Action |
+| Workstream | Status | Evidence / Output | Current Meaning |
 |---|---|---|---|
-| Canonical HumanML3D-E data landing | Done | `/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E` now contains the six trusted `.npy` files | Keep this directory as the only canonical HumanML3D-E source for this rerun |
-| EventT2M symlink wiring | Done | `EventT2M-codes-main/dataset/HumanML3D-E -> /home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E` | Do not overwrite `EventT2M-codes-main/dataset/HumanML3D` |
-| TMR data path fix | Done | `configs/data/humanml3d_e.yaml` now points explicitly to `/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E` | Keep all corrected reruns on this canonical path |
-| HumanML3D-E loader fix | Done | `src/data/humanml3de_event.py` now reads canonical `text[].decomposed[].caption` first and uses official `nsim_test.txt` overlap when available | Use this loader for all corrected reruns |
-| D0 corrected data audit | Done | `RUN_DIR/stage4_1_realdata_d0/2026-04-11_d0_realdata_report.md` | Use this D0 as the new data-gate reference; it does not depend on training completion |
-| D1 throughput profiling on local 3090 | Done | `RUN_DIR/stage4_1_realdata_d1_attempt_ep10_workers4/` and `RUN_DIR/stage4_1_realdata_d1_attempt_ep2_workers4_bs32/`; TensorBoard probe showed `train_loss_step` reached only step 159/767 in epoch 0 after several minutes with `batch_size=32` | Move full experiments to server; do not keep local `batch_size=32` as the main schedule |
-| Local corrected real-data GPU fit probe | Done | `RUN_DIR/stage4_1_realdata_d{1,1_5,2a,2b}_local_probe/` all completed `max_epochs=1`, `limit_train_batches=20`, `limit_val_batches=1`, `batch_size=64`, `num_workers=4` on local RTX 3090 without OOM | Keep `batch_size=64` as a valid launch point; still prefer server for full epochs because local full epoch is estimated at roughly 26-28 minutes |
-| D1 corrected full rerun | Pending server | New run dir reserved: `RUN_DIR/stage4_1_realdata_d1` | Launch on server |
-| D1.5 corrected full rerun | Pending server | New run dir reserved: `RUN_DIR/stage4_1_realdata_d1_5` | Launch on server after D1 |
-| D2a corrected full rerun | Pending server | New run dir reserved: `RUN_DIR/stage4_1_realdata_d2a` | Launch after extracting D1 `last_weights` |
-| D2b corrected full rerun | Pending server | New run dir reserved: `RUN_DIR/stage4_1_realdata_d2b` | Launch after extracting D1 `last_weights` |
-| D3 Stage4.1 closure summary | Pending server | Not started | Write after D1/D1.5/D2a/D2b retrieval metrics are ready |
+| Corrected real-data formal rerun | Done | `RUN_DIR/stage4_1_realdata_e50_b128_d0` ... `RUN_DIR/stage4_1_realdata_e50_b128_d3` | This is the only retained formal Stage4.1 family |
+| Corrected local eval + D3 closure | Done | `RUN_DIR/stage4_1_realdata_e50_b128_d3/2026-04-12_d3_stage4_1_closure_summary.md` | Winner remains `D2b`; recommendation is `Go Phase 2 with D2b` |
+| Unified explanation and registry | Done | `STAGE4_1_REALDATA_UNIFIED_SUMMARY.md`, `STAGE4_1_REALDATA_RUNBOOK.md`, `STAGE4_1_REALDATA_RUNDIRS.md` | Use these as the only maintained Stage4.1 docs |
+| Cleanup of invalid artifacts | Done | wrong-data, smoke, probe, profiling, and legacy unversioned corrected run_dirs removed | Do not recreate deleted families unless explicitly doing forensics |
+| Phase2 P2a server handoff | Ready | `PHASE2_REALDATA_RUNBOOK.md`, `PHASE2_REALDATA_RUNDIRS.md`, `PHASE2_REALDATA_5090_TMUX.md`, `scripts/run_phase2_realdata_5090_p2a.sh` | Local temporary Phase2-generated artifacts were deleted; the next step is to launch `P2a` on server |
 
-### Completed Facts
+### Retained Artifacts
 
-- Canonical HumanML3D-E directory:
+- `RUN_DIR/stage4_1_realdata_e50_b128_d0`
+- `RUN_DIR/stage4_1_realdata_e50_b128_d1`
+- `RUN_DIR/stage4_1_realdata_e50_b128_d1_5`
+- `RUN_DIR/stage4_1_realdata_e50_b128_d2a`
+- `RUN_DIR/stage4_1_realdata_e50_b128_d2b`
+- `RUN_DIR/stage4_1_realdata_e50_b128_d3`
+- `models/tmr_humanml3d_guoh3dfeats`
+- `RUN_DIR/phase2_realdata_e50_b128_p2a`
+
+### Corrected Data Facts
+
+- Canonical dataset root:
   - `/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E`
-- EventT2M read path:
-  - `/home/ripemangobox/Coding/Github/Motion/EventT2M-codes-main/dataset/HumanML3D-E`
-- TMR explicit read path:
-  - `/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E`
-- Existing `EventT2M-codes-main/dataset/HumanML3D` was intentionally left untouched because it still points at the full HumanML3D tree.
-
-### Corrected Real-Data D0 Summary
-
-- D0 scope:
-  - data audit / launch gate only
-- Training dependency:
-  - none; D0 statistics are computed directly from the six trusted `.npy` files
-
-- Split entries:
-  - `train=24546`
-  - `val=1530`
-  - `test=4646`
-- Total captions across train/val/test:
-  - `83347`
-- Motion-level text count distribution:
-  - `1 -> 2952`
-  - `2 -> 2941`
-  - `3 -> 24803`
-  - `4 -> 26`
-- Caption structure:
-  - plain natural-language caption: `83347`
-  - `action i:` marker caption: `0`
+- EventT2M compatibility symlink:
+  - `/home/ripemangobox/Coding/Github/Motion/EventT2M-codes-main/dataset/HumanML3D-E -> /home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E`
+- Trusted files:
+  - `data_train.npy`
+  - `data_val.npy`
+  - `data_test.npy`
+  - `data_test_condition2.npy`
+  - `data_test_condition3.npy`
+  - `data_test_condition4.npy`
+- Corrected D0 gate:
+  - `DATA-GATE GO`
+- Split / structure summary:
+  - entries: `train=24546`, `val=1530`, `test=4646`
+  - captions: `83347`
   - canonical `decomposed` coverage: `100%`
-- Event count distribution:
-  - `K=1 -> 42261 (50.70%)`
-  - `K>=2 -> 41086 (49.30%)`
-- Overlap cue ratio:
-  - `1.81%`
-- Gate result:
-  - `DATA-GATE GO: corrected real data support launching D1 frozen minimal event-time head`
+  - `nsim_test` overlap: `97/100`
 
-### nsim_test Note
+### Corrected Stage Comparison
 
-- TMR official split file exists:
-  - `/home/ripemangobox/Coding/Github/Motion/TMR/datasets/annotations/humanml3d/splits/nsim_test.txt`
-- Official split size:
-  - `100`
-- Overlap with corrected real `data_test.npy`:
-  - `97`
-- Missing keyids:
-  - `001052`
-  - `008340`
-  - `M010392`
+| Stage | PrimaryScore | normal t2m/R01 | normal m2t/R01 | nsim t2m/R01 | nsim m2t/R01 | normal t2m/R05 | normal m2t/R05 | nsim t2m/R05 | nsim m2t/R05 |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| D1 | 9.78 | 0.73 | 0.34 | 11.34 | 8.25 | 2.91 | 1.05 | 34.02 | 19.59 |
+| D1.5 | 9.78 | 0.73 | 0.34 | 11.34 | 8.25 | 2.91 | 1.05 | 34.02 | 19.59 |
+| D2a | 32.44 | 3.25 | 3.96 | 39.18 | 40.21 | 13.07 | 13.43 | 75.26 | 71.13 |
+| D2b | 37.17 | 4.39 | 6.50 | 48.45 | 45.36 | 16.23 | 17.67 | 79.38 | 79.38 |
 
-### Local RTX 3090 Probe
+### Interpretation
 
-- Probe device:
-  - `NVIDIA GeForce RTX 3090 24GB`
-- Probe setting:
-  - `batch_size=64`
-  - `num_workers=4`
-  - `max_epochs=1`
-  - `limit_train_batches=20`
-  - `limit_val_batches=1`
-- Completed without OOM:
-  - `D1`
-  - `D1.5`
-  - `D2a`
-  - `D2b`
-- Observed probe durations:
-  - `D1: about 87s for 20 train batches`
-  - `D1.5: about 81s for 20 train batches`
-  - `D2a: about 84s for 20 train batches`
-  - `D2b: about 84s for 20 train batches`
-- Estimated full train epoch at `batch_size=64` on this local 3090:
-  - roughly `26-28 minutes/epoch` before full validation overhead
-- Conclusion:
-  - current `batch_size=64` does not need to be reduced for memory on this machine
-  - local machine is acceptable for short probes
-  - server remains the right place for the corrected formal D1-D3 rerun
+- D1 is the Stage4.1 internal baseline on corrected real data.
+- D1.5 is the pooling control and ties D1 under the corrected rerun.
+- D2a is the first strong gain and shows partial motion unfreezing matters.
+- D2b is the strongest corrected result and remains the formal winner.
 
-### Server Run Order
+### Phase2 Follow-Up
 
-1. D1
-2. Extract D1 `last_weights`
-3. D1 retrieval
-4. D1.5
-5. D1.5 retrieval
-6. D2a
-7. D2a retrieval
-8. D2b
-9. D2b retrieval
-10. D3 closure summary
+- Current Phase2 family prefix:
+  - `phase2_realdata_e50_b128`
+- Current approved first experiment:
+  - `P2a = D2b warm-start + full text encoder unfreeze`
+- Warm-start source:
+  - `RUN_DIR/stage4_1_realdata_e50_b128_d2b/last_weights`
+- Gate rule:
+  - compare new Phase2 runs back to corrected `D2b` using `normal + nsim`
+- Current local state:
+  - local temporary Phase2-generated artifacts were deleted on `2026-04-12`
+  - server rerun is still pending
 
-### Recommended Server Commands
+### Read First In Future Sessions
 
-Start from:
+- `STAGE4_1_REALDATA_UNIFIED_SUMMARY.md`
+- `STAGE4_1_REALDATA_RUNBOOK.md`
+- `STAGE4_1_REALDATA_RUNDIRS.md`
+- `STAGE4_1_NEXT_SESSION_PROMPT.md`
+- `RUN_DIR/stage4_1_realdata_e50_b128_d3/2026-04-12_d3_stage4_1_closure_summary.md`
+- `PHASE2_REALDATA_RUNBOOK.md`
+- `PHASE2_REALDATA_RUNDIRS.md`
+- `PHASE2_REALDATA_5090_TMUX.md`
 
-```bash
-cd /home/ripemangobox/Coding/Github/Motion/TMR
-```
+### Working Rules Going Forward
 
-One-command batch entry for the corrected chain:
-
-```bash
-bash scripts/run_stage4_1_realdata_batch.sh \
-  --start-stage d0 \
-  --end-stage d3 \
-  --report-date 2026-04-11 \
-  --epochs 2 \
-  --batch-size 64 \
-  --num-workers 8
-```
-
-Unified eval + summary entry after checkpoints are ready:
-
-```bash
-bash scripts/eval_stage4_1_realdata_all.sh \
-  --retrieval-batch-size 256 \
-  --report-date 2026-04-11
-```
-
-Run corrected D0 again if needed:
-
-```bash
-conda run -n TMR python scripts/d0_humanml3de_event_stats.py
-```
-
-Recommended launch baseline for the corrected full-data rerun:
-
-- start with `dataloader.batch_size=64`
-- use `dataloader.num_workers=8` on server
-- keep `trainer.max_epochs=2` for the first corrected comparison pass
-- if server throughput is strong and wall-clock budget allows, extend to `3-5` epochs after the first pass
-
-D1:
-
-```bash
-bash scripts/run_stage4_1_realdata_d1.sh \
-  trainer.max_epochs=2 \
-  dataloader.batch_size=64 \
-  dataloader.num_workers=8
-```
-
-Extract D1 weights for D2a / D2b warm-start:
-
-```bash
-conda run -n TMR python - <<'PY'
-from src.load import extract_ckpt
-extract_ckpt("RUN_DIR/stage4_1_realdata_d1")
-PY
-```
-
-D1 retrieval:
-
-```bash
-conda run -n TMR python retrieval.py \
-  run_dir=RUN_DIR/stage4_1_realdata_d1 \
-  protocol=all \
-  batch_size=256
-```
-
-D1.5:
-
-```bash
-bash scripts/run_stage4_1_realdata_d1_5.sh \
-  trainer.max_epochs=2 \
-  dataloader.batch_size=64 \
-  dataloader.num_workers=8
-```
-
-D1.5 retrieval:
-
-```bash
-conda run -n TMR python retrieval.py \
-  run_dir=RUN_DIR/stage4_1_realdata_d1_5 \
-  protocol=all \
-  batch_size=256
-```
-
-D2a:
-
-```bash
-bash scripts/run_stage4_1_realdata_d2a.sh \
-  trainer.max_epochs=2 \
-  dataloader.batch_size=64 \
-  dataloader.num_workers=8
-```
-
-D2a retrieval:
-
-```bash
-conda run -n TMR python retrieval.py \
-  run_dir=RUN_DIR/stage4_1_realdata_d2a \
-  protocol=all \
-  batch_size=256
-```
-
-D2b:
-
-```bash
-bash scripts/run_stage4_1_realdata_d2b.sh \
-  trainer.max_epochs=2 \
-  dataloader.batch_size=64 \
-  dataloader.num_workers=8
-```
-
-D2b retrieval:
-
-```bash
-conda run -n TMR python retrieval.py \
-  run_dir=RUN_DIR/stage4_1_realdata_d2b \
-  protocol=all \
-  batch_size=256
-```
-
-### Do Not Reuse
-
-- `RUN_DIR/stage4_1_d0_humanml3de`
-- `RUN_DIR/stage4_1_d1`
-- `RUN_DIR/stage4_1_d1_5`
-- `RUN_DIR/stage4_1_d2a`
-- `RUN_DIR/stage4_1_d2b`
-
-These earlier Stage4.1 outputs were produced from the wrong HumanML3D-E source and are no longer valid for decision-making.
+- Do not overwrite the retained `stage4_1_realdata_e50_b128_*` family.
+- New experiments must use a new explicit `run_prefix`.
+- Continue using retrieval-first gating on `normal + nsim`.
+- Do not resurrect deleted wrong-data or probe families into active docs.

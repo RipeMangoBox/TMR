@@ -2,7 +2,7 @@ defaults:
   - temos
   - _self_
 
-_target_: src.model.tmr_d2a.TMRD2aLastTwoMotionBlocks
+_target_: src.model.tmr_p2a.TMRP2aFullMotionTextEncoder
 
 # HumanML3D-E guoh3dfeats dimensionality
 motion_encoder:
@@ -21,12 +21,11 @@ threshold_selfsim: 0.80
 threshold_selfsim_metrics: 0.95
 event_align_tau: 0.1
 
-# Continue from D1 so D2a isolates the effect of partial motion unfreezing.
-warm_start_weights_dir: RUN_DIR/stage4_1_realdata_e50_b128_d1/last_weights
+# Phase 2 starts from the corrected Stage4.1 winner D2b.
+warm_start_weights_dir: RUN_DIR/stage4_1_realdata_e50_b128_d2b/last_weights
 warm_start_ckpt: null
 warm_start_event_head: true
 
-unfreeze_motion_last_n_blocks: 2
 freeze_motion_backbone: false
-freeze_text_encoder: true
+freeze_text_encoder: false
 freeze_motion_decoder: true
