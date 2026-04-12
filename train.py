@@ -7,7 +7,10 @@ from src.config import read_config, save_config
 logger = logging.getLogger(__name__)
 
 import os
-os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+
+# Respect externally assigned GPU affinity. Only fall back to GPU 0 when the
+# launcher did not provide an explicit CUDA visibility mask.
+os.environ.setdefault("CUDA_VISIBLE_DEVICES", "0")
 
 @hydra.main(config_path="configs", config_name="train", version_base="1.3")
 def train(cfg: DictConfig):
