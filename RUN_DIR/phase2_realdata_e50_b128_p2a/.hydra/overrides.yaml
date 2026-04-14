@@ -1,0 +1,3 @@
+- run_dir=RUN_DIR/phase2_realdata_e50_b128_p2a
+- protocol=all
+- batch_size=256

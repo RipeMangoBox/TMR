@@ -1,0 +1,8 @@
+run_dir: RUN_DIR/phase2_realdata_e50_b128_p2a
+seed: 1234
+logger_level: INFO
+device: cuda
+protocol: all
+threshold: 0.95
+ckpt: last
+batch_size: 256

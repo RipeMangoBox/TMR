@@ -1,0 +1,8 @@
+run_dir: models/tmr_humanml3d_guoh3dfeats
+seed: 1234
+logger_level: INFO
+device: cuda
+protocol: all
+threshold: 0.95
+ckpt: last
+batch_size: 256

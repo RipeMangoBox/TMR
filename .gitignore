@@ -176,3 +176,12 @@ outputs/mdr_finedance_guoh3dfeats_fd
 *.checkpoints
 *.ckpt
 !stats
+# External repos cloned into workspace
+/MotionPatches-main/
+/Qwen3-VL-main/
+/kimodo/
+
+# Large run artifacts (keep reports, exclude weights)
+/RUN_DIR/*/last_weights/
+/RUN_DIR/*/logs/
+/RUN_DIR/*/*.pt

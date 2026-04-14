@@ -1,7 +1,12 @@
 # Stage4.1 Corrected Real-Data Unified Summary
 
-This file is the current Stage4.1 source of truth after the corrected
-HumanML3D-E rerun, local eval, and cleanup pass.
+This file is the current source of truth after the corrected HumanML3D-E rerun,
+cleanup pass, D3 closure, and the first retained post-D3 follow-up experiment
+(`P2a`).
+
+After the `P2a` eval finished, the standalone Phase2 markdown trackers were
+consolidated here so that the main conclusions no longer live in scattered
+notes.
 
 ## Retained Artifacts
 
@@ -9,18 +14,20 @@ HumanML3D-E rerun, local eval, and cleanup pass.
   - `/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E`
 - Warm-start reference model:
   - `models/tmr_humanml3d_guoh3dfeats`
-- Final formal corrected family:
+- Final formal corrected Stage4.1 family:
   - `RUN_DIR/stage4_1_realdata_e50_b128_d0`
   - `RUN_DIR/stage4_1_realdata_e50_b128_d1`
   - `RUN_DIR/stage4_1_realdata_e50_b128_d1_5`
   - `RUN_DIR/stage4_1_realdata_e50_b128_d2a`
   - `RUN_DIR/stage4_1_realdata_e50_b128_d2b`
   - `RUN_DIR/stage4_1_realdata_e50_b128_d3`
+- First retained post-D3 follow-up run:
+  - `RUN_DIR/phase2_realdata_e50_b128_p2a`
 
 ## Cleanup Result
 
 The following categories were deleted because they were invalid, partial, or
-fully superseded by the final corrected family:
+fully superseded by the final corrected family and the consolidated summary:
 
 - wrong-data Stage4.1 run_dirs
 - smoke run_dirs
@@ -28,6 +35,7 @@ fully superseded by the final corrected family:
 - throughput attempt run_dirs
 - batch-size sweep run_dirs and their sidecar logs
 - old unversioned corrected run_dirs from the intermediate rerun pass
+- standalone Phase2 markdown trackers after `P2a` consolidation
 - superseded helper scripts:
   - `scripts/run_stage4_1_d1.sh`
   - `scripts/run_stage4_1_d1_5.sh`
@@ -49,8 +57,8 @@ There are two different notions of "baseline" in this project:
    - role in Stage4.1: provides the pretrained motion/text backbone weights that
      D1 loads before adding the minimal event head
    - important limitation: its retrieval metrics are not directly comparable to
-     the corrected Stage4.1 event runs because it was trained/evaluated under
-     the regular text-motion dataset path, not `HumanML3DEventDataset`
+     the corrected Stage4.1 event runs because it was trained and evaluated
+     under the regular text-motion dataset path, not `HumanML3DEventDataset`
 
 2. Stage4.1 internal comparison baseline:
    - D1 is the first fair Stage4.1 comparison point on corrected HumanML3D-E
@@ -74,7 +82,7 @@ Warm-start reference retrieval metrics, for context only:
 | D2a | training stage | D1 `last_weights` | event head + last 2 motion encoder transformer blocks | text encoder, motion decoder, all earlier motion blocks | keep D1 recipe, only partially unfreeze motion encoder; nested tensor fast-path stays disabled | test whether limited motion adaptation improves corrected retrieval over frozen D1 |
 | D2b | training stage | D1 `last_weights` | event head + full motion encoder | text encoder, motion decoder | keep D1 recipe, only expand motion unfreeze scope from last-2 blocks to full encoder | test whether full motion adaptation outperforms D2a under the same minimal-head recipe |
 | D3 | closure gate | D1/D1.5/D2a/D2b retrieval outputs | no training | all | retrieval-first comparison using `normal + nsim`; do not decide by `evt_align_acc` alone | choose `Keep D2a`, `Go D3`, or `Go Phase 2 with D2b` |
-| Phase 2 | follow-up experiment track | corrected D2b `last_weights` | current approved P2a path trains full motion encoder + full text encoder + event head | motion decoder | keep the D2b retrieval recipe and only expand training scope to the text encoder; launch under `phase2_realdata_e50_b128_*` so Stage4.1 stays untouched | compare directly against corrected D2b on `normal + nsim` and decide whether text adaptation is worth keeping |
+| P2a | post-D3 follow-up | corrected D2b `last_weights` | full motion encoder + full text encoder + event head | motion decoder | keep the D2b retrieval recipe and only expand training scope to the text encoder; launch outside the retained Stage4.1 family | test whether text adaptation can beat corrected D2b on `normal + nsim` |
 
 ## Freeze / Objective Summary
 
@@ -84,12 +92,14 @@ Warm-start reference retrieval metrics, for context only:
 | D1.5 | frozen | frozen | frozen | trainable | uniform masked average | same as D1 |
 | D2a | last 2 blocks trainable, earlier blocks frozen | frozen | frozen | trainable | attention | same as D1 |
 | D2b | full encoder trainable | frozen | frozen | trainable | attention | same as D1 |
+| P2a | full encoder trainable | full encoder trainable | frozen | trainable | attention | same as D1 |
 
 Notes:
 
 - `D2a` and `D2b` both warm-start from D1, not from each other.
 - `D2a` and `D2b` keep the text encoder and motion decoder frozen.
 - `D2a` and `D2b` keep the motion encoder nested tensor fast-path disabled.
+- `P2a` warm-starts from corrected `D2b`, not from D1.
 
 ## Corrected Data Recap
 
@@ -110,7 +120,7 @@ Notes:
   - corrected overlap is `97/100`
   - missing keyids: `001052`, `008340`, `M010392`
 
-## Corrected Stage Results
+## Unified Retrieval Results
 
 PrimaryScore is the mean of:
 
@@ -123,46 +133,82 @@ PrimaryScore is the mean of:
 - nsim `t2m/R05`
 - nsim `m2t/R05`
 
-| Stage | PrimaryScore | normal t2m/R01 | normal m2t/R01 | nsim t2m/R01 | nsim m2t/R01 | normal t2m/R05 | normal m2t/R05 | nsim t2m/R05 | nsim m2t/R05 |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| D1 | 9.78 | 0.73 | 0.34 | 11.34 | 8.25 | 2.91 | 1.05 | 34.02 | 19.59 |
-| D1.5 | 9.78 | 0.73 | 0.34 | 11.34 | 8.25 | 2.91 | 1.05 | 34.02 | 19.59 |
-| D2a | 32.44 | 3.25 | 3.96 | 39.18 | 40.21 | 13.07 | 13.43 | 75.26 | 71.13 |
-| D2b | 37.17 | 4.39 | 6.50 | 48.45 | 45.36 | 16.23 | 17.67 | 79.38 | 79.38 |
+`P2a` is included below for the post-D3 comparison, but it does not belong to
+the retained formal Stage4.1 family.
+
+| Family | Run | PrimaryScore | normal t2m/R01 | normal m2t/R01 | nsim t2m/R01 | nsim m2t/R01 | normal t2m/R05 | normal m2t/R05 | nsim t2m/R05 | nsim m2t/R05 |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Stage4.1 | D1 | 9.78 | 0.73 | 0.34 | 11.34 | 8.25 | 2.91 | 1.05 | 34.02 | 19.59 |
+| Stage4.1 | D1.5 | 9.78 | 0.73 | 0.34 | 11.34 | 8.25 | 2.91 | 1.05 | 34.02 | 19.59 |
+| Stage4.1 | D2a | 32.44 | 3.25 | 3.96 | 39.18 | 40.21 | 13.07 | 13.43 | 75.26 | 71.13 |
+| Stage4.1 | D2b | 37.17 | 4.39 | 6.50 | 48.45 | 45.36 | 16.23 | 17.67 | 79.38 | 79.38 |
+| Phase2 | P2a | 36.34 | 3.34 | 4.39 | 46.39 | 44.33 | 13.60 | 13.69 | 83.51 | 81.44 |
+
+## P2a Full Protocol Snapshot
+
+The retrieval-first gate still uses only `normal + nsim`. The extra protocol
+rows below are retained as secondary reference.
+
+| Protocol | t2m/R01 | t2m/R05 | t2m/R10 | m2t/R01 | m2t/R05 | m2t/R10 | t2m/MedR | m2t/MedR |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| normal | 3.34 | 13.60 | 22.08 | 4.39 | 13.69 | 21.95 | 45.00 | 46.00 |
+| threshold_0.95 | 8.50 | 21.80 | 31.55 | 7.68 | 18.62 | 27.18 | 29.00 | 37.50 |
+| nsim | 46.39 | 83.51 | 88.66 | 44.33 | 81.44 | 87.63 | 2.00 | 2.00 |
+| guo | 61.49 | 90.56 | 95.86 | 61.06 | 90.84 | 95.62 | 1.09 | 1.12 |
 
 ## Interpretation
 
 - D1 and D1.5 are effectively tied under the corrected run, so the attention
   pooling change alone did not create a visible retrieval gap while the
   backbone stayed fully frozen.
-- The meaningful gains arrive only after motion encoder unfreezing.
+- The meaningful gains inside Stage4.1 arrive only after motion encoder
+  unfreezing.
 - D2a shows that partial motion adaptation is already useful.
-- D2b is the strongest corrected result on both `normal` and `nsim`, so the
-  corrected closure still supports `winner = D2b`.
+- D2b is the strongest corrected Stage4.1 result on both `normal` and `nsim`,
+  so the corrected closure still supports `winner = D2b`.
+- `P2a` improves `nsim` at `R@5`, but it loses enough on `normal` and `R@1` to
+  finish at `36.34`, which is `-0.83` below `D2b`.
+- The current `P2a` recipe therefore does not justify replacing `D2b` as the
+  retained winner.
 
 ## Final Decision
 
-- D3 recommendation:
+- Historical D3 recommendation:
   - `Go Phase 2 with D2b`
-- Current winner:
+- Completed Phase2 result:
+  - `P2a PrimaryScore = 36.34`
+  - `D2b PrimaryScore = 37.17`
+  - `Delta vs D2b = -0.83`
+- Current overall winner:
   - `D2b`
 - Immediate implication:
-  - if future work continues, it should start from the corrected D2b branch and
-    not from D1 or D2a
-  - the first retained Phase2 entry is `P2a`, documented separately under the
-    `phase2_realdata_e50_b128_*` family
+  - if future work continues, keep the retained `stage4_1_realdata_e50_b128_*`
+    family frozen
+  - do not overwrite `RUN_DIR/phase2_realdata_e50_b128_p2a`
+  - any new follow-up should use a fresh explicit suffix such as `_p2b`
 
 ## Canonical Documents
 
+- Unified summary:
+  - `STAGE4_1_REALDATA_UNIFIED_SUMMARY.md`
 - RunDir registry:
   - `STAGE4_1_REALDATA_RUNDIRS.md`
 - Execution runbook:
   - `STAGE4_1_REALDATA_RUNBOOK.md`
-- Final closure:
+- Final D3 closure:
   - `RUN_DIR/stage4_1_realdata_e50_b128_d3/2026-04-12_d3_stage4_1_closure_summary.md`
 - Progress log:
   - `TAMR_PROGRESS.md`
-- Phase2 runbook:
-  - `PHASE2_REALDATA_RUNBOOK.md`
-- Phase2 run registry:
-  - `PHASE2_REALDATA_RUNDIRS.md`
+- Next-session prompt:
+  - `STAGE4_1_NEXT_SESSION_PROMPT.md`
+
+## Raw P2a Artifacts
+
+- run dir:
+  - `RUN_DIR/phase2_realdata_e50_b128_p2a`
+- retrieval-first raw metrics:
+  - `RUN_DIR/phase2_realdata_e50_b128_p2a/contrastive_metrics/normal.yaml`
+  - `RUN_DIR/phase2_realdata_e50_b128_p2a/contrastive_metrics/nsim.yaml`
+- secondary raw metrics:
+  - `RUN_DIR/phase2_realdata_e50_b128_p2a/contrastive_metrics/threshold_0.95.yaml`
+  - `RUN_DIR/phase2_realdata_e50_b128_p2a/contrastive_metrics/guo.yaml`

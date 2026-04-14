@@ -1,0 +1,5 @@
+- run_dir=models/tmr_humanml3d_guoh3dfeats
+- protocol=all
+- device=cuda
+- ckpt=last
+- batch_size=256

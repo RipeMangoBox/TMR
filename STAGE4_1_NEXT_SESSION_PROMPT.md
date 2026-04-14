@@ -31,17 +31,18 @@ from the cleaned and consolidated Stage4.1 state.
 - TAMR_PROGRESS.md
 - RUN_DIR/stage4_1_realdata_e50_b128_d3/2026-04-12_d3_stage4_1_closure_summary.md
 
-如果仓库里已经存在这些 Phase 2 文档，并且你要继续 D2b 之后的工作，也必须先阅读：
-- PHASE2_REALDATA_RUNBOOK.md
-- PHASE2_REALDATA_RUNDIRS.md
+不要再依赖已经删除的 PHASE2_REALDATA_* 零散文档；P2a 的结果已经并入
+STAGE4_1_REALDATA_UNIFIED_SUMMARY.md。
 
 当前已经确认的结论：
 - corrected D0 gate = GO
 - D1 与 D1.5 基本持平
 - D2a 明显优于 D1
 - D2b 明显优于 D2a
-- corrected winner = D2b
+- corrected Stage4.1 winner = D2b
 - D3 recommendation = Go Phase 2 with D2b
+- P2a 已完成，PrimaryScore = 36.34，低于 D2b 的 37.17
+- 当前 overall winner 仍是 D2b
 
 重要实现事实：
 - train.py 里不再硬编码把所有训练强制绑到 GPU0；它现在只在外部没有设置时才默认 `CUDA_VISIBLE_DEVICES=0`
@@ -57,9 +58,10 @@ from the cleaned and consolidated Stage4.1 state.
 2. 不要重新引入已删除的 wrong-data / smoke / probe run_dir。
 3. 继续坚持 retrieval-first gate，以 `normal + nsim` 为主，不以 `evt_align_acc` 单独决策。
 4. 如果你修改任何 Stage4.1 相关默认路径，必须同步更新 runbook / registry / summary 文档。
-5. 当前已批准的首个 Phase 2 入口是：
+5. 当前首个已完成的 Phase 2 条目是：
    - `RUN_DIR/phase2_realdata_e50_b128_p2a`
    - 含义是 `D2b warm-start + full text encoder unfreeze`
+   - 结论是没有超过 D2b；如果继续请新建后缀，不要覆盖 `p2a`
 
 如果要继续新实验或 Phase 2，请直接执行，不要先做方案讨论；只在 commentary 中做简短进度同步。
 开始前只需自行判断：

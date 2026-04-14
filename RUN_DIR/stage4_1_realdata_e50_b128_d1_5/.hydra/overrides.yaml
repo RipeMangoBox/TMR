@@ -1,0 +1,3 @@
+- run_dir=RUN_DIR/stage4_1_realdata_e50_b128_d1_5
+- protocol=all
+- batch_size=256

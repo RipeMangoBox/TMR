@@ -10,11 +10,8 @@ artifacts.
 RunDir registry:
 - `STAGE4_1_REALDATA_RUNDIRS.md`
 
-Unified explanation:
+Unified explanation, including the completed `P2a` follow-up outcome:
 - `STAGE4_1_REALDATA_UNIFIED_SUMMARY.md`
-
-Phase 2 follow-up:
-- `PHASE2_REALDATA_RUNBOOK.md`
 
 ## Scope
 
@@ -28,6 +25,8 @@ Phase 2 follow-up:
   - `RUN_DIR/stage4_1_realdata_e50_b128_d2a`
   - `RUN_DIR/stage4_1_realdata_e50_b128_d2b`
   - `RUN_DIR/stage4_1_realdata_e50_b128_d3`
+- First retained post-D3 follow-up run:
+  - `RUN_DIR/phase2_realdata_e50_b128_p2a`
 
 ## Rules
 
@@ -35,6 +34,8 @@ Phase 2 follow-up:
 - Run the corrected chain in strict serial order: `D0 -> D1 -> D1 retrieval -> D1.5 -> D1.5 retrieval -> D2a -> D2a retrieval -> D2b -> D2b retrieval -> D3 summary`.
 - `D2a` and `D2b` must warm-start from `RUN_DIR/stage4_1_realdata_e50_b128_d1/last_weights`.
 - Retrieval-first gate remains `normal + nsim`.
+- The completed `P2a` follow-up did not beat `D2b`; its metrics are now
+  consolidated in `STAGE4_1_REALDATA_UNIFIED_SUMMARY.md`.
 - Use the batch script as the default entrypoint:
   - `/home/ripemangobox/Coding/Github/Motion/TMR/scripts/run_stage4_1_realdata_batch.sh`
 - If future work continues from corrected `D2b`, keep this retained family

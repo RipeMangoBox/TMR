@@ -1,0 +1,1353 @@
+{
+  "report_date": "2026-04-12",
+  "trusted_data_files": [
+    "/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E/data_train.npy",
+    "/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E/data_val.npy",
+    "/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E/data_test.npy",
+    "/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E/data_test_condition2.npy",
+    "/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E/data_test_condition3.npy",
+    "/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E/data_test_condition4.npy"
+  ],
+  "d0": {
+    "meta": {
+      "report_type": "data_audit_only",
+      "training_dependency": "none",
+      "reliability_scope": "D0 is computed directly from the six trusted HumanML3D-E npy files and is not affected by whether D1/D1.5/D2a/D2b training finished full epochs.",
+      "gate_scope": "D0 only decides whether corrected real data justify launching D1; it is not a model-performance verdict.",
+      "dataset_root": "/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E",
+      "splits": [
+        "train",
+        "val",
+        "test"
+      ],
+      "total_samples": 30722,
+      "total_captions": 83347,
+      "valid_captions": 83347,
+      "invalid_captions": 0,
+      "event_extraction_coverage": 1.0,
+      "captions_with_canonical_decomposed": 83347,
+      "canonical_decomposed_coverage": 1.0,
+      "caption_style_breakdown": {
+        "plain_caption": 83347
+      },
+      "event_source_breakdown": {
+        "decomposed": 83347
+      },
+      "motion_level_text_count_distribution": {
+        "1": 2952,
+        "2": 2941,
+        "3": 24803,
+        "4": 26
+      },
+      "overlap_rulebook": [
+        "while",
+        "meanwhile",
+        "simultaneous",
+        "at_same_time",
+        "during",
+        "concurrent"
+      ]
+    },
+    "split_entry_counts": {
+      "train": 24546,
+      "val": 1530,
+      "test": 4646
+    },
+    "condition_subset_stats": {
+      "condition2": {
+        "entries": 2622,
+        "overlap_with_data_test": 2446,
+        "text_count_distribution": {
+          "1": 1699,
+          "2": 738,
+          "3": 185
+        },
+        "event_count_distribution": {
+          "1": 191,
+          "2": 1752,
+          "3": 1157,
+          "4": 390,
+          "5": 169,
+          "6": 48,
+          "7": 20,
+          "8": 2,
+          "9": 1
+        }
+      },
+      "condition3": {
+        "entries": 927,
+        "overlap_with_data_test": 874,
+        "text_count_distribution": {
+          "1": 802,
+          "2": 123,
+          "3": 2
+        },
+        "event_count_distribution": {
+          "1": 43,
+          "2": 42,
+          "3": 466,
+          "4": 250,
+          "5": 141,
+          "6": 61,
+          "7": 23,
+          "8": 15,
+          "9": 10,
+          "10": 3
+        }
+      },
+      "condition4": {
+        "entries": 260,
+        "overlap_with_data_test": 251,
+        "text_count_distribution": {
+          "1": 246,
+          "2": 14
+        },
+        "event_count_distribution": {
+          "1": 4,
+          "2": 5,
+          "3": 11,
+          "4": 128,
+          "5": 63,
+          "6": 28,
+          "7": 15,
+          "8": 11,
+          "9": 7,
+          "10": 1,
+          "11": 1
+        }
+      }
+    },
+    "k_distribution": {
+      "1": {
+        "count": 42261,
+        "ratio_over_valid": 0.507
+      },
+      "2": {
+        "count": 28859,
+        "ratio_over_valid": 0.3463
+      },
+      "3": {
+        "count": 8794,
+        "ratio_over_valid": 0.1055
+      },
+      "4": {
+        "count": 2493,
+        "ratio_over_valid": 0.0299
+      },
+      "5": {
+        "count": 670,
+        "ratio_over_valid": 0.008
+      },
+      "6": {
+        "count": 186,
+        "ratio_over_valid": 0.0022
+      },
+      "7": {
+        "count": 58,
+        "ratio_over_valid": 0.0007
+      },
+      "8": {
+        "count": 20,
+        "ratio_over_valid": 0.0002
+      },
+      "9": {
+        "count": 3,
+        "ratio_over_valid": 0.0
+      },
+      "10": {
+        "count": 3,
+        "ratio_over_valid": 0.0
+      }
+    },
+    "key_ratios": {
+      "k_eq_1": {
+        "count": 42261,
+        "ratio_over_valid": 0.507
+      },
+      "k_ge_2": {
+        "count": 41086,
+        "ratio_over_valid": 0.493
+      },
+      "overlap_rule_based": {
+        "count": 1508,
+        "ratio_over_valid": 0.0181
+      }
+    },
+    "event_length_words": {
+      "caption_avg_event_words": {
+        "mean": 7.9648,
+        "median": 7.0,
+        "p25": 5.5,
+        "p75": 9.5
+      },
+      "event_word_count": {
+        "mean": 7.6074,
+        "median": 7.0,
+        "p25": 5.0,
+        "p75": 9.0
+      }
+    },
+    "event_length_frames_proxy": {
+      "caption_avg_frames_per_event": {
+        "mean": 101.5603,
+        "median": 93.0,
+        "p25": 60.0,
+        "p75": 133.0
+      }
+    },
+    "per_split": {
+      "train": {
+        "entries": 24546,
+        "captions_total": 66636,
+        "captions_valid": 66636,
+        "captions_invalid": 0,
+        "captions_with_decomposed": 66636,
+        "overlap_count": 895,
+        "text_count_distribution": {
+          "1": 2344,
+          "2": 2336,
+          "3": 19844,
+          "4": 22
+        },
+        "event_source_breakdown": {
+          "decomposed": 66636
+        },
+        "k_distribution": {
+          "1": 34673,
+          "2": 22962,
+          "3": 6524,
+          "4": 1837,
+          "5": 469,
+          "6": 118,
+          "7": 36,
+          "8": 13,
+          "9": 2,
+          "10": 2
+        }
+      },
+      "val": {
+        "entries": 1530,
+        "captions_total": 4176,
+        "captions_valid": 4176,
+        "captions_invalid": 0,
+        "captions_with_decomposed": 4176,
+        "overlap_count": 56,
+        "text_count_distribution": {
+          "1": 134,
+          "2": 146,
+          "3": 1250
+        },
+        "event_source_breakdown": {
+          "decomposed": 4176
+        },
+        "k_distribution": {
+          "1": 2190,
+          "2": 1394,
+          "3": 435,
+          "4": 120,
+          "5": 26,
+          "6": 9,
+          "7": 2
+        }
+      },
+      "test": {
+        "entries": 4646,
+        "captions_total": 12535,
+        "captions_valid": 12535,
+        "captions_invalid": 0,
+        "captions_with_decomposed": 12535,
+        "overlap_count": 557,
+        "text_count_distribution": {
+          "1": 474,
+          "2": 459,
+          "3": 3709,
+          "4": 4
+        },
+        "event_source_breakdown": {
+          "decomposed": 12535
+        },
+        "k_distribution": {
+          "1": 5398,
+          "2": 4503,
+          "3": 1835,
+          "4": 536,
+          "5": 175,
+          "6": 59,
+          "7": 20,
+          "8": 7,
+          "9": 1,
+          "10": 1
+        }
+      }
+    },
+    "gates": {
+      "gate_1": {
+        "condition": "K>=2 ratio < 40%",
+        "value": 0.493,
+        "triggered": false
+      },
+      "gate_2": {
+        "condition": "K=1 ratio > 60%",
+        "value": 0.507,
+        "triggered": false
+      },
+      "gate_3": {
+        "condition": "rule-based overlap ratio > 15%",
+        "value": 0.0181,
+        "triggered": false
+      },
+      "recommendation": "DATA-GATE GO: corrected real data support launching D1 frozen minimal event-time head."
+    },
+    "samples": {
+      "invalid_examples": [],
+      "overlap_examples": [
+        {
+          "split": "train",
+          "sample_id": "000004",
+          "cues": "while",
+          "caption": "a person bends forward at the waist while both hands are tucked inside their armpits and elbows move up and down.",
+          "events": [
+            "a person bends forward at the waist while both hands are.",
+            "a person tucked inside their armpits and elbows.",
+            "a person move."
+          ]
+        },
+        {
+          "split": "train",
+          "sample_id": "000094",
+          "cues": "while",
+          "caption": "while standing, a person makes a series of small gestures near their face using both hands.",
+          "events": [
+            "while standing, a person makes a series of small gestures near their face using both hands."
+          ]
+        },
+        {
+          "split": "train",
+          "sample_id": "000102",
+          "cues": "simultaneous",
+          "caption": "the person walks to the left and stops, they raise their hands up above shoulders. then moving both hands together to the left simultaneously and back. again but only with left hand,",
+          "events": [
+            "the person walks to the left and stops, they.",
+            "the person raise their hands up above shoulders.",
+            "the person moving both hands together to the left simultaneously and back. again but only with left hand,."
+          ]
+        },
+        {
+          "split": "train",
+          "sample_id": "000169",
+          "cues": "while",
+          "caption": "a person moves their right hand from the right side of their body towards the left side and makes a petting or digging motion while the left arm hangs at their side.",
+          "events": [
+            "a person moves their right hand from the right side of their body towards the left side.",
+            "a person makes a petting.",
+            "a person digging motion while the left arm.",
+            "a person hangs at their side."
+          ]
+        },
+        {
+          "split": "train",
+          "sample_id": "000251",
+          "cues": "while",
+          "caption": "a person takes a giant leap forward while his arms flail out to his sides.",
+          "events": [
+            "a person takes a giant leap forward while his arms.",
+            "a person flail out to his sides."
+          ]
+        },
+        {
+          "split": "train",
+          "sample_id": "000242",
+          "cues": "while",
+          "caption": "a person slightly wobbly walks foreward while grabbing onto railings at both sides.",
+          "events": [
+            "a person slightly wobbly walks foreward while grabbing onto railings at both sides."
+          ]
+        },
+        {
+          "split": "train",
+          "sample_id": "000280",
+          "cues": "simultaneous",
+          "caption": "raise both arms simultaneously with little spirit, keep them there for a moment and drop them lifelessly",
+          "events": [
+            "raise both arms simultaneously with little spirit, keep them there for a moment.",
+            "drop them."
+          ]
+        },
+        {
+          "split": "train",
+          "sample_id": "000368",
+          "cues": "while",
+          "caption": "a person jumps up while simultanesouly moving their arms/hands inward & upward towards their armpits, after they land they move both arms out at 45 degree angles away from their sides and does a slight jog serveral steps forward.",
+          "events": [
+            "a person jumps up while simultanesouly.",
+            "a person moving their arms/hands hand inward upward towards their armpits, after they.",
+            "a person land they move both arms out at degree angles away from their sides and does a slight jog serveral steps."
+          ]
+        },
+        {
+          "split": "train",
+          "sample_id": "000394",
+          "cues": "while",
+          "caption": "a person climbs stairs while using the railing",
+          "events": [
+            "a person climbs stairs while using the railing"
+          ]
+        },
+        {
+          "split": "train",
+          "sample_id": "000441",
+          "cues": "while",
+          "caption": "a person shrugs shoulders while leaving both arms flaccid and then shrugs shoulders while bending elbows and making hand gesture.",
+          "events": [
+            "a person shrugs shoulders while leaving both arms flaccid.",
+            "a person shrugs shoulders while shrugs shoulders.",
+            "a person shrugs shoulders while bending elbows.",
+            "a person shrugs shoulders while making hand gesture."
+          ]
+        },
+        {
+          "split": "train",
+          "sample_id": "000446",
+          "cues": "at_same_time",
+          "caption": "person swings arms back whilst bending slightly at the knee and then leaps forward with both feet at the same time.",
+          "events": [
+            "person swings arms back whilst bending slightly at the knee.",
+            "person swings arms back whilst leaps forward with both foot at the same time."
+          ]
+        },
+        {
+          "split": "train",
+          "sample_id": "000455",
+          "cues": "while",
+          "caption": "a person turns clockwise while standing in place then slowly stretches arms outward to their side.",
+          "events": [
+            "a person turns clockwise while standing in place.",
+            "a person turns clockwise while stretches arms outward to their side."
+          ]
+        },
+        {
+          "split": "train",
+          "sample_id": "000471",
+          "cues": "while",
+          "caption": "while a person is standing, they bend their knees and jump forward.",
+          "events": [
+            "while a person is standing, they bend their knees.",
+            "while a person is jump."
+          ]
+        },
+        {
+          "split": "train",
+          "sample_id": "000518",
+          "cues": "while",
+          "caption": "stand on the left foot while right leg makes a wide circle out and back down to the left foot.",
+          "events": [
+            "stand on the left foot while right leg.",
+            "makes a wide circle.",
+            "back down to the left foot."
+          ]
+        },
+        {
+          "split": "train",
+          "sample_id": "000542",
+          "cues": "while",
+          "caption": "a person does a light skip while walking",
+          "events": [
+            "a person does a light skip while walking"
+          ]
+        },
+        {
+          "split": "train",
+          "sample_id": "000555",
+          "cues": "while",
+          "caption": "putting the arms to the chest with a slight blend to the knees, then bringing the left arm to the hip while the right goes in a circle.",
+          "events": [
+            "putting the arms to the chest with a slight blend to the knees,.",
+            "bringing the left arm to the hip while the right.",
+            "goes in a circle."
+          ]
+        },
+        {
+          "split": "train",
+          "sample_id": "000560",
+          "cues": "while",
+          "caption": "person starts with arms held out to the sides, steps forward with right foot, bends down, reaches for an item with right hand, retrieves item and holds with both hands, turns left, steadies item with right hand on top, walks forward, turns right and bends down holding item with left hand while right hand reaches up and makes repeated stroking motions towards the item held in left hand.",
+          "events": [
+            "person starts with arms holds out top, the side step forward with right foot bend down reach for an item with right hand. retrieve item.",
+            "person holds with both hand turn left steady item with right hand on top walk forward turn right.",
+            "person bend down hold item with left hand while right hand.",
+            "person reach.",
+            "person make repeat stroke motion towards the item hold in left hand."
+          ]
+        },
+        {
+          "split": "train",
+          "sample_id": "000583",
+          "cues": "while",
+          "caption": "someone is doing arm exercises and dancing a little while they are doing so.",
+          "events": [
+            "someone is doing arm exercises and dancing a little while they are.",
+            "someone is doing arm exercises and doing."
+          ]
+        },
+        {
+          "split": "train",
+          "sample_id": "000606",
+          "cues": "while",
+          "caption": "walks forward and moves to the left slitghtly while walkng",
+          "events": [
+            "walks.",
+            "moves to the left slitghtly while walkng."
+          ]
+        },
+        {
+          "split": "train",
+          "sample_id": "000676",
+          "cues": "at_same_time",
+          "caption": "a person slowly hops up and down on both legs at the same time.",
+          "events": [
+            "a person slowly hops up and down on both legs at the same time."
+          ]
+        }
+      ]
+    }
+  },
+  "stages": [
+    {
+      "stage_key": "d1",
+      "stage_label": "D1",
+      "run_dir": "/home/ripemangobox/Coding/Github/Motion/TMR/RUN_DIR/stage4_1_realdata_e50_b128_d1",
+      "config": {
+        "data": {
+          "_target_": "src.data.humanml3de_event.HumanML3DEventDataset",
+          "dataset_root": "/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E",
+          "text_to_token_emb": {
+            "_target_": "src.data.text.TokenEmbeddings",
+            "path": "datasets/annotations/humanml3d",
+            "modelname": "distilbert-base-uncased",
+            "preload": false
+          },
+          "text_to_sent_emb": {
+            "_target_": "src.data.text.SentenceEmbeddings",
+            "path": "datasets/annotations/humanml3d",
+            "modelname": "sentence-transformers/all-mpnet-base-v2",
+            "preload": false
+          },
+          "preload": false,
+          "strict_event_parse": false,
+          "nsim_subset_size": 100,
+          "nsim_min_similarity": 0.75,
+          "nsim_split_path": "/home/ripemangobox/Coding/Github/Motion/TMR/datasets/annotations/humanml3d/splits/nsim_test.txt"
+        },
+        "model": {
+          "_target_": "src.model.TMRD1FrozenMinimalHead",
+          "motion_encoder": {
+            "_target_": "src.model.ACTORStyleEncoder",
+            "nfeats": 263,
+            "vae": true,
+            "latent_dim": 256,
+            "ff_size": 1024,
+            "num_layers": 6,
+            "num_heads": 4,
+            "dropout": 0.1,
+            "activation": "gelu"
+          },
+          "text_encoder": {
+            "_target_": "src.model.ACTORStyleEncoder",
+            "nfeats": 768,
+            "vae": true,
+            "latent_dim": 256,
+            "ff_size": 1024,
+            "num_layers": 6,
+            "num_heads": 4,
+            "dropout": 0.1,
+            "activation": "gelu"
+          },
+          "motion_decoder": {
+            "_target_": "src.model.ACTORStyleDecoder",
+            "nfeats": 263,
+            "latent_dim": 256,
+            "ff_size": 1024,
+            "num_layers": 6,
+            "num_heads": 4,
+            "dropout": 0.1,
+            "activation": "gelu"
+          },
+          "vae": true,
+          "lmd": {
+            "recons": 1.0,
+            "latent": 1e-05,
+            "kl": 1e-05,
+            "global": 0.1,
+            "evt_align": 1.0
+          },
+          "lr": 0.0001,
+          "temperature": 0.1,
+          "threshold_selfsim": 0.8,
+          "threshold_selfsim_metrics": 0.95,
+          "event_align_tau": 0.1,
+          "warm_start_weights_dir": "models/tmr_humanml3d_guoh3dfeats/last_weights",
+          "warm_start_ckpt": null,
+          "freeze_motion_backbone": true,
+          "freeze_text_encoder": true,
+          "freeze_motion_decoder": true
+        },
+        "trainer": {
+          "_target_": "pytorch_lightning.Trainer",
+          "max_epochs": 50,
+          "log_every_n_steps": 20,
+          "num_sanity_val_steps": 0,
+          "check_val_every_n_epoch": 1,
+          "accelerator": "gpu",
+          "devices": 1,
+          "callbacks": [
+            {
+              "_target_": "pytorch_lightning.callbacks.ModelCheckpoint",
+              "filename": "latest-{epoch}",
+              "every_n_epochs": 1,
+              "save_top_k": 1,
+              "save_last": true
+            },
+            {
+              "_target_": "pytorch_lightning.callbacks.ModelCheckpoint",
+              "filename": "latest-{epoch}",
+              "monitor": "step",
+              "mode": "max",
+              "every_n_epochs": 100,
+              "save_top_k": -1,
+              "save_last": false
+            },
+            {
+              "_target_": "pytorch_lightning.callbacks.ModelCheckpoint",
+              "monitor": "val_loss",
+              "mode": "min",
+              "save_top_k": 3,
+              "save_last": true,
+              "filename": "e_{epoch:03d}-val_{val:.2f}"
+            },
+            {
+              "_target_": "src.callback.progress.ProgressLogger",
+              "precision": 3
+            },
+            {
+              "_target_": "src.callback.tqdmbar.TQDMProgressBar"
+            }
+          ],
+          "logger": {
+            "_target_": "pytorch_lightning.loggers.TensorBoardLogger",
+            "save_dir": "RUN_DIR/stage4_1_realdata_e50_b128_d1",
+            "name": "tmr_d1_humanml3d_e_None"
+          }
+        },
+        "run_dir": "RUN_DIR/stage4_1_realdata_e50_b128_d1",
+        "seed": 1234,
+        "logger_level": "INFO",
+        "ckpt": "last",
+        "resume_dir": null,
+        "dataloader": {
+          "_target_": "torch.utils.data.DataLoader",
+          "batch_size": 128,
+          "num_workers": 0
+        }
+      },
+      "metrics": {
+        "normal": {
+          "t2m/R01": 0.73,
+          "m2t/R01": 0.34,
+          "t2m/R02": 1.4,
+          "m2t/R02": 0.5,
+          "t2m/R03": 2.02,
+          "m2t/R03": 0.69,
+          "t2m/R05": 2.91,
+          "m2t/R05": 1.05,
+          "t2m/R10": 5.79,
+          "m2t/R10": 1.66,
+          "t2m/MedR": 556.5,
+          "m2t/MedR": 1308.0,
+          "t2m/len": 4646.0,
+          "m2t/len": 4646.0
+        },
+        "threshold_0.95": {
+          "t2m/R01": 2.2,
+          "m2t/R01": 0.56,
+          "t2m/R02": 2.84,
+          "m2t/R02": 0.77,
+          "t2m/R03": 3.94,
+          "m2t/R03": 1.05,
+          "t2m/R05": 5.06,
+          "m2t/R05": 1.42,
+          "t2m/R10": 8.7,
+          "m2t/R10": 2.09,
+          "t2m/MedR": 357.0,
+          "m2t/MedR": 1112.75,
+          "t2m/len": 4646.0,
+          "m2t/len": 4646.0
+        },
+        "nsim": {
+          "t2m/R01": 11.34,
+          "m2t/R01": 8.25,
+          "t2m/R02": 19.59,
+          "m2t/R02": 12.37,
+          "t2m/R03": 25.77,
+          "m2t/R03": 13.4,
+          "t2m/R05": 34.02,
+          "m2t/R05": 19.59,
+          "t2m/R10": 48.45,
+          "m2t/R10": 27.84,
+          "t2m/MedR": 11.0,
+          "m2t/MedR": 26.0,
+          "t2m/len": 97.0,
+          "m2t/len": 97.0
+        },
+        "guo": {
+          "t2m/R01": 25.43,
+          "m2t/R01": 12.11,
+          "t2m/R02": 36.44,
+          "m2t/R02": 19.48,
+          "t2m/R03": 43.66,
+          "m2t/R03": 25.52,
+          "t2m/R05": 54.01,
+          "m2t/R05": 34.35,
+          "t2m/R10": 71.27,
+          "m2t/R10": 52.82,
+          "t2m/MedR": 4.85,
+          "m2t/MedR": 9.68,
+          "t2m/len": 32.0,
+          "m2t/len": 32.0
+        }
+      },
+      "status": "evaluated",
+      "primary_score": 9.77875,
+      "last_checkpoint": "/home/ripemangobox/Coding/Github/Motion/TMR/RUN_DIR/stage4_1_realdata_e50_b128_d1/tmr_d1_humanml3d_e_None/version_0/checkpoints/last.ckpt",
+      "has_last_weights": true
+    },
+    {
+      "stage_key": "d1_5",
+      "stage_label": "D1.5",
+      "run_dir": "/home/ripemangobox/Coding/Github/Motion/TMR/RUN_DIR/stage4_1_realdata_e50_b128_d1_5",
+      "config": {
+        "data": {
+          "_target_": "src.data.humanml3de_event.HumanML3DEventDataset",
+          "dataset_root": "/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E",
+          "text_to_token_emb": {
+            "_target_": "src.data.text.TokenEmbeddings",
+            "path": "datasets/annotations/humanml3d",
+            "modelname": "distilbert-base-uncased",
+            "preload": false
+          },
+          "text_to_sent_emb": {
+            "_target_": "src.data.text.SentenceEmbeddings",
+            "path": "datasets/annotations/humanml3d",
+            "modelname": "sentence-transformers/all-mpnet-base-v2",
+            "preload": false
+          },
+          "preload": false,
+          "strict_event_parse": false,
+          "nsim_subset_size": 100,
+          "nsim_min_similarity": 0.75,
+          "nsim_split_path": "/home/ripemangobox/Coding/Github/Motion/TMR/datasets/annotations/humanml3d/splits/nsim_test.txt"
+        },
+        "model": {
+          "_target_": "src.model.tmr_d1_5.TMRD15FrozenMinimalHeadUniformPool",
+          "motion_encoder": {
+            "_target_": "src.model.ACTORStyleEncoder",
+            "nfeats": 263,
+            "vae": true,
+            "latent_dim": 256,
+            "ff_size": 1024,
+            "num_layers": 6,
+            "num_heads": 4,
+            "dropout": 0.1,
+            "activation": "gelu"
+          },
+          "text_encoder": {
+            "_target_": "src.model.ACTORStyleEncoder",
+            "nfeats": 768,
+            "vae": true,
+            "latent_dim": 256,
+            "ff_size": 1024,
+            "num_layers": 6,
+            "num_heads": 4,
+            "dropout": 0.1,
+            "activation": "gelu"
+          },
+          "motion_decoder": {
+            "_target_": "src.model.ACTORStyleDecoder",
+            "nfeats": 263,
+            "latent_dim": 256,
+            "ff_size": 1024,
+            "num_layers": 6,
+            "num_heads": 4,
+            "dropout": 0.1,
+            "activation": "gelu"
+          },
+          "vae": true,
+          "lmd": {
+            "recons": 1.0,
+            "latent": 1e-05,
+            "kl": 1e-05,
+            "global": 0.1,
+            "evt_align": 1.0
+          },
+          "lr": 0.0001,
+          "temperature": 0.1,
+          "threshold_selfsim": 0.8,
+          "threshold_selfsim_metrics": 0.95,
+          "event_align_tau": 0.1,
+          "warm_start_weights_dir": "models/tmr_humanml3d_guoh3dfeats/last_weights",
+          "warm_start_ckpt": null,
+          "freeze_motion_backbone": true,
+          "freeze_text_encoder": true,
+          "freeze_motion_decoder": true
+        },
+        "trainer": {
+          "_target_": "pytorch_lightning.Trainer",
+          "max_epochs": 50,
+          "log_every_n_steps": 20,
+          "num_sanity_val_steps": 0,
+          "check_val_every_n_epoch": 1,
+          "accelerator": "gpu",
+          "devices": 1,
+          "callbacks": [
+            {
+              "_target_": "pytorch_lightning.callbacks.ModelCheckpoint",
+              "filename": "latest-{epoch}",
+              "every_n_epochs": 1,
+              "save_top_k": 1,
+              "save_last": true
+            },
+            {
+              "_target_": "pytorch_lightning.callbacks.ModelCheckpoint",
+              "filename": "latest-{epoch}",
+              "monitor": "step",
+              "mode": "max",
+              "every_n_epochs": 100,
+              "save_top_k": -1,
+              "save_last": false
+            },
+            {
+              "_target_": "pytorch_lightning.callbacks.ModelCheckpoint",
+              "monitor": "val_loss",
+              "mode": "min",
+              "save_top_k": 3,
+              "save_last": true,
+              "filename": "e_{epoch:03d}-val_{val:.2f}"
+            },
+            {
+              "_target_": "src.callback.progress.ProgressLogger",
+              "precision": 3
+            },
+            {
+              "_target_": "src.callback.tqdmbar.TQDMProgressBar"
+            }
+          ],
+          "logger": {
+            "_target_": "pytorch_lightning.loggers.TensorBoardLogger",
+            "save_dir": "RUN_DIR/stage4_1_realdata_e50_b128_d1_5",
+            "name": "tmr_d1_5_humanml3d_e_None"
+          }
+        },
+        "run_dir": "RUN_DIR/stage4_1_realdata_e50_b128_d1_5",
+        "seed": 1234,
+        "logger_level": "INFO",
+        "ckpt": "last",
+        "resume_dir": null,
+        "dataloader": {
+          "_target_": "torch.utils.data.DataLoader",
+          "batch_size": 128,
+          "num_workers": 0
+        }
+      },
+      "metrics": {
+        "normal": {
+          "t2m/R01": 0.73,
+          "m2t/R01": 0.34,
+          "t2m/R02": 1.4,
+          "m2t/R02": 0.5,
+          "t2m/R03": 2.02,
+          "m2t/R03": 0.69,
+          "t2m/R05": 2.91,
+          "m2t/R05": 1.05,
+          "t2m/R10": 5.79,
+          "m2t/R10": 1.66,
+          "t2m/MedR": 556.5,
+          "m2t/MedR": 1308.0,
+          "t2m/len": 4646.0,
+          "m2t/len": 4646.0
+        },
+        "threshold_0.95": {
+          "t2m/R01": 2.2,
+          "m2t/R01": 0.56,
+          "t2m/R02": 2.84,
+          "m2t/R02": 0.77,
+          "t2m/R03": 3.94,
+          "m2t/R03": 1.05,
+          "t2m/R05": 5.06,
+          "m2t/R05": 1.42,
+          "t2m/R10": 8.7,
+          "m2t/R10": 2.09,
+          "t2m/MedR": 357.0,
+          "m2t/MedR": 1112.75,
+          "t2m/len": 4646.0,
+          "m2t/len": 4646.0
+        },
+        "nsim": {
+          "t2m/R01": 11.34,
+          "m2t/R01": 8.25,
+          "t2m/R02": 19.59,
+          "m2t/R02": 12.37,
+          "t2m/R03": 25.77,
+          "m2t/R03": 13.4,
+          "t2m/R05": 34.02,
+          "m2t/R05": 19.59,
+          "t2m/R10": 48.45,
+          "m2t/R10": 27.84,
+          "t2m/MedR": 11.0,
+          "m2t/MedR": 26.0,
+          "t2m/len": 97.0,
+          "m2t/len": 97.0
+        },
+        "guo": {
+          "t2m/R01": 25.43,
+          "m2t/R01": 12.11,
+          "t2m/R02": 36.44,
+          "m2t/R02": 19.48,
+          "t2m/R03": 43.66,
+          "m2t/R03": 25.52,
+          "t2m/R05": 54.01,
+          "m2t/R05": 34.35,
+          "t2m/R10": 71.27,
+          "m2t/R10": 52.82,
+          "t2m/MedR": 4.85,
+          "m2t/MedR": 9.68,
+          "t2m/len": 32.0,
+          "m2t/len": 32.0
+        }
+      },
+      "status": "evaluated",
+      "primary_score": 9.77875,
+      "last_checkpoint": "/home/ripemangobox/Coding/Github/Motion/TMR/RUN_DIR/stage4_1_realdata_e50_b128_d1_5/tmr_d1_5_humanml3d_e_None/version_0/checkpoints/last.ckpt",
+      "has_last_weights": true
+    },
+    {
+      "stage_key": "d2a",
+      "stage_label": "D2a",
+      "run_dir": "/home/ripemangobox/Coding/Github/Motion/TMR/RUN_DIR/stage4_1_realdata_e50_b128_d2a",
+      "config": {
+        "data": {
+          "_target_": "src.data.humanml3de_event.HumanML3DEventDataset",
+          "dataset_root": "/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E",
+          "text_to_token_emb": {
+            "_target_": "src.data.text.TokenEmbeddings",
+            "path": "datasets/annotations/humanml3d",
+            "modelname": "distilbert-base-uncased",
+            "preload": false
+          },
+          "text_to_sent_emb": {
+            "_target_": "src.data.text.SentenceEmbeddings",
+            "path": "datasets/annotations/humanml3d",
+            "modelname": "sentence-transformers/all-mpnet-base-v2",
+            "preload": false
+          },
+          "preload": false,
+          "strict_event_parse": false,
+          "nsim_subset_size": 100,
+          "nsim_min_similarity": 0.75,
+          "nsim_split_path": "/home/ripemangobox/Coding/Github/Motion/TMR/datasets/annotations/humanml3d/splits/nsim_test.txt"
+        },
+        "model": {
+          "_target_": "src.model.tmr_d2a.TMRD2aLastTwoMotionBlocks",
+          "motion_encoder": {
+            "_target_": "src.model.ACTORStyleEncoder",
+            "nfeats": 263,
+            "vae": true,
+            "latent_dim": 256,
+            "ff_size": 1024,
+            "num_layers": 6,
+            "num_heads": 4,
+            "dropout": 0.1,
+            "activation": "gelu"
+          },
+          "text_encoder": {
+            "_target_": "src.model.ACTORStyleEncoder",
+            "nfeats": 768,
+            "vae": true,
+            "latent_dim": 256,
+            "ff_size": 1024,
+            "num_layers": 6,
+            "num_heads": 4,
+            "dropout": 0.1,
+            "activation": "gelu"
+          },
+          "motion_decoder": {
+            "_target_": "src.model.ACTORStyleDecoder",
+            "nfeats": 263,
+            "latent_dim": 256,
+            "ff_size": 1024,
+            "num_layers": 6,
+            "num_heads": 4,
+            "dropout": 0.1,
+            "activation": "gelu"
+          },
+          "vae": true,
+          "lmd": {
+            "recons": 1.0,
+            "latent": 1e-05,
+            "kl": 1e-05,
+            "global": 0.1,
+            "evt_align": 1.0
+          },
+          "lr": 0.0001,
+          "temperature": 0.1,
+          "threshold_selfsim": 0.8,
+          "threshold_selfsim_metrics": 0.95,
+          "event_align_tau": 0.1,
+          "warm_start_weights_dir": "RUN_DIR/stage4_1_realdata_e50_b128_d1/last_weights",
+          "warm_start_ckpt": null,
+          "warm_start_event_head": true,
+          "unfreeze_motion_last_n_blocks": 2,
+          "freeze_motion_backbone": false,
+          "freeze_text_encoder": true,
+          "freeze_motion_decoder": true
+        },
+        "trainer": {
+          "_target_": "pytorch_lightning.Trainer",
+          "max_epochs": 50,
+          "log_every_n_steps": 20,
+          "num_sanity_val_steps": 0,
+          "check_val_every_n_epoch": 1,
+          "accelerator": "gpu",
+          "devices": 1,
+          "callbacks": [
+            {
+              "_target_": "pytorch_lightning.callbacks.ModelCheckpoint",
+              "filename": "latest-{epoch}",
+              "every_n_epochs": 1,
+              "save_top_k": 1,
+              "save_last": true
+            },
+            {
+              "_target_": "pytorch_lightning.callbacks.ModelCheckpoint",
+              "filename": "latest-{epoch}",
+              "monitor": "step",
+              "mode": "max",
+              "every_n_epochs": 100,
+              "save_top_k": -1,
+              "save_last": false
+            },
+            {
+              "_target_": "pytorch_lightning.callbacks.ModelCheckpoint",
+              "monitor": "val_loss",
+              "mode": "min",
+              "save_top_k": 3,
+              "save_last": true,
+              "filename": "e_{epoch:03d}-val_{val:.2f}"
+            },
+            {
+              "_target_": "src.callback.progress.ProgressLogger",
+              "precision": 3
+            },
+            {
+              "_target_": "src.callback.tqdmbar.TQDMProgressBar"
+            }
+          ],
+          "logger": {
+            "_target_": "pytorch_lightning.loggers.TensorBoardLogger",
+            "save_dir": "RUN_DIR/stage4_1_realdata_e50_b128_d2a",
+            "name": "tmr_d2a_humanml3d_e_None"
+          }
+        },
+        "run_dir": "RUN_DIR/stage4_1_realdata_e50_b128_d2a",
+        "seed": 1234,
+        "logger_level": "INFO",
+        "ckpt": "last",
+        "resume_dir": null,
+        "dataloader": {
+          "_target_": "torch.utils.data.DataLoader",
+          "batch_size": 128,
+          "num_workers": 0
+        }
+      },
+      "metrics": {
+        "normal": {
+          "t2m/R01": 3.25,
+          "m2t/R01": 3.96,
+          "t2m/R02": 6.16,
+          "m2t/R02": 5.85,
+          "t2m/R03": 8.46,
+          "m2t/R03": 9.28,
+          "t2m/R05": 13.07,
+          "m2t/R05": 13.43,
+          "t2m/R10": 21.42,
+          "m2t/R10": 21.03,
+          "t2m/MedR": 55.0,
+          "m2t/MedR": 59.5,
+          "t2m/len": 4646.0,
+          "m2t/len": 4646.0
+        },
+        "threshold_0.95": {
+          "t2m/R01": 7.47,
+          "m2t/R01": 6.52,
+          "t2m/R02": 10.53,
+          "m2t/R02": 8.2,
+          "t2m/R03": 14.53,
+          "m2t/R03": 12.68,
+          "t2m/R05": 20.58,
+          "m2t/R05": 17.52,
+          "t2m/R10": 30.65,
+          "m2t/R10": 25.91,
+          "t2m/MedR": 34.0,
+          "m2t/MedR": 45.75,
+          "t2m/len": 4646.0,
+          "m2t/len": 4646.0
+        },
+        "nsim": {
+          "t2m/R01": 39.18,
+          "m2t/R01": 40.21,
+          "t2m/R02": 57.73,
+          "m2t/R02": 53.61,
+          "t2m/R03": 63.92,
+          "m2t/R03": 60.82,
+          "t2m/R05": 75.26,
+          "m2t/R05": 71.13,
+          "t2m/R10": 84.54,
+          "m2t/R10": 82.47,
+          "t2m/MedR": 2.0,
+          "m2t/MedR": 2.0,
+          "t2m/len": 97.0,
+          "m2t/len": 97.0
+        },
+        "guo": {
+          "t2m/R01": 57.31,
+          "m2t/R01": 56.59,
+          "t2m/R02": 72.0,
+          "m2t/R02": 71.25,
+          "t2m/R03": 79.18,
+          "m2t/R03": 78.66,
+          "t2m/R05": 86.31,
+          "m2t/R05": 86.12,
+          "t2m/R10": 93.15,
+          "m2t/R10": 93.02,
+          "t2m/MedR": 1.2,
+          "m2t/MedR": 1.23,
+          "t2m/len": 32.0,
+          "m2t/len": 32.0
+        }
+      },
+      "status": "evaluated",
+      "primary_score": 32.43625,
+      "last_checkpoint": "/home/ripemangobox/Coding/Github/Motion/TMR/RUN_DIR/stage4_1_realdata_e50_b128_d2a/tmr_d2a_humanml3d_e_None/version_0/checkpoints/last.ckpt",
+      "has_last_weights": true
+    },
+    {
+      "stage_key": "d2b",
+      "stage_label": "D2b",
+      "run_dir": "/home/ripemangobox/Coding/Github/Motion/TMR/RUN_DIR/stage4_1_realdata_e50_b128_d2b",
+      "config": {
+        "data": {
+          "_target_": "src.data.humanml3de_event.HumanML3DEventDataset",
+          "dataset_root": "/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E",
+          "text_to_token_emb": {
+            "_target_": "src.data.text.TokenEmbeddings",
+            "path": "datasets/annotations/humanml3d",
+            "modelname": "distilbert-base-uncased",
+            "preload": false
+          },
+          "text_to_sent_emb": {
+            "_target_": "src.data.text.SentenceEmbeddings",
+            "path": "datasets/annotations/humanml3d",
+            "modelname": "sentence-transformers/all-mpnet-base-v2",
+            "preload": false
+          },
+          "preload": false,
+          "strict_event_parse": false,
+          "nsim_subset_size": 100,
+          "nsim_min_similarity": 0.75,
+          "nsim_split_path": "/home/ripemangobox/Coding/Github/Motion/TMR/datasets/annotations/humanml3d/splits/nsim_test.txt"
+        },
+        "model": {
+          "_target_": "src.model.tmr_d2b.TMRD2bFullMotionEncoder",
+          "motion_encoder": {
+            "_target_": "src.model.ACTORStyleEncoder",
+            "nfeats": 263,
+            "vae": true,
+            "latent_dim": 256,
+            "ff_size": 1024,
+            "num_layers": 6,
+            "num_heads": 4,
+            "dropout": 0.1,
+            "activation": "gelu"
+          },
+          "text_encoder": {
+            "_target_": "src.model.ACTORStyleEncoder",
+            "nfeats": 768,
+            "vae": true,
+            "latent_dim": 256,
+            "ff_size": 1024,
+            "num_layers": 6,
+            "num_heads": 4,
+            "dropout": 0.1,
+            "activation": "gelu"
+          },
+          "motion_decoder": {
+            "_target_": "src.model.ACTORStyleDecoder",
+            "nfeats": 263,
+            "latent_dim": 256,
+            "ff_size": 1024,
+            "num_layers": 6,
+            "num_heads": 4,
+            "dropout": 0.1,
+            "activation": "gelu"
+          },
+          "vae": true,
+          "lmd": {
+            "recons": 1.0,
+            "latent": 1e-05,
+            "kl": 1e-05,
+            "global": 0.1,
+            "evt_align": 1.0
+          },
+          "lr": 0.0001,
+          "temperature": 0.1,
+          "threshold_selfsim": 0.8,
+          "threshold_selfsim_metrics": 0.95,
+          "event_align_tau": 0.1,
+          "warm_start_weights_dir": "RUN_DIR/stage4_1_realdata_e50_b128_d1/last_weights",
+          "warm_start_ckpt": null,
+          "warm_start_event_head": true,
+          "freeze_motion_backbone": false,
+          "freeze_text_encoder": true,
+          "freeze_motion_decoder": true
+        },
+        "trainer": {
+          "_target_": "pytorch_lightning.Trainer",
+          "max_epochs": 50,
+          "log_every_n_steps": 20,
+          "num_sanity_val_steps": 0,
+          "check_val_every_n_epoch": 1,
+          "accelerator": "gpu",
+          "devices": 1,
+          "callbacks": [
+            {
+              "_target_": "pytorch_lightning.callbacks.ModelCheckpoint",
+              "filename": "latest-{epoch}",
+              "every_n_epochs": 1,
+              "save_top_k": 1,
+              "save_last": true
+            },
+            {
+              "_target_": "pytorch_lightning.callbacks.ModelCheckpoint",
+              "filename": "latest-{epoch}",
+              "monitor": "step",
+              "mode": "max",
+              "every_n_epochs": 100,
+              "save_top_k": -1,
+              "save_last": false
+            },
+            {
+              "_target_": "pytorch_lightning.callbacks.ModelCheckpoint",
+              "monitor": "val_loss",
+              "mode": "min",
+              "save_top_k": 3,
+              "save_last": true,
+              "filename": "e_{epoch:03d}-val_{val:.2f}"
+            },
+            {
+              "_target_": "src.callback.progress.ProgressLogger",
+              "precision": 3
+            },
+            {
+              "_target_": "src.callback.tqdmbar.TQDMProgressBar"
+            }
+          ],
+          "logger": {
+            "_target_": "pytorch_lightning.loggers.TensorBoardLogger",
+            "save_dir": "RUN_DIR/stage4_1_realdata_e50_b128_d2b",
+            "name": "tmr_d2b_humanml3d_e_None"
+          }
+        },
+        "run_dir": "RUN_DIR/stage4_1_realdata_e50_b128_d2b",
+        "seed": 1234,
+        "logger_level": "INFO",
+        "ckpt": "last",
+        "resume_dir": null,
+        "dataloader": {
+          "_target_": "torch.utils.data.DataLoader",
+          "batch_size": 128,
+          "num_workers": 0
+        }
+      },
+      "metrics": {
+        "normal": {
+          "t2m/R01": 4.39,
+          "m2t/R01": 6.5,
+          "t2m/R02": 8.48,
+          "m2t/R02": 9.04,
+          "t2m/R03": 11.6,
+          "m2t/R03": 13.34,
+          "t2m/R05": 16.23,
+          "m2t/R05": 17.67,
+          "t2m/R10": 26.39,
+          "m2t/R10": 26.78,
+          "t2m/MedR": 36.0,
+          "m2t/MedR": 36.5,
+          "t2m/len": 4646.0,
+          "m2t/len": 4646.0
+        },
+        "threshold_0.95": {
+          "t2m/R01": 9.58,
+          "m2t/R01": 10.27,
+          "t2m/R02": 13.34,
+          "m2t/R02": 12.1,
+          "t2m/R03": 18.88,
+          "m2t/R03": 17.86,
+          "t2m/R05": 25.05,
+          "m2t/R05": 22.73,
+          "t2m/R10": 35.62,
+          "m2t/R10": 32.57,
+          "t2m/MedR": 23.0,
+          "m2t/MedR": 29.0,
+          "t2m/len": 4646.0,
+          "m2t/len": 4646.0
+        },
+        "nsim": {
+          "t2m/R01": 48.45,
+          "m2t/R01": 45.36,
+          "t2m/R02": 61.86,
+          "m2t/R02": 63.92,
+          "t2m/R03": 68.04,
+          "m2t/R03": 69.07,
+          "t2m/R05": 79.38,
+          "m2t/R05": 79.38,
+          "t2m/R10": 92.78,
+          "m2t/R10": 92.78,
+          "t2m/MedR": 2.0,
+          "m2t/MedR": 2.0,
+          "t2m/len": 97.0,
+          "m2t/len": 97.0
+        },
+        "guo": {
+          "t2m/R01": 64.29,
+          "m2t/R01": 64.74,
+          "t2m/R02": 78.51,
+          "m2t/R02": 78.49,
+          "t2m/R03": 84.81,
+          "m2t/R03": 84.85,
+          "t2m/R05": 90.06,
+          "m2t/R05": 90.02,
+          "t2m/R10": 94.96,
+          "m2t/R10": 94.98,
+          "t2m/MedR": 1.06,
+          "m2t/MedR": 1.03,
+          "t2m/len": 32.0,
+          "m2t/len": 32.0
+        }
+      },
+      "status": "evaluated",
+      "primary_score": 37.17,
+      "last_checkpoint": "/home/ripemangobox/Coding/Github/Motion/TMR/RUN_DIR/stage4_1_realdata_e50_b128_d2b/tmr_d2b_humanml3d_e_None/version_0/checkpoints/last.ckpt",
+      "has_last_weights": true
+    }
+  ],
+  "recommendation": "Go Phase 2 with D2b",
+  "winner": "D2b"
+}
