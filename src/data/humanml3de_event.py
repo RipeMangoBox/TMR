@@ -153,11 +153,17 @@ class HumanML3DEventDataset(Dataset):
         self.strict_event_parse = strict_event_parse
         self.nsim_subset_size = nsim_subset_size
         self.nsim_min_similarity = nsim_min_similarity
-        self.nsim_split_path = (
-            Path(nsim_split_path).expanduser().resolve()
-            if nsim_split_path is not None
-            else DEFAULT_NSIM_SPLIT
-        )
+        if nsim_split_path is not None:
+            self.nsim_split_path = Path(nsim_split_path).expanduser().resolve()
+        else:
+            # Prefer a dataset-local nsim split when present so derived single-root
+            # datasets remain self-contained. Fall back to the repo default split.
+            dataset_local_nsim = self.dataset_root / "nsim_test.txt"
+            self.nsim_split_path = (
+                dataset_local_nsim.resolve()
+                if dataset_local_nsim.exists()
+                else DEFAULT_NSIM_SPLIT
+            )
         self.collate_fn = collate_text_motion_event
 
         load_split = "test" if split == "nsim_test" else split
