@@ -1,0 +1,38 @@
+# configs/experiment/motion_repr_ablation.yaml
+defaults:
+  - _self_
+
+schemas:
+  - guo263
+  - pos66
+  - smpl_d135_recon
+  - hy201_recon
+  - kimodo_like_261
+
+schema_dims:
+  guo263: 263
+  pos66: 66
+  smpl_d135_recon: 135
+  hy201_recon: 201
+  kimodo_like_261: 261
+
+training:
+  epochs: 50
+  batch_size: 32
+  lr: 1.0e-4
+  weight_decay: 1.0e-5
+  patience: 10
+  seed: 42
+
+model:
+  latent_dim: 256
+  num_layers: 2
+  num_heads: 4
+  ff_size: 512
+  dropout: 0.1
+  temperature: 0.07
+
+data:
+  text_dir: ${oc.env:MOTIONPATCHES_DATA_ROOT,../datasets/HumanML3D-E-MP}/texts
+  split_dir: ${oc.env:MOTIONPATCHES_DATA_ROOT,../datasets/HumanML3D-E-MP}
+  max_motion_length: 224
