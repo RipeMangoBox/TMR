@@ -36,11 +36,11 @@ def parse_args() -> argparse.Namespace:
         nargs="+",
         default=["guo263", "pos66", "kimodo261", "smpl135", "hy201", "hml272"],
     )
-    parser.add_argument("--model", default="tmr_d1")
+    parser.add_argument("--model", default="tmr_d2b")
     parser.add_argument("--batch-size", type=int, default=32)
     parser.add_argument("--num-workers", type=int, default=8)
     parser.add_argument("--seed", type=int, default=42)
-    parser.add_argument("--epochs", type=int, default=50)
+    parser.add_argument("--epochs", type=int, default=1000)
     parser.add_argument("--device", default="cuda")
     parser.add_argument("--retrieval-batch-size", type=int, default=256)
     parser.add_argument(

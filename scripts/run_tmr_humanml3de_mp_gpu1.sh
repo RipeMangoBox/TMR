@@ -5,10 +5,12 @@ REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "${REPO_DIR}"
 
 GPU_ID="${GPU_ID_OVERRIDE:-1}"
-MODEL_NAME="${MODEL_NAME_OVERRIDE:-tmr_d1}"
+MODEL_NAME="${MODEL_NAME_OVERRIDE:-tmr_d2b}"
 RUN_ROOT="${RUN_ROOT_OVERRIDE:-outputs/humanml3d_e_mp_motion_repr_server}"
-EPOCHS="${EPOCHS_OVERRIDE:-50}"
-BATCH_SIZE="${BATCH_SIZE_OVERRIDE:-32}"
+EPOCHS="${EPOCHS_OVERRIDE:-1000}"
+BATCH_SIZE="${BATCH_SIZE_OVERRIDE:-128}"
+# HumanML3D-E-MP now has reusable caption/event embedding caches; keep the
+# launcher aligned with the original multi-worker TMR regime unless overridden.
 NUM_WORKERS="${NUM_WORKERS_OVERRIDE:-8}"
 SEED="${SEED_OVERRIDE:-42}"
 RETRIEVAL_BATCH_SIZE="${RETRIEVAL_BATCH_SIZE_OVERRIDE:-256}"
@@ -46,8 +48,16 @@ echo "[tmr-hml3de-mp][gpu${GPU_ID}] schemas=${SCHEMAS[*]}"
 echo "[tmr-hml3de-mp][gpu${GPU_ID}] run_root=${RUN_ROOT}"
 echo "[tmr-hml3de-mp][gpu${GPU_ID}] log=${LOG_PATH}"
 
-env CUDA_VISIBLE_DEVICES="${GPU_ID}" \
-  "${CONDA_BIN}" run --live-stream -n TMR python scripts/run_tmr_humanml3de_mp_motion_repr.py \
+CMD=(
+  env
+  "CUDA_VISIBLE_DEVICES=${GPU_ID}"
+  "${CONDA_BIN}"
+  run
+  --live-stream
+  -n
+  TMR
+  python
+  scripts/run_tmr_humanml3de_mp_motion_repr.py
   --model "${MODEL_NAME}" \
   --schemas "${SCHEMAS[@]}" \
   --epochs "${EPOCHS}" \
@@ -58,4 +68,13 @@ env CUDA_VISIBLE_DEVICES="${GPU_ID}" \
   --retrieval-batch-size "${RETRIEVAL_BATCH_SIZE}" \
   --run-root "${RUN_ROOT}" \
   "${DRY_RUN_FLAG[@]}" \
-  2>&1 | tee "${LOG_PATH}"
+  "$@" \
+)
+
+printf -v CMD_STR '%q ' "${CMD[@]}"
+
+if command -v script >/dev/null 2>&1 && [[ "${DRY_RUN_OVERRIDE:-0}" != "1" ]]; then
+  script -qefc "${CMD_STR}" "${LOG_PATH}"
+else
+  "${CMD[@]}" 2>&1 | tee "${LOG_PATH}"
+fi

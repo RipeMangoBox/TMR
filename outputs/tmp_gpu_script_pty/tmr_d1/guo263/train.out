@@ -1,0 +1,33 @@
+[20/04/26 00:26:50][__main__][INFO] - Training script
+[20/04/26 00:26:50][__main__][INFO] - The config can be found here: 
+outputs/tmp_gpu_script_pty/tmr_d1/guo263/config.json
+[20/04/26 00:26:52][lightning_fabric.utilities.seed][INFO] - Seed set to 42
+[20/04/26 00:26:52][__main__][INFO] - Loading the dataloaders
+[20/04/26 00:27:09][__main__][INFO] - Loading the model
+[20/04/26 00:27:09][__main__][INFO] - Training
+[20/04/26 00:27:09][pytorch_lightning.utilities.rank_zero][INFO] - GPU available: True (cuda), used: False
+[20/04/26 00:27:09][pytorch_lightning.utilities.rank_zero][INFO] - TPU available: False, using: 0 TPU cores
+[20/04/26 00:27:09][pytorch_lightning.utilities.rank_zero][INFO] - HPU available: False, using: 0 HPUs
+[20/04/26 00:27:09][pytorch_lightning.utilities.rank_zero][INFO] - `Trainer(limit_train_batches=1)` was configured so 1 batch per epoch will be used.
+[20/04/26 00:27:09][pytorch_lightning.utilities.rank_zero][INFO] - `Trainer(limit_val_batches=1)` was configured so 1 batch will be used.
+[20/04/26 00:27:10][pytorch_lightning.callbacks.model_summary][INFO] - 
+  | Name                   | Type              | Params | Mode 
+---------------------------------------------------------------------
+0 | motion_encoder         | ACTORStyleEncoder | 4.8 M  | eval 
+1 | text_encoder           | ACTORStyleEncoder | 4.9 M  | eval 
+2 | motion_decoder         | ACTORStyleDecoder | 6.4 M  | eval 
+3 | reconstruction_loss_fn | SmoothL1Loss      | 0      | train
+4 | latent_loss_fn         | SmoothL1Loss      | 0      | train
+5 | event_proj_e           | Linear            | 65.8 K | train
+6 | event_proj_t           | Linear            | 65.8 K | train
+---------------------------------------------------------------------
+131 K     Trainable params
+16.1 M    Non-trainable params
+16.3 M    Total params
+65.050    Total estimated model params size (MB)
+4         Modules in train mode
+222       Modules in eval mode
+[20/04/26 00:27:11][src.callback.progress][INFO] - Training started
+[20/04/26 00:27:12][src.callback.progress][INFO] - Epoch 0: v_loss 9.277e-01  loss 1.386e+00  v_global 4.923e-01  global 1.087e+00  v_t2m/len 4  v_t2m/R01 75.0%  v_t2m/R02 100.0%  v_t2m/R03 100.0%  v_t2m/R05 100.0%  v_t2m/R10 100.0%  v_t2m/MedR 1.0%  v_m2t/len 4  v_m2t/R01 75.0%  v_m2t/R02 100.0%  v_m2t/R03 100.0%  v_m2t/R05 100.0%  v_m2t/R10 100.0%  v_m2t/MedR 1.0%
+[20/04/26 00:27:13][pytorch_lightning.utilities.rank_zero][INFO] - `Trainer.fit` stopped: `max_epochs=1` reached.
+[20/04/26 00:27:13][src.callback.progress][INFO] - Training done

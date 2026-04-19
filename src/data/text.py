@@ -1,6 +1,7 @@
 import os
 import orjson
 import json
+import logging
 import torch
 from torch import Tensor
 import numpy as np
@@ -9,6 +10,9 @@ from tqdm import tqdm
 from abc import ABC, abstractmethod
 
 from src.model import TextToEmb
+
+
+logger = logging.getLogger(__name__)
 
 
 class TextEmbeddings(ABC):
@@ -29,7 +33,17 @@ class TextEmbeddings(ABC):
         self.disable = disable
 
         if preload and not disable:
-            self.load_embeddings()
+            try:
+                self.load_embeddings()
+            except FileNotFoundError as exc:
+                logger.warning(
+                    "Precomputed text embeddings not found for path=%s model=%s; "
+                    "falling back to on-the-fly encoding. Missing file: %s",
+                    path,
+                    modelname,
+                    exc,
+                )
+                self.embeddings_index = {}
         else:
             self.embeddings_index = {}
 
@@ -151,53 +165,73 @@ def write_json(data, path):
         ff.write(json.dumps(data, indent=4))
 
 
-def save_token_embeddings(
-    path, modelname="sentence-transformers/all-mpnet-base-v2", device="cuda"
+def _deduplicate_texts(texts):
+    ordered = {}
+    for text in texts:
+        if text is None:
+            continue
+        cleaned = str(text).strip()
+        if not cleaned or cleaned in ordered:
+            continue
+        ordered[cleaned] = None
+    return list(ordered.keys())
+
+
+def _split_text_batches(texts, batch_size=None):
+    if not texts:
+        return []
+    if batch_size is not None and batch_size > 0:
+        return [texts[idx : idx + batch_size] for idx in range(0, len(texts), batch_size)]
+
+    num_splits = max(1, min(100, len(texts)))
+    return [batch.tolist() for batch in np.array_split(np.asarray(texts, dtype=object), num_splits)]
+
+
+def save_token_embeddings_from_texts(
+    path,
+    texts,
+    modelname="sentence-transformers/all-mpnet-base-v2",
+    device="cuda",
+    batch_size=None,
+    progress_desc="Encoding token embeddings",
 ):
     model = TextToEmb(modelname, device=device)
-    annotations = load_annotations(path)
 
     path = os.path.join(path, TokenEmbeddings.name)
     ptpath = os.path.join(path, f"{modelname}.npy")
     slicepath = os.path.join(path, f"{modelname}_slice.npy")
     jsonpath = os.path.join(path, f"{modelname}_index.json")
 
-    # modelname can have folders
     path = os.path.split(ptpath)[0]
     os.makedirs(path, exist_ok=True)
 
-    # fetch all the texts
-    all_texts = []
-    for dico in annotations.values():
-        for lst in dico["annotations"]:
-            all_texts.append(lst["text"])
+    all_texts = _deduplicate_texts(texts)
+    if not all_texts:
+        raise ValueError("No valid texts found for token embedding export.")
 
-    # remove duplicates
-    all_texts = list(set(all_texts))
-
-    # batch of N/10
-    nb_tokens = []
-    all_texts_batched = np.array_split(all_texts, 100)
+    logger.info("Saving token embeddings for %s unique texts", len(all_texts))
+    all_texts_batched = _split_text_batches(all_texts, batch_size=batch_size)
 
     nb_tokens_so_far = 0
     big_tensor = []
     index = []
-    for all_texts_batch in tqdm(all_texts_batched):
+    for all_texts_batch in tqdm(
+        all_texts_batched,
+        desc=progress_desc,
+        unit="batch",
+    ):
         x_dict = model(list(all_texts_batch))
 
         tensor = x_dict["x"]
         nb_tokens = x_dict["length"]
 
-        # remove padding
         tensor_no_padding = [x[:n].cpu() for x, n in zip(tensor, nb_tokens)]
         tensor_concat = torch.cat(tensor_no_padding)
 
         big_tensor.append(tensor_concat)
-        # save where it is
         ends = torch.cumsum(nb_tokens, 0)
         begins = torch.cat((0 * ends[[0]], ends[:-1]))
 
-        # offset
         ends += nb_tokens_so_far
         begins += nb_tokens_so_far
         nb_tokens_so_far += len(tensor_concat)
@@ -212,39 +246,41 @@ def save_token_embeddings(
     print(f"{ptpath} written")
     print(f"{slicepath} written")
 
-    # correspondance
     dico = {txt: i for i, txt in enumerate(all_texts)}
     write_json(dico, jsonpath)
     print(f"{jsonpath} written")
 
 
-def save_sent_embeddings(
-    path, modelname="sentence-transformers/all-mpnet-base-v2", device="cuda"
+def save_sent_embeddings_from_texts(
+    path,
+    texts,
+    modelname="sentence-transformers/all-mpnet-base-v2",
+    device="cuda",
+    batch_size=None,
+    progress_desc="Encoding sentence embeddings",
 ):
     model = TextToEmb(modelname, mean_pooling=True, device=device)
-    annotations = load_annotations(path)
 
     path = os.path.join(path, SentenceEmbeddings.name)
     ptpath = os.path.join(path, f"{modelname}.npy")
     jsonpath = os.path.join(path, f"{modelname}_index.json")
 
-    # modelname can have folders
     path = os.path.split(ptpath)[0]
     os.makedirs(path, exist_ok=True)
 
-    # fetch all the texts
-    all_texts = []
-    for dico in annotations.values():
-        for lst in dico["annotations"]:
-            all_texts.append(lst["text"])
+    all_texts = _deduplicate_texts(texts)
+    if not all_texts:
+        raise ValueError("No valid texts found for sentence embedding export.")
 
-    # remove duplicates
-    all_texts = list(set(all_texts))
+    logger.info("Saving sentence embeddings for %s unique texts", len(all_texts))
+    all_texts_batched = _split_text_batches(all_texts, batch_size=batch_size)
 
-    # batch of N/10
-    all_texts_batched = np.array_split(all_texts, 100)
     embeddings = []
-    for all_texts_batch in tqdm(all_texts_batched):
+    for all_texts_batch in tqdm(
+        all_texts_batched,
+        desc=progress_desc,
+        unit="batch",
+    ):
         embedding = model(list(all_texts_batch)).cpu()
         embeddings.append(embedding)
 
@@ -252,7 +288,44 @@ def save_sent_embeddings(
     np.save(ptpath, embeddings)
     print(f"{ptpath} written")
 
-    # correspondance
     dico = {txt: i for i, txt in enumerate(all_texts)}
     write_json(dico, jsonpath)
     print(f"{jsonpath} written")
+
+
+def save_token_embeddings(
+    path, modelname="sentence-transformers/all-mpnet-base-v2", device="cuda"
+):
+    annotations = load_annotations(path)
+
+    # fetch all the texts
+    all_texts = []
+    for dico in annotations.values():
+        for lst in dico["annotations"]:
+            all_texts.append(lst["text"])
+    save_token_embeddings_from_texts(
+        path,
+        all_texts,
+        modelname=modelname,
+        device=device,
+        progress_desc="Encoding token embeddings",
+    )
+
+
+def save_sent_embeddings(
+    path, modelname="sentence-transformers/all-mpnet-base-v2", device="cuda"
+):
+    annotations = load_annotations(path)
+
+    # fetch all the texts
+    all_texts = []
+    for dico in annotations.values():
+        for lst in dico["annotations"]:
+            all_texts.append(lst["text"])
+    save_sent_embeddings_from_texts(
+        path,
+        all_texts,
+        modelname=modelname,
+        device=device,
+        progress_desc="Encoding sentence embeddings",
+    )

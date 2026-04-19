@@ -1,0 +1,31 @@
+[19/04/26 23:50:48][__main__][INFO] - Training script
+[19/04/26 23:50:48][__main__][INFO] - The config can be found here: 
+outputs/tmp_hang_probe_workers0/config.json
+[19/04/26 23:50:52][lightning_fabric.utilities.seed][INFO] - Seed set to 1234
+[19/04/26 23:50:52][__main__][INFO] - Loading the dataloaders
+[19/04/26 23:51:02][__main__][INFO] - Loading the model
+[19/04/26 23:51:02][__main__][INFO] - Training
+[19/04/26 23:51:02][pytorch_lightning.utilities.rank_zero][INFO] - GPU available: True (cuda), used: False
+[19/04/26 23:51:02][pytorch_lightning.utilities.rank_zero][INFO] - TPU available: False, using: 0 TPU cores
+[19/04/26 23:51:02][pytorch_lightning.utilities.rank_zero][INFO] - HPU available: False, using: 0 HPUs
+[19/04/26 23:51:02][pytorch_lightning.utilities.rank_zero][INFO] - `Trainer(limit_train_batches=1)` was configured so 1 batch per epoch will be used.
+[19/04/26 23:51:02][pytorch_lightning.utilities.rank_zero][INFO] - `Trainer(limit_val_batches=1)` was configured so 1 batch will be used.
+[19/04/26 23:51:02][pytorch_lightning.callbacks.model_summary][INFO] - 
+  | Name                   | Type              | Params | Mode 
+---------------------------------------------------------------------
+0 | motion_encoder         | ACTORStyleEncoder | 4.8 M  | train
+1 | text_encoder           | ACTORStyleEncoder | 4.9 M  | train
+2 | motion_decoder         | ACTORStyleDecoder | 6.4 M  | train
+3 | reconstruction_loss_fn | SmoothL1Loss      | 0      | train
+4 | latent_loss_fn         | SmoothL1Loss      | 0      | train
+---------------------------------------------------------------------
+16.1 M    Trainable params
+0         Non-trainable params
+16.1 M    Total params
+64.523    Total estimated model params size (MB)
+224       Modules in train mode
+0         Modules in eval mode
+[19/04/26 23:51:02][src.callback.progress][INFO] - Training started
+[19/04/26 23:51:38][src.callback.progress][INFO] - Epoch 0: v_recons 4.685e-01  recons 1.039e+00  v_loss 6.135e-01  loss 1.216e+00  v_latent 1.267e+00  latent 1.253e+00  v_kl 7.950e+00  kl 7.893e+00  v_contrastive 1.449e+00  contrastive 1.772e+00  v_t2m/len 4  v_t2m/R01 25.0%  v_t2m/R02 25.0%  v_t2m/R03 75.0%  v_t2m/R05 100.0%  v_t2m/R10 100.0%  v_t2m/MedR 3.0%  v_m2t/len 4  v_m2t/R01 50.0%  v_m2t/R02 75.0%  v_m2t/R03 75.0%  v_m2t/R05 100.0%  v_m2t/R10 100.0%  v_m2t/MedR 1.5%
+[19/04/26 23:51:40][pytorch_lightning.utilities.rank_zero][INFO] - `Trainer.fit` stopped: `max_epochs=1` reached.
+[19/04/26 23:51:40][src.callback.progress][INFO] - Training done

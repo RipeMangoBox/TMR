@@ -1228,3 +1228,34 @@ outputs/tmr_humanml3d_guoh3dfeats/config.json
 224       Modules in train mode
 0         Modules in eval mode
 [16/10/25 15:26:49][src.callback.progress][INFO] - Training started
+[19/04/26 23:46:22][__main__][INFO] - Training script
+[19/04/26 23:46:22][__main__][INFO] - The config can be found here: 
+outputs/tmr_humanml3d_guoh3dfeats/config.json
+[19/04/26 23:46:26][lightning_fabric.utilities.seed][INFO] - Seed set to 1234
+[19/04/26 23:46:26][__main__][INFO] - Loading the dataloaders
+[19/04/26 23:47:37][__main__][INFO] - Loading the model
+[19/04/26 23:47:37][__main__][INFO] - Training
+[19/04/26 23:47:37][pytorch_lightning.utilities.rank_zero][INFO] - GPU available: True (cuda), used: True
+[19/04/26 23:47:37][pytorch_lightning.utilities.rank_zero][INFO] - TPU available: False, using: 0 TPU cores
+[19/04/26 23:47:37][pytorch_lightning.utilities.rank_zero][INFO] - HPU available: False, using: 0 HPUs
+[19/04/26 23:47:37][pytorch_lightning.accelerators.cuda][INFO] - LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+[19/04/26 23:47:38][pytorch_lightning.callbacks.model_summary][INFO] - 
+  | Name                   | Type              | Params | Mode 
+---------------------------------------------------------------------
+0 | motion_encoder         | ACTORStyleEncoder | 4.8 M  | train
+1 | text_encoder           | ACTORStyleEncoder | 4.9 M  | train
+2 | motion_decoder         | ACTORStyleDecoder | 6.4 M  | train
+3 | reconstruction_loss_fn | SmoothL1Loss      | 0      | train
+4 | latent_loss_fn         | SmoothL1Loss      | 0      | train
+---------------------------------------------------------------------
+16.1 M    Trainable params
+0         Non-trainable params
+16.1 M    Total params
+64.523    Total estimated model params size (MB)
+224       Modules in train mode
+0         Modules in eval mode
+[19/04/26 23:47:40][src.callback.progress][INFO] - Training started
+[19/04/26 23:47:48][src.callback.progress][INFO] - Epoch 0 step 50/686: loss 7.435e-01
+[19/04/26 23:47:55][src.callback.progress][INFO] - Epoch 0 step 100/686: loss 8.028e-01
+[19/04/26 23:47:57][pytorch_lightning.utilities.rank_zero][INFO] - 
+Detected KeyboardInterrupt, attempting graceful shutdown ...

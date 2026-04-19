@@ -72,41 +72,54 @@ class ProgressLogger(Callback):
 
         losses_dict = trainer.callback_metrics
 
-        def is_contrastive_metrics(x):
-            return "t2m" in x or "m2t" in x
+        def is_contrastive_metrics(name: str) -> bool:
+            return "t2m" in name or "m2t" in name
 
-        losses_to_print = [
-            x
-            for x in losses_dict.keys()
-            for y in [x.split("_")]
-            if len(y) == 3
-            and y[2] == "epoch"
-            and (
-                y[1] in pl_module.lmd or y[1] == "loss" or is_contrastive_metrics(y[1])
-            )
-        ]
+        extra_metric_names = {"evt_align_acc", "avg_events_per_caption"}
+
+        parsed_metrics = []
+        for metric_name in losses_dict.keys():
+            if metric_name.startswith("train_"):
+                split = "train"
+            elif metric_name.startswith("val_"):
+                split = "val"
+            else:
+                continue
+
+            suffix = "_epoch"
+            if not metric_name.endswith(suffix):
+                continue
+
+            prefix = f"{split}_"
+            name = metric_name[len(prefix) : -len(suffix)]
+            if not (
+                name in pl_module.lmd
+                or name == "loss"
+                or name in extra_metric_names
+                or is_contrastive_metrics(name)
+            ):
+                continue
+            parsed_metrics.append((metric_name, split, name))
 
         # Natual order for contrastive
         letters = "0123456789"
         mapping = str.maketrans(letters, letters[::-1])
 
-        def sort_losses(x):
-            split, name, epoch_step = x.split("_")
-            if is_contrastive_metrics(x):
+        def sort_losses(item):
+            _, split, name = item
+            if is_contrastive_metrics(name):
                 # put them at the end
                 name = "a" + name.translate(mapping)
             return (name, split)
 
-        losses_to_print = sorted(losses_to_print, key=sort_losses, reverse=True)
-        for metric_name in losses_to_print:
-            split, name, _ = metric_name.split("_")
-
+        parsed_metrics = sorted(parsed_metrics, key=sort_losses, reverse=True)
+        for metric_name, split, name in parsed_metrics:
             metric = losses_dict[metric_name].item()
 
-            if is_contrastive_metrics(metric_name):
-                if "len" in metric_name:
+            if is_contrastive_metrics(name):
+                if "len" in name:
                     metric = str(int(metric))
-                elif "MedR" in metric_name:
+                elif "MedR" in name:
                     metric = str(int(metric * 100) / 100) + "%"
                 else:
                     metric = str(int(metric * 100) / 100) + "%"

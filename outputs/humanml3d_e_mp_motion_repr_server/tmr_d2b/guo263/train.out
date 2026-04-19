@@ -1,0 +1,89 @@
+[20/04/26 00:40:20][__main__][INFO] - Training script
+[20/04/26 00:40:20][__main__][INFO] - The config can be found here: 
+outputs/humanml3d_e_mp_motion_repr_server/tmr_d2b/guo263/config.json
+[20/04/26 00:40:22][lightning_fabric.utilities.seed][INFO] - Seed set to 42
+[20/04/26 00:40:22][__main__][INFO] - Loading the dataloaders
+[20/04/26 00:40:37][__main__][INFO] - Loading the model
+[20/04/26 00:40:37][__main__][INFO] - Training
+[20/04/26 00:40:37][pytorch_lightning.utilities.rank_zero][INFO] - GPU available: True (cuda), used: True
+[20/04/26 00:40:37][pytorch_lightning.utilities.rank_zero][INFO] - TPU available: False, using: 0 TPU cores
+[20/04/26 00:40:37][pytorch_lightning.utilities.rank_zero][INFO] - HPU available: False, using: 0 HPUs
+[20/04/26 00:40:37][pytorch_lightning.accelerators.cuda][INFO] - LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+[20/04/26 00:40:38][pytorch_lightning.callbacks.model_summary][INFO] - 
+  | Name                   | Type              | Params | Mode 
+---------------------------------------------------------------------
+0 | motion_encoder         | ACTORStyleEncoder | 4.8 M  | train
+1 | text_encoder           | ACTORStyleEncoder | 4.9 M  | eval 
+2 | motion_decoder         | ACTORStyleDecoder | 6.4 M  | eval 
+3 | reconstruction_loss_fn | SmoothL1Loss      | 0      | train
+4 | latent_loss_fn         | SmoothL1Loss      | 0      | train
+5 | event_proj_e           | Linear            | 65.8 K | train
+6 | event_proj_t           | Linear            | 65.8 K | train
+---------------------------------------------------------------------
+4.9 M     Trainable params
+11.3 M    Non-trainable params
+16.3 M    Total params
+65.050    Total estimated model params size (MB)
+70        Modules in train mode
+156       Modules in eval mode
+[20/04/26 00:40:38][src.callback.progress][INFO] - Training started
+[20/04/26 00:40:41][src.callback.progress][INFO] - Epoch 0 step 50/768: loss 2.655e+00  global 1.845e+00  evt_align 2.470e+00
+[20/04/26 00:40:43][src.callback.progress][INFO] - Epoch 0 step 100/768: loss 2.529e+00  global 1.946e+00  evt_align 2.335e+00
+[20/04/26 00:40:46][src.callback.progress][INFO] - Epoch 0 step 150/768: loss 2.395e+00  global 1.998e+00  evt_align 2.195e+00
+[20/04/26 00:40:48][src.callback.progress][INFO] - Epoch 0 step 200/768: loss 2.068e+00  global 1.690e+00  evt_align 1.899e+00
+[20/04/26 00:40:50][src.callback.progress][INFO] - Epoch 0 step 250/768: loss 2.184e+00  global 1.581e+00  evt_align 2.026e+00
+[20/04/26 00:40:53][src.callback.progress][INFO] - Epoch 0 step 300/768: loss 2.303e+00  global 1.765e+00  evt_align 2.127e+00
+[20/04/26 00:40:55][src.callback.progress][INFO] - Epoch 0 step 350/768: loss 2.044e+00  global 1.448e+00  evt_align 1.899e+00
+[20/04/26 00:40:58][src.callback.progress][INFO] - Epoch 0 step 400/768: loss 1.840e+00  global 1.376e+00  evt_align 1.702e+00
+[20/04/26 00:41:00][src.callback.progress][INFO] - Epoch 0 step 450/768: loss 1.847e+00  global 1.219e+00  evt_align 1.725e+00
+[20/04/26 00:41:02][src.callback.progress][INFO] - Epoch 0 step 500/768: loss 1.701e+00  global 1.217e+00  evt_align 1.579e+00
+[20/04/26 00:41:05][src.callback.progress][INFO] - Epoch 0 step 550/768: loss 1.650e+00  global 1.241e+00  evt_align 1.526e+00
+[20/04/26 00:41:07][src.callback.progress][INFO] - Epoch 0 step 600/768: loss 1.594e+00  global 1.166e+00  evt_align 1.477e+00
+[20/04/26 00:41:09][src.callback.progress][INFO] - Epoch 0 step 650/768: loss 1.666e+00  global 1.287e+00  evt_align 1.537e+00
+[20/04/26 00:41:12][src.callback.progress][INFO] - Epoch 0 step 700/768: loss 1.884e+00  global 1.670e+00  evt_align 1.717e+00
+[20/04/26 00:41:15][src.callback.progress][INFO] - Epoch 0 step 750/768: loss 1.616e+00  global 1.001e+00  evt_align 1.516e+00
+[20/04/26 00:41:18][src.callback.progress][INFO] - Epoch 0: v_loss 2.004e+00  loss 2.024e+00  v_global 1.836e+00  global 1.486e+00  v_evt_align_acc 4.573e-01  evt_align_acc 5.250e-01  v_evt_align 1.820e+00  evt_align 1.875e+00  v_avg_events_per_caption 1.655e+00  avg_events_per_caption 1.676e+00  v_t2m/len 1530  v_t2m/R01 10.97%  v_t2m/R02 15.94%  v_t2m/R03 20.12%  v_t2m/R05 26.46%  v_t2m/R10 36.27%  v_t2m/MedR 22.0%  v_m2t/len 1530  v_m2t/R01 7.78%  v_m2t/R02 8.89%  v_m2t/R03 13.32%  v_m2t/R05 17.78%  v_m2t/R10 26.01%  v_m2t/MedR 41.25%
+[20/04/26 00:41:22][src.callback.progress][INFO] - Epoch 1 step 800/768: loss 1.550e+00  global 1.073e+00  evt_align 1.443e+00
+[20/04/26 00:41:25][src.callback.progress][INFO] - Epoch 1 step 850/768: loss 1.567e+00  global 1.218e+00  evt_align 1.445e+00
+[20/04/26 00:41:27][src.callback.progress][INFO] - Epoch 1 step 900/768: loss 1.408e+00  global 8.674e-01  evt_align 1.321e+00
+[20/04/26 00:41:30][src.callback.progress][INFO] - Epoch 1 step 950/768: loss 1.651e+00  global 7.281e-01  evt_align 1.578e+00
+[20/04/26 00:41:33][src.callback.progress][INFO] - Epoch 1 step 1000/768: loss 1.907e+00  global 1.426e+00  evt_align 1.764e+00
+[20/04/26 00:41:36][src.callback.progress][INFO] - Epoch 1 step 1050/768: loss 1.567e+00  global 1.112e+00  evt_align 1.456e+00
+[20/04/26 00:41:38][src.callback.progress][INFO] - Epoch 1 step 1100/768: loss 1.374e+00  global 9.871e-01  evt_align 1.276e+00
+[20/04/26 00:41:39][pytorch_lightning.utilities.rank_zero][INFO] - 
+Detected KeyboardInterrupt, attempting graceful shutdown ...
+[20/04/26 00:41:41][__main__][INFO] - Training script
+[20/04/26 00:41:41][__main__][INFO] - The config can be found here: 
+outputs/humanml3d_e_mp_motion_repr_server/tmr_d2b/guo263/config.json
+[20/04/26 00:41:43][lightning_fabric.utilities.seed][INFO] - Seed set to 42
+[20/04/26 00:41:43][__main__][INFO] - Loading the dataloaders
+[20/04/26 00:41:51][__main__][INFO] - Loading the model
+[20/04/26 00:41:51][__main__][INFO] - Training
+[20/04/26 00:41:52][pytorch_lightning.utilities.rank_zero][INFO] - GPU available: True (cuda), used: True
+[20/04/26 00:41:52][pytorch_lightning.utilities.rank_zero][INFO] - TPU available: False, using: 0 TPU cores
+[20/04/26 00:41:52][pytorch_lightning.utilities.rank_zero][INFO] - HPU available: False, using: 0 HPUs
+[20/04/26 00:41:52][pytorch_lightning.accelerators.cuda][INFO] - LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+[20/04/26 00:41:52][pytorch_lightning.callbacks.model_summary][INFO] - 
+  | Name                   | Type              | Params | Mode 
+---------------------------------------------------------------------
+0 | motion_encoder         | ACTORStyleEncoder | 4.8 M  | train
+1 | text_encoder           | ACTORStyleEncoder | 4.9 M  | eval 
+2 | motion_decoder         | ACTORStyleDecoder | 6.4 M  | eval 
+3 | reconstruction_loss_fn | SmoothL1Loss      | 0      | train
+4 | latent_loss_fn         | SmoothL1Loss      | 0      | train
+5 | event_proj_e           | Linear            | 65.8 K | train
+6 | event_proj_t           | Linear            | 65.8 K | train
+---------------------------------------------------------------------
+4.9 M     Trainable params
+11.3 M    Non-trainable params
+16.3 M    Total params
+65.050    Total estimated model params size (MB)
+70        Modules in train mode
+156       Modules in eval mode
+[20/04/26 00:41:52][src.callback.progress][INFO] - Training started
+[20/04/26 00:42:00][src.callback.progress][INFO] - Epoch 0 step 50/192: loss 3.755e+00  global 2.796e+00  evt_align 3.476e+00
+[20/04/26 00:42:07][src.callback.progress][INFO] - Epoch 0 step 100/192: loss 3.339e+00  global 2.408e+00  evt_align 3.098e+00
+[20/04/26 00:42:14][src.callback.progress][INFO] - Epoch 0 step 150/192: loss 3.259e+00  global 2.530e+00  evt_align 3.006e+00
+[20/04/26 00:42:21][src.callback.progress][INFO] - Epoch 0: v_loss 3.493e+00  loss 3.622e+00  v_global 3.027e+00  global 2.701e+00  v_evt_align_acc 1.977e-01  evt_align_acc 2.514e-01  v_evt_align 3.190e+00  evt_align 3.352e+00  v_avg_events_per_caption 1.655e+00  avg_events_per_caption 1.683e+00  v_t2m/len 1530  v_t2m/R01 10.64%  v_t2m/R02 13.98%  v_t2m/R03 18.04%  v_t2m/R05 23.27%  v_t2m/R10 33.2%  v_t2m/MedR 26.75%  v_m2t/len 1530  v_m2t/R01 7.96%  v_m2t/R02 9.35%  v_m2t/R03 13.14%  v_m2t/R05 17.57%  v_m2t/R10 24.37%  v_m2t/MedR 46.5%
+[20/04/26 00:42:23][pytorch_lightning.utilities.rank_zero][INFO] - 
+Detected KeyboardInterrupt, attempting graceful shutdown ...

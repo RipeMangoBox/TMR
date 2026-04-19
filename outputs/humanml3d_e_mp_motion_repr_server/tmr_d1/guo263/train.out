@@ -1,0 +1,594 @@
+[19/04/26 23:45:04][__main__][INFO] - Training script
+[19/04/26 23:45:04][__main__][INFO] - The config can be found here: 
+outputs/humanml3d_e_mp_motion_repr_server/tmr_d1/guo263/config.json
+[19/04/26 23:45:06][lightning_fabric.utilities.seed][INFO] - Seed set to 42
+[19/04/26 23:45:06][__main__][INFO] - Loading the dataloaders
+[19/04/26 23:45:28][__main__][INFO] - Training script
+[19/04/26 23:45:28][__main__][INFO] - The config can be found here: 
+outputs/humanml3d_e_mp_motion_repr_server/tmr_d1/guo263/config.json
+[19/04/26 23:45:30][lightning_fabric.utilities.seed][INFO] - Seed set to 42
+[19/04/26 23:45:30][__main__][INFO] - Loading the dataloaders
+[19/04/26 23:45:34][__main__][INFO] - Loading the model
+[19/04/26 23:45:34][__main__][INFO] - Training
+[19/04/26 23:45:34][pytorch_lightning.utilities.rank_zero][INFO] - GPU available: True (cuda), used: True
+[19/04/26 23:45:34][pytorch_lightning.utilities.rank_zero][INFO] - TPU available: False, using: 0 TPU cores
+[19/04/26 23:45:34][pytorch_lightning.utilities.rank_zero][INFO] - HPU available: False, using: 0 HPUs
+[19/04/26 23:45:35][pytorch_lightning.accelerators.cuda][INFO] - LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+[19/04/26 23:45:35][pytorch_lightning.callbacks.model_summary][INFO] - 
+  | Name                   | Type              | Params | Mode 
+---------------------------------------------------------------------
+0 | motion_encoder         | ACTORStyleEncoder | 4.8 M  | eval 
+1 | text_encoder           | ACTORStyleEncoder | 4.9 M  | eval 
+2 | motion_decoder         | ACTORStyleDecoder | 6.4 M  | eval 
+3 | reconstruction_loss_fn | SmoothL1Loss      | 0      | train
+4 | latent_loss_fn         | SmoothL1Loss      | 0      | train
+5 | event_proj_e           | Linear            | 65.8 K | train
+6 | event_proj_t           | Linear            | 65.8 K | train
+---------------------------------------------------------------------
+131 K     Trainable params
+16.1 M    Non-trainable params
+16.3 M    Total params
+65.050    Total estimated model params size (MB)
+4         Modules in train mode
+222       Modules in eval mode
+[19/04/26 23:45:35][src.callback.progress][INFO] - Training started
+[19/04/26 23:46:37][src.callback.progress][INFO] - Epoch 0 step 50/768: loss 3.410e+00  global 2.397e+00  evt_align 3.171e+00
+[19/04/26 23:47:33][src.callback.progress][INFO] - Epoch 0 step 100/768: loss 3.252e+00  global 2.542e+00  evt_align 2.998e+00
+[19/04/26 23:48:24][src.callback.progress][INFO] - Epoch 0 step 150/768: loss 3.228e+00  global 2.752e+00  evt_align 2.953e+00
+[19/04/26 23:49:11][src.callback.progress][INFO] - Epoch 0 step 200/768: loss 2.792e+00  global 2.466e+00  evt_align 2.545e+00
+[19/04/26 23:50:10][src.callback.progress][INFO] - Epoch 0 step 250/768: loss 3.037e+00  global 2.468e+00  evt_align 2.791e+00
+[19/04/26 23:51:06][src.callback.progress][INFO] - Epoch 0 step 300/768: loss 2.827e+00  global 2.600e+00  evt_align 2.567e+00
+[19/04/26 23:52:11][src.callback.progress][INFO] - Epoch 0 step 350/768: loss 2.626e+00  global 2.616e+00  evt_align 2.364e+00
+[19/04/26 23:53:04][src.callback.progress][INFO] - Epoch 0 step 400/768: loss 2.626e+00  global 2.761e+00  evt_align 2.350e+00
+[19/04/26 23:54:03][src.callback.progress][INFO] - Epoch 0 step 450/768: loss 2.549e+00  global 1.934e+00  evt_align 2.356e+00
+[19/04/26 23:54:58][src.callback.progress][INFO] - Epoch 0 step 500/768: loss 2.392e+00  global 2.310e+00  evt_align 2.161e+00
+[19/04/26 23:55:47][src.callback.progress][INFO] - Epoch 0 step 550/768: loss 2.241e+00  global 2.442e+00  evt_align 1.997e+00
+[19/04/26 23:56:31][src.callback.progress][INFO] - Epoch 0 step 600/768: loss 2.356e+00  global 2.740e+00  evt_align 2.082e+00
+[19/04/26 23:57:23][src.callback.progress][INFO] - Epoch 0 step 650/768: loss 2.310e+00  global 2.362e+00  evt_align 2.074e+00
+[19/04/26 23:58:07][src.callback.progress][INFO] - Epoch 0 step 700/768: loss 2.621e+00  global 3.029e+00  evt_align 2.318e+00
+[19/04/26 23:58:52][src.callback.progress][INFO] - Epoch 0 step 750/768: loss 2.208e+00  global 2.240e+00  evt_align 1.985e+00
+[19/04/26 23:58:53][pytorch_lightning.utilities.rank_zero][INFO] - 
+Detected KeyboardInterrupt, attempting graceful shutdown ...
+[19/04/26 23:58:55][__main__][INFO] - Training script
+[19/04/26 23:58:55][__main__][INFO] - The config can be found here: 
+outputs/humanml3d_e_mp_motion_repr_server/tmr_d1/guo263/config.json
+[19/04/26 23:58:57][lightning_fabric.utilities.seed][INFO] - Seed set to 42
+[19/04/26 23:58:57][__main__][INFO] - Loading the dataloaders
+[19/04/26 23:59:00][__main__][INFO] - Loading the model
+[19/04/26 23:59:00][__main__][INFO] - Training
+[19/04/26 23:59:00][pytorch_lightning.utilities.rank_zero][INFO] - GPU available: True (cuda), used: True
+[19/04/26 23:59:00][pytorch_lightning.utilities.rank_zero][INFO] - TPU available: False, using: 0 TPU cores
+[19/04/26 23:59:00][pytorch_lightning.utilities.rank_zero][INFO] - HPU available: False, using: 0 HPUs
+[19/04/26 23:59:00][pytorch_lightning.accelerators.cuda][INFO] - LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+[19/04/26 23:59:00][pytorch_lightning.callbacks.model_summary][INFO] - 
+  | Name                   | Type              | Params | Mode 
+---------------------------------------------------------------------
+0 | motion_encoder         | ACTORStyleEncoder | 4.8 M  | eval 
+1 | text_encoder           | ACTORStyleEncoder | 4.9 M  | eval 
+2 | motion_decoder         | ACTORStyleDecoder | 6.4 M  | eval 
+3 | reconstruction_loss_fn | SmoothL1Loss      | 0      | train
+4 | latent_loss_fn         | SmoothL1Loss      | 0      | train
+5 | event_proj_e           | Linear            | 65.8 K | train
+6 | event_proj_t           | Linear            | 65.8 K | train
+---------------------------------------------------------------------
+131 K     Trainable params
+16.1 M    Non-trainable params
+16.3 M    Total params
+65.050    Total estimated model params size (MB)
+4         Modules in train mode
+222       Modules in eval mode
+[19/04/26 23:59:00][src.callback.progress][INFO] - Training started
+[20/04/26 00:00:04][src.callback.progress][INFO] - Epoch 0 step 50/768: loss 3.369e+00  global 2.517e+00  evt_align 3.117e+00
+[20/04/26 00:01:13][src.callback.progress][INFO] - Epoch 0 step 100/768: loss 3.355e+00  global 2.609e+00  evt_align 3.095e+00
+[20/04/26 00:02:22][src.callback.progress][INFO] - Epoch 0 step 150/768: loss 3.196e+00  global 2.747e+00  evt_align 2.921e+00
+[20/04/26 00:03:27][src.callback.progress][INFO] - Epoch 0 step 200/768: loss 2.949e+00  global 2.620e+00  evt_align 2.687e+00
+[20/04/26 00:04:32][src.callback.progress][INFO] - Epoch 0 step 250/768: loss 3.157e+00  global 2.435e+00  evt_align 2.914e+00
+[20/04/26 00:05:34][src.callback.progress][INFO] - Epoch 0 step 300/768: loss 2.829e+00  global 2.872e+00  evt_align 2.542e+00
+[20/04/26 00:06:27][src.callback.progress][INFO] - Epoch 0 step 350/768: loss 2.551e+00  global 2.807e+00  evt_align 2.270e+00
+[20/04/26 00:06:42][pytorch_lightning.utilities.rank_zero][INFO] - 
+Detected KeyboardInterrupt, attempting graceful shutdown ...
+[20/04/26 00:19:04][__main__][INFO] - Training script
+[20/04/26 00:19:04][__main__][INFO] - The config can be found here: 
+outputs/humanml3d_e_mp_motion_repr_server/tmr_d1/guo263/config.json
+[20/04/26 00:19:15][__main__][INFO] - Training script
+[20/04/26 00:19:15][__main__][INFO] - The config can be found here: 
+outputs/humanml3d_e_mp_motion_repr_server/tmr_d1/guo263/config.json
+[20/04/26 00:19:17][lightning_fabric.utilities.seed][INFO] - Seed set to 42
+[20/04/26 00:19:17][__main__][INFO] - Loading the dataloaders
+[20/04/26 00:19:22][__main__][INFO] - Loading the model
+[20/04/26 00:19:22][__main__][INFO] - Training
+[20/04/26 00:19:22][pytorch_lightning.utilities.rank_zero][INFO] - GPU available: True (cuda), used: True
+[20/04/26 00:19:22][pytorch_lightning.utilities.rank_zero][INFO] - TPU available: False, using: 0 TPU cores
+[20/04/26 00:19:22][pytorch_lightning.utilities.rank_zero][INFO] - HPU available: False, using: 0 HPUs
+[20/04/26 00:19:22][pytorch_lightning.accelerators.cuda][INFO] - LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+[20/04/26 00:19:22][pytorch_lightning.callbacks.model_summary][INFO] - 
+  | Name                   | Type              | Params | Mode 
+---------------------------------------------------------------------
+0 | motion_encoder         | ACTORStyleEncoder | 4.8 M  | eval 
+1 | text_encoder           | ACTORStyleEncoder | 4.9 M  | eval 
+2 | motion_decoder         | ACTORStyleDecoder | 6.4 M  | eval 
+3 | reconstruction_loss_fn | SmoothL1Loss      | 0      | train
+4 | latent_loss_fn         | SmoothL1Loss      | 0      | train
+5 | event_proj_e           | Linear            | 65.8 K | train
+6 | event_proj_t           | Linear            | 65.8 K | train
+---------------------------------------------------------------------
+131 K     Trainable params
+16.1 M    Non-trainable params
+16.3 M    Total params
+65.050    Total estimated model params size (MB)
+4         Modules in train mode
+222       Modules in eval mode
+[20/04/26 00:19:23][src.callback.progress][INFO] - Training started
+[20/04/26 00:19:24][src.callback.progress][INFO] - Epoch 0 step 50/768: loss 3.376e+00  global 2.397e+00  evt_align 3.136e+00
+[20/04/26 00:19:25][src.callback.progress][INFO] - Epoch 0 step 100/768: loss 3.258e+00  global 2.542e+00  evt_align 3.004e+00
+[20/04/26 00:19:26][src.callback.progress][INFO] - Epoch 0 step 150/768: loss 3.222e+00  global 2.752e+00  evt_align 2.947e+00
+[20/04/26 00:19:28][src.callback.progress][INFO] - Epoch 0 step 200/768: loss 2.750e+00  global 2.466e+00  evt_align 2.503e+00
+[20/04/26 00:19:29][src.callback.progress][INFO] - Epoch 0 step 250/768: loss 3.101e+00  global 2.468e+00  evt_align 2.855e+00
+[20/04/26 00:19:30][src.callback.progress][INFO] - Epoch 0 step 300/768: loss 2.792e+00  global 2.600e+00  evt_align 2.532e+00
+[20/04/26 00:19:31][src.callback.progress][INFO] - Epoch 0 step 350/768: loss 2.623e+00  global 2.616e+00  evt_align 2.361e+00
+[20/04/26 00:19:32][src.callback.progress][INFO] - Epoch 0 step 400/768: loss 2.656e+00  global 2.761e+00  evt_align 2.380e+00
+[20/04/26 00:19:33][src.callback.progress][INFO] - Epoch 0 step 450/768: loss 2.487e+00  global 1.934e+00  evt_align 2.294e+00
+[20/04/26 00:19:35][src.callback.progress][INFO] - Epoch 0 step 500/768: loss 2.341e+00  global 2.310e+00  evt_align 2.110e+00
+[20/04/26 00:19:36][src.callback.progress][INFO] - Epoch 0 step 550/768: loss 2.270e+00  global 2.442e+00  evt_align 2.026e+00
+[20/04/26 00:19:37][src.callback.progress][INFO] - Epoch 0 step 600/768: loss 2.321e+00  global 2.740e+00  evt_align 2.047e+00
+[20/04/26 00:19:38][src.callback.progress][INFO] - Epoch 0 step 650/768: loss 2.200e+00  global 2.362e+00  evt_align 1.963e+00
+[20/04/26 00:19:39][src.callback.progress][INFO] - Epoch 0 step 700/768: loss 2.560e+00  global 3.029e+00  evt_align 2.257e+00
+[20/04/26 00:19:41][src.callback.progress][INFO] - Epoch 0 step 750/768: loss 2.134e+00  global 2.239e+00  evt_align 1.910e+00
+[20/04/26 00:19:43][src.callback.progress][INFO] - Epoch 0: v_loss 2.421e+00  loss 2.705e+00  v_global 2.932e+00  global 2.493e+00  v_t2m/len 1530  v_t2m/R01 4.44%  v_t2m/R02 5.69%  v_t2m/R03 7.44%  v_t2m/R05 10.72%  v_t2m/R10 13.65%  v_t2m/MedR 151.0%  v_m2t/len 1530  v_m2t/R01 3.46%  v_m2t/R02 3.99%  v_m2t/R03 5.42%  v_m2t/R05 7.57%  v_m2t/R10 10.92%  v_m2t/MedR 200.0%
+[20/04/26 00:19:45][src.callback.progress][INFO] - Epoch 1 step 800/768: loss 2.286e+00  global 2.522e+00  evt_align 2.034e+00
+[20/04/26 00:19:46][src.callback.progress][INFO] - Epoch 1 step 850/768: loss 2.418e+00  global 2.404e+00  evt_align 2.178e+00
+[20/04/26 00:19:47][src.callback.progress][INFO] - Epoch 1 step 900/768: loss 2.089e+00  global 2.166e+00  evt_align 1.873e+00
+[20/04/26 00:19:49][src.callback.progress][INFO] - Epoch 1 step 950/768: loss 2.439e+00  global 2.136e+00  evt_align 2.225e+00
+[20/04/26 00:19:50][src.callback.progress][INFO] - Epoch 1 step 1000/768: loss 2.651e+00  global 2.668e+00  evt_align 2.385e+00
+[20/04/26 00:19:51][src.callback.progress][INFO] - Epoch 1 step 1050/768: loss 2.278e+00  global 2.541e+00  evt_align 2.024e+00
+[20/04/26 00:19:52][src.callback.progress][INFO] - Epoch 1 step 1100/768: loss 1.869e+00  global 2.257e+00  evt_align 1.643e+00
+[20/04/26 00:19:54][src.callback.progress][INFO] - Epoch 1 step 1150/768: loss 2.196e+00  global 2.635e+00  evt_align 1.933e+00
+[20/04/26 00:19:55][src.callback.progress][INFO] - Epoch 1 step 1200/768: loss 2.325e+00  global 2.642e+00  evt_align 2.061e+00
+[20/04/26 00:19:56][src.callback.progress][INFO] - Epoch 1 step 1250/768: loss 2.231e+00  global 2.112e+00  evt_align 2.020e+00
+[20/04/26 00:19:57][src.callback.progress][INFO] - Epoch 1 step 1300/768: loss 2.045e+00  global 2.073e+00  evt_align 1.837e+00
+[20/04/26 00:19:58][src.callback.progress][INFO] - Epoch 1 step 1350/768: loss 1.916e+00  global 2.829e+00  evt_align 1.633e+00
+[20/04/26 00:20:00][src.callback.progress][INFO] - Epoch 1 step 1400/768: loss 2.342e+00  global 2.746e+00  evt_align 2.067e+00
+[20/04/26 00:20:01][src.callback.progress][INFO] - Epoch 1 step 1450/768: loss 2.247e+00  global 2.552e+00  evt_align 1.991e+00
+[20/04/26 00:20:02][src.callback.progress][INFO] - Epoch 1 step 1500/768: loss 2.181e+00  global 2.335e+00  evt_align 1.947e+00
+[20/04/26 00:20:05][src.callback.progress][INFO] - Epoch 1: v_loss 2.203e+00  loss 2.113e+00  v_global 2.932e+00  global 2.492e+00  v_t2m/len 1530  v_t2m/R01 4.44%  v_t2m/R02 5.69%  v_t2m/R03 7.44%  v_t2m/R05 10.72%  v_t2m/R10 13.65%  v_t2m/MedR 151.0%  v_m2t/len 1530  v_m2t/R01 3.46%  v_m2t/R02 3.99%  v_m2t/R03 5.42%  v_m2t/R05 7.57%  v_m2t/R10 10.92%  v_m2t/MedR 200.0%
+[20/04/26 00:20:07][src.callback.progress][INFO] - Epoch 2 step 1550/768: loss 1.720e+00  global 2.544e+00  evt_align 1.466e+00
+[20/04/26 00:20:08][src.callback.progress][INFO] - Epoch 2 step 1600/768: loss 2.114e+00  global 2.429e+00  evt_align 1.871e+00
+[20/04/26 00:20:09][src.callback.progress][INFO] - Epoch 2 step 1650/768: loss 1.435e+00  global 2.156e+00  evt_align 1.219e+00
+[20/04/26 00:20:10][src.callback.progress][INFO] - Epoch 2 step 1700/768: loss 1.678e+00  global 2.342e+00  evt_align 1.444e+00
+[20/04/26 00:20:12][src.callback.progress][INFO] - Epoch 2 step 1750/768: loss 2.270e+00  global 3.407e+00  evt_align 1.929e+00
+[20/04/26 00:20:13][src.callback.progress][INFO] - Epoch 2 step 1800/768: loss 2.114e+00  global 2.630e+00  evt_align 1.851e+00
+[20/04/26 00:20:14][src.callback.progress][INFO] - Epoch 2 step 1850/768: loss 1.807e+00  global 2.611e+00  evt_align 1.546e+00
+[20/04/26 00:20:15][src.callback.progress][INFO] - Epoch 2 step 1900/768: loss 2.277e+00  global 2.807e+00  evt_align 1.996e+00
+[20/04/26 00:20:17][src.callback.progress][INFO] - Epoch 2 step 1950/768: loss 2.270e+00  global 2.691e+00  evt_align 2.001e+00
+[20/04/26 00:20:18][src.callback.progress][INFO] - Epoch 2 step 2000/768: loss 1.669e+00  global 1.930e+00  evt_align 1.476e+00
+[20/04/26 00:20:19][src.callback.progress][INFO] - Epoch 2 step 2050/768: loss 2.213e+00  global 2.217e+00  evt_align 1.991e+00
+[20/04/26 00:20:21][src.callback.progress][INFO] - Epoch 2 step 2100/768: loss 1.936e+00  global 2.604e+00  evt_align 1.676e+00
+[20/04/26 00:20:22][src.callback.progress][INFO] - Epoch 2 step 2150/768: loss 1.819e+00  global 2.458e+00  evt_align 1.573e+00
+[20/04/26 00:20:23][src.callback.progress][INFO] - Epoch 2 step 2200/768: loss 2.170e+00  global 2.853e+00  evt_align 1.885e+00
+[20/04/26 00:20:25][src.callback.progress][INFO] - Epoch 2 step 2250/768: loss 1.839e+00  global 2.548e+00  evt_align 1.584e+00
+[20/04/26 00:20:26][src.callback.progress][INFO] - Epoch 2 step 2300/768: loss 2.071e+00  global 2.446e+00  evt_align 1.827e+00
+[20/04/26 00:20:28][src.callback.progress][INFO] - Epoch 2: v_loss 2.108e+00  loss 1.937e+00  v_global 2.932e+00  global 2.492e+00  v_t2m/len 1530  v_t2m/R01 4.44%  v_t2m/R02 5.69%  v_t2m/R03 7.44%  v_t2m/R05 10.72%  v_t2m/R10 13.65%  v_t2m/MedR 151.0%  v_m2t/len 1530  v_m2t/R01 3.46%  v_m2t/R02 3.99%  v_m2t/R03 5.42%  v_m2t/R05 7.57%  v_m2t/R10 10.92%  v_m2t/MedR 200.0%
+[20/04/26 00:20:30][src.callback.progress][INFO] - Epoch 3 step 2350/768: loss 1.708e+00  global 2.440e+00  evt_align 1.464e+00
+[20/04/26 00:20:32][src.callback.progress][INFO] - Epoch 3 step 2400/768: loss 1.909e+00  global 2.697e+00  evt_align 1.639e+00
+[20/04/26 00:20:33][src.callback.progress][INFO] - Epoch 3 step 2450/768: loss 2.097e+00  global 2.535e+00  evt_align 1.844e+00
+[20/04/26 00:20:34][src.callback.progress][INFO] - Epoch 3 step 2500/768: loss 2.086e+00  global 2.709e+00  evt_align 1.815e+00
+[20/04/26 00:20:35][src.callback.progress][INFO] - Epoch 3 step 2550/768: loss 1.677e+00  global 2.076e+00  evt_align 1.470e+00
+[20/04/26 00:20:37][src.callback.progress][INFO] - Epoch 3 step 2600/768: loss 1.896e+00  global 1.920e+00  evt_align 1.705e+00
+[20/04/26 00:20:38][src.callback.progress][INFO] - Epoch 3 step 2650/768: loss 2.515e+00  global 2.751e+00  evt_align 2.240e+00
+[20/04/26 00:20:39][src.callback.progress][INFO] - Epoch 3 step 2700/768: loss 1.428e+00  global 2.217e+00  evt_align 1.206e+00
+[20/04/26 00:20:40][src.callback.progress][INFO] - Epoch 3 step 2750/768: loss 1.870e+00  global 2.216e+00  evt_align 1.648e+00
+[20/04/26 00:20:42][src.callback.progress][INFO] - Epoch 3 step 2800/768: loss 1.945e+00  global 2.654e+00  evt_align 1.680e+00
+[20/04/26 00:20:43][src.callback.progress][INFO] - Epoch 3 step 2850/768: loss 1.800e+00  global 2.470e+00  evt_align 1.553e+00
+[20/04/26 00:20:44][src.callback.progress][INFO] - Epoch 3 step 2900/768: loss 1.829e+00  global 2.700e+00  evt_align 1.559e+00
+[20/04/26 00:20:46][src.callback.progress][INFO] - Epoch 3 step 2950/768: loss 1.663e+00  global 2.888e+00  evt_align 1.374e+00
+[20/04/26 00:20:47][src.callback.progress][INFO] - Epoch 3 step 3000/768: loss 2.008e+00  global 2.551e+00  evt_align 1.753e+00
+[20/04/26 00:20:48][src.callback.progress][INFO] - Epoch 3 step 3050/768: loss 1.772e+00  global 2.403e+00  evt_align 1.532e+00
+[20/04/26 00:20:51][src.callback.progress][INFO] - Epoch 3: v_loss 2.027e+00  loss 1.840e+00  v_global 2.932e+00  global 2.486e+00  v_t2m/len 1530  v_t2m/R01 4.44%  v_t2m/R02 5.69%  v_t2m/R03 7.44%  v_t2m/R05 10.72%  v_t2m/R10 13.65%  v_t2m/MedR 151.0%  v_m2t/len 1530  v_m2t/R01 3.46%  v_m2t/R02 3.99%  v_m2t/R03 5.42%  v_m2t/R05 7.57%  v_m2t/R10 10.92%  v_m2t/MedR 200.0%
+[20/04/26 00:20:53][src.callback.progress][INFO] - Epoch 4 step 3100/768: loss 1.541e+00  global 2.034e+00  evt_align 1.338e+00
+[20/04/26 00:20:54][src.callback.progress][INFO] - Epoch 4 step 3150/768: loss 1.982e+00  global 2.806e+00  evt_align 1.702e+00
+[20/04/26 00:20:55][src.callback.progress][INFO] - Epoch 4 step 3200/768: loss 2.077e+00  global 2.238e+00  evt_align 1.854e+00
+[20/04/26 00:20:57][src.callback.progress][INFO] - Epoch 4 step 3250/768: loss 1.965e+00  global 2.537e+00  evt_align 1.712e+00
+[20/04/26 00:20:58][src.callback.progress][INFO] - Epoch 4 step 3300/768: loss 1.820e+00  global 2.486e+00  evt_align 1.571e+00
+[20/04/26 00:20:59][src.callback.progress][INFO] - Epoch 4 step 3350/768: loss 1.933e+00  global 2.740e+00  evt_align 1.659e+00
+[20/04/26 00:21:00][src.callback.progress][INFO] - Epoch 4 step 3400/768: loss 1.697e+00  global 2.268e+00  evt_align 1.470e+00
+[20/04/26 00:21:02][src.callback.progress][INFO] - Epoch 4 step 3450/768: loss 1.578e+00  global 2.314e+00  evt_align 1.347e+00
+[20/04/26 00:21:03][src.callback.progress][INFO] - Epoch 4 step 3500/768: loss 1.674e+00  global 2.237e+00  evt_align 1.450e+00
+[20/04/26 00:21:04][src.callback.progress][INFO] - Epoch 4 step 3550/768: loss 1.914e+00  global 2.513e+00  evt_align 1.663e+00
+[20/04/26 00:21:05][src.callback.progress][INFO] - Epoch 4 step 3600/768: loss 1.808e+00  global 2.178e+00  evt_align 1.590e+00
+[20/04/26 00:21:07][src.callback.progress][INFO] - Epoch 4 step 3650/768: loss 1.656e+00  global 2.981e+00  evt_align 1.358e+00
+[20/04/26 00:21:08][src.callback.progress][INFO] - Epoch 4 step 3700/768: loss 1.804e+00  global 1.869e+00  evt_align 1.617e+00
+[20/04/26 00:21:09][src.callback.progress][INFO] - Epoch 4 step 3750/768: loss 1.539e+00  global 2.214e+00  evt_align 1.317e+00
+[20/04/26 00:21:11][src.callback.progress][INFO] - Epoch 4 step 3800/768: loss 1.376e+00  global 2.624e+00  evt_align 1.114e+00
+[20/04/26 00:21:14][src.callback.progress][INFO] - Epoch 4: v_loss 1.957e+00  loss 1.791e+00  v_global 2.932e+00  global 2.483e+00  v_t2m/len 1530  v_t2m/R01 4.44%  v_t2m/R02 5.69%  v_t2m/R03 7.44%  v_t2m/R05 10.72%  v_t2m/R10 13.65%  v_t2m/MedR 151.0%  v_m2t/len 1530  v_m2t/R01 3.46%  v_m2t/R02 3.99%  v_m2t/R03 5.42%  v_m2t/R05 7.57%  v_m2t/R10 10.92%  v_m2t/MedR 200.0%
+[20/04/26 00:21:15][src.callback.progress][INFO] - Epoch 5 step 3850/768: loss 1.743e+00  global 2.764e+00  evt_align 1.467e+00
+[20/04/26 00:21:17][src.callback.progress][INFO] - Epoch 5 step 3900/768: loss 1.632e+00  global 2.394e+00  evt_align 1.392e+00
+[20/04/26 00:21:18][src.callback.progress][INFO] - Epoch 5 step 3950/768: loss 1.844e+00  global 2.522e+00  evt_align 1.592e+00
+[20/04/26 00:21:19][src.callback.progress][INFO] - Epoch 5 step 4000/768: loss 1.856e+00  global 2.661e+00  evt_align 1.590e+00
+[20/04/26 00:21:21][src.callback.progress][INFO] - Epoch 5 step 4050/768: loss 1.806e+00  global 3.003e+00  evt_align 1.506e+00
+[20/04/26 00:21:22][src.callback.progress][INFO] - Epoch 5 step 4100/768: loss 1.885e+00  global 3.026e+00  evt_align 1.582e+00
+[20/04/26 00:21:23][src.callback.progress][INFO] - Epoch 5 step 4150/768: loss 1.833e+00  global 2.550e+00  evt_align 1.578e+00
+[20/04/26 00:21:24][src.callback.progress][INFO] - Epoch 5 step 4200/768: loss 2.163e+00  global 2.734e+00  evt_align 1.890e+00
+[20/04/26 00:21:26][src.callback.progress][INFO] - Epoch 5 step 4250/768: loss 1.833e+00  global 2.254e+00  evt_align 1.608e+00
+[20/04/26 00:21:27][src.callback.progress][INFO] - Epoch 5 step 4300/768: loss 1.734e+00  global 2.593e+00  evt_align 1.475e+00
+[20/04/26 00:21:29][src.callback.progress][INFO] - Epoch 5 step 4350/768: loss 1.804e+00  global 2.073e+00  evt_align 1.596e+00
+[20/04/26 00:21:30][src.callback.progress][INFO] - Epoch 5 step 4400/768: loss 1.527e+00  global 2.080e+00  evt_align 1.319e+00
+[20/04/26 00:21:31][src.callback.progress][INFO] - Epoch 5 step 4450/768: loss 1.669e+00  global 2.118e+00  evt_align 1.458e+00
+[20/04/26 00:21:33][src.callback.progress][INFO] - Epoch 5 step 4500/768: loss 1.399e+00  global 3.000e+00  evt_align 1.099e+00
+[20/04/26 00:21:34][src.callback.progress][INFO] - Epoch 5 step 4550/768: loss 1.742e+00  global 2.268e+00  evt_align 1.516e+00
+[20/04/26 00:21:35][src.callback.progress][INFO] - Epoch 5 step 4600/768: loss 1.611e+00  global 2.643e+00  evt_align 1.347e+00
+[20/04/26 00:21:38][src.callback.progress][INFO] - Epoch 5: v_loss 1.935e+00  loss 1.725e+00  v_global 2.932e+00  global 2.493e+00  v_t2m/len 1530  v_t2m/R01 4.44%  v_t2m/R02 5.69%  v_t2m/R03 7.44%  v_t2m/R05 10.72%  v_t2m/R10 13.65%  v_t2m/MedR 151.0%  v_m2t/len 1530  v_m2t/R01 3.46%  v_m2t/R02 3.99%  v_m2t/R03 5.42%  v_m2t/R05 7.57%  v_m2t/R10 10.92%  v_m2t/MedR 200.0%
+[20/04/26 00:21:40][src.callback.progress][INFO] - Epoch 6 step 4650/768: loss 1.960e+00  global 2.778e+00  evt_align 1.683e+00
+[20/04/26 00:21:41][src.callback.progress][INFO] - Epoch 6 step 4700/768: loss 1.915e+00  global 2.758e+00  evt_align 1.639e+00
+[20/04/26 00:21:42][src.callback.progress][INFO] - Epoch 6 step 4750/768: loss 2.139e+00  global 2.657e+00  evt_align 1.874e+00
+[20/04/26 00:21:44][src.callback.progress][INFO] - Epoch 6 step 4800/768: loss 1.663e+00  global 2.209e+00  evt_align 1.443e+00
+[20/04/26 00:21:45][src.callback.progress][INFO] - Epoch 6 step 4850/768: loss 1.794e+00  global 2.859e+00  evt_align 1.508e+00
+[20/04/26 00:21:46][src.callback.progress][INFO] - Epoch 6 step 4900/768: loss 1.586e+00  global 2.468e+00  evt_align 1.339e+00
+[20/04/26 00:21:47][src.callback.progress][INFO] - Epoch 6 step 4950/768: loss 1.616e+00  global 2.542e+00  evt_align 1.362e+00
+[20/04/26 00:21:48][src.callback.progress][INFO] - Epoch 6 step 5000/768: loss 1.834e+00  global 2.716e+00  evt_align 1.563e+00
+[20/04/26 00:21:50][src.callback.progress][INFO] - Epoch 6 step 5050/768: loss 1.819e+00  global 2.151e+00  evt_align 1.604e+00
+[20/04/26 00:21:51][src.callback.progress][INFO] - Epoch 6 step 5100/768: loss 1.726e+00  global 2.645e+00  evt_align 1.461e+00
+[20/04/26 00:21:52][src.callback.progress][INFO] - Epoch 6 step 5150/768: loss 1.606e+00  global 2.781e+00  evt_align 1.328e+00
+[20/04/26 00:21:53][src.callback.progress][INFO] - Epoch 6 step 5200/768: loss 1.800e+00  global 2.940e+00  evt_align 1.506e+00
+[20/04/26 00:21:55][src.callback.progress][INFO] - Epoch 6 step 5250/768: loss 1.684e+00  global 2.781e+00  evt_align 1.406e+00
+[20/04/26 00:21:56][src.callback.progress][INFO] - Epoch 6 step 5300/768: loss 1.723e+00  global 2.580e+00  evt_align 1.465e+00
+[20/04/26 00:21:57][src.callback.progress][INFO] - Epoch 6 step 5350/768: loss 1.651e+00  global 2.395e+00  evt_align 1.411e+00
+[20/04/26 00:22:00][src.callback.progress][INFO] - Epoch 6: v_loss 1.892e+00  loss 1.696e+00  v_global 2.932e+00  global 2.487e+00  v_t2m/len 1530  v_t2m/R01 4.44%  v_t2m/R02 5.69%  v_t2m/R03 7.44%  v_t2m/R05 10.72%  v_t2m/R10 13.65%  v_t2m/MedR 151.0%  v_m2t/len 1530  v_m2t/R01 3.46%  v_m2t/R02 3.99%  v_m2t/R03 5.42%  v_m2t/R05 7.57%  v_m2t/R10 10.92%  v_m2t/MedR 200.0%
+[20/04/26 00:22:01][src.callback.progress][INFO] - Epoch 7 step 5400/768: loss 1.749e+00  global 2.428e+00  evt_align 1.506e+00
+[20/04/26 00:22:03][src.callback.progress][INFO] - Epoch 7 step 5450/768: loss 1.868e+00  global 2.738e+00  evt_align 1.595e+00
+[20/04/26 00:22:04][src.callback.progress][INFO] - Epoch 7 step 5500/768: loss 1.630e+00  global 2.456e+00  evt_align 1.384e+00
+[20/04/26 00:22:05][src.callback.progress][INFO] - Epoch 7 step 5550/768: loss 1.334e+00  global 2.727e+00  evt_align 1.062e+00
+[20/04/26 00:22:06][src.callback.progress][INFO] - Epoch 7 step 5600/768: loss 2.061e+00  global 3.154e+00  evt_align 1.745e+00
+[20/04/26 00:22:07][src.callback.progress][INFO] - Epoch 7 step 5650/768: loss 1.369e+00  global 2.713e+00  evt_align 1.098e+00
+[20/04/26 00:22:09][src.callback.progress][INFO] - Epoch 7 step 5700/768: loss 1.532e+00  global 2.895e+00  evt_align 1.242e+00
+[20/04/26 00:22:10][src.callback.progress][INFO] - Epoch 7 step 5750/768: loss 1.722e+00  global 2.765e+00  evt_align 1.446e+00
+[20/04/26 00:22:11][src.callback.progress][INFO] - Epoch 7 step 5800/768: loss 1.748e+00  global 2.443e+00  evt_align 1.504e+00
+[20/04/26 00:22:12][src.callback.progress][INFO] - Epoch 7 step 5850/768: loss 1.549e+00  global 2.336e+00  evt_align 1.315e+00
+[20/04/26 00:22:14][src.callback.progress][INFO] - Epoch 7 step 5900/768: loss 1.770e+00  global 2.173e+00  evt_align 1.552e+00
+[20/04/26 00:22:15][src.callback.progress][INFO] - Epoch 7 step 5950/768: loss 1.277e+00  global 2.828e+00  evt_align 9.945e-01
+[20/04/26 00:22:16][src.callback.progress][INFO] - Epoch 7 step 6000/768: loss 1.753e+00  global 2.329e+00  evt_align 1.520e+00
+[20/04/26 00:22:17][src.callback.progress][INFO] - Epoch 7 step 6050/768: loss 1.830e+00  global 2.582e+00  evt_align 1.572e+00
+[20/04/26 00:22:19][src.callback.progress][INFO] - Epoch 7 step 6100/768: loss 1.609e+00  global 2.270e+00  evt_align 1.382e+00
+[20/04/26 00:22:22][src.callback.progress][INFO] - Epoch 7: v_loss 1.870e+00  loss 1.663e+00  v_global 2.932e+00  global 2.493e+00  v_t2m/len 1530  v_t2m/R01 4.44%  v_t2m/R02 5.69%  v_t2m/R03 7.44%  v_t2m/R05 10.72%  v_t2m/R10 13.65%  v_t2m/MedR 151.0%  v_m2t/len 1530  v_m2t/R01 3.46%  v_m2t/R02 3.99%  v_m2t/R03 5.42%  v_m2t/R05 7.57%  v_m2t/R10 10.92%  v_m2t/MedR 200.0%
+[20/04/26 00:22:23][src.callback.progress][INFO] - Epoch 8 step 6150/768: loss 1.433e+00  global 2.065e+00  evt_align 1.227e+00
+[20/04/26 00:22:24][src.callback.progress][INFO] - Epoch 8 step 6200/768: loss 1.605e+00  global 1.949e+00  evt_align 1.410e+00
+[20/04/26 00:22:26][src.callback.progress][INFO] - Epoch 8 step 6250/768: loss 1.844e+00  global 2.528e+00  evt_align 1.591e+00
+[20/04/26 00:22:27][src.callback.progress][INFO] - Epoch 8 step 6300/768: loss 1.655e+00  global 2.318e+00  evt_align 1.423e+00
+[20/04/26 00:22:28][src.callback.progress][INFO] - Epoch 8 step 6350/768: loss 1.443e+00  global 2.257e+00  evt_align 1.218e+00
+[20/04/26 00:22:29][src.callback.progress][INFO] - Epoch 8 step 6400/768: loss 1.726e+00  global 2.574e+00  evt_align 1.469e+00
+[20/04/26 00:22:30][src.callback.progress][INFO] - Epoch 8 step 6450/768: loss 1.754e+00  global 2.481e+00  evt_align 1.506e+00
+[20/04/26 00:22:32][src.callback.progress][INFO] - Epoch 8 step 6500/768: loss 1.817e+00  global 2.641e+00  evt_align 1.553e+00
+[20/04/26 00:22:33][src.callback.progress][INFO] - Epoch 8 step 6550/768: loss 1.593e+00  global 2.442e+00  evt_align 1.349e+00
+[20/04/26 00:22:34][src.callback.progress][INFO] - Epoch 8 step 6600/768: loss 1.571e+00  global 2.872e+00  evt_align 1.284e+00
+[20/04/26 00:22:35][src.callback.progress][INFO] - Epoch 8 step 6650/768: loss 1.818e+00  global 2.544e+00  evt_align 1.564e+00
+[20/04/26 00:22:37][src.callback.progress][INFO] - Epoch 8 step 6700/768: loss 1.620e+00  global 2.204e+00  evt_align 1.400e+00
+[20/04/26 00:22:38][src.callback.progress][INFO] - Epoch 8 step 6750/768: loss 1.736e+00  global 2.476e+00  evt_align 1.488e+00
+[20/04/26 00:22:39][src.callback.progress][INFO] - Epoch 8 step 6800/768: loss 1.519e+00  global 2.699e+00  evt_align 1.249e+00
+[20/04/26 00:22:40][src.callback.progress][INFO] - Epoch 8 step 6850/768: loss 1.474e+00  global 2.331e+00  evt_align 1.241e+00
+[20/04/26 00:22:42][src.callback.progress][INFO] - Epoch 8 step 6900/768: loss 1.785e+00  global 3.291e+00  evt_align 1.455e+00
+[20/04/26 00:22:44][src.callback.progress][INFO] - Epoch 8: v_loss 1.837e+00  loss 1.633e+00  v_global 2.932e+00  global 2.497e+00  v_t2m/len 1530  v_t2m/R01 4.44%  v_t2m/R02 5.69%  v_t2m/R03 7.44%  v_t2m/R05 10.72%  v_t2m/R10 13.65%  v_t2m/MedR 151.0%  v_m2t/len 1530  v_m2t/R01 3.46%  v_m2t/R02 3.99%  v_m2t/R03 5.42%  v_m2t/R05 7.57%  v_m2t/R10 10.92%  v_m2t/MedR 200.0%
+[20/04/26 00:22:45][src.callback.progress][INFO] - Epoch 9 step 6950/768: loss 1.645e+00  global 2.320e+00  evt_align 1.413e+00
+[20/04/26 00:22:47][src.callback.progress][INFO] - Epoch 9 step 7000/768: loss 1.937e+00  global 2.931e+00  evt_align 1.644e+00
+[20/04/26 00:22:48][src.callback.progress][INFO] - Epoch 9 step 7050/768: loss 1.806e+00  global 2.546e+00  evt_align 1.552e+00
+[20/04/26 00:22:49][src.callback.progress][INFO] - Epoch 9 step 7100/768: loss 1.741e+00  global 2.491e+00  evt_align 1.492e+00
+[20/04/26 00:22:50][src.callback.progress][INFO] - Epoch 9 step 7150/768: loss 1.944e+00  global 2.325e+00  evt_align 1.711e+00
+[20/04/26 00:22:51][src.callback.progress][INFO] - Epoch 9 step 7200/768: loss 2.094e+00  global 2.624e+00  evt_align 1.832e+00
+[20/04/26 00:22:53][src.callback.progress][INFO] - Epoch 9 step 7250/768: loss 1.717e+00  global 2.296e+00  evt_align 1.488e+00
+[20/04/26 00:22:54][src.callback.progress][INFO] - Epoch 9 step 7300/768: loss 1.706e+00  global 2.875e+00  evt_align 1.419e+00
+[20/04/26 00:22:55][src.callback.progress][INFO] - Epoch 9 step 7350/768: loss 1.538e+00  global 2.796e+00  evt_align 1.258e+00
+[20/04/26 00:22:56][src.callback.progress][INFO] - Epoch 9 step 7400/768: loss 1.534e+00  global 2.738e+00  evt_align 1.260e+00
+[20/04/26 00:22:58][src.callback.progress][INFO] - Epoch 9 step 7450/768: loss 1.844e+00  global 2.625e+00  evt_align 1.582e+00
+[20/04/26 00:22:59][src.callback.progress][INFO] - Epoch 9 step 7500/768: loss 1.670e+00  global 2.686e+00  evt_align 1.401e+00
+[20/04/26 00:23:00][src.callback.progress][INFO] - Epoch 9 step 7550/768: loss 1.473e+00  global 2.095e+00  evt_align 1.264e+00
+[20/04/26 00:23:01][src.callback.progress][INFO] - Epoch 9 step 7600/768: loss 1.513e+00  global 2.474e+00  evt_align 1.266e+00
+[20/04/26 00:23:03][src.callback.progress][INFO] - Epoch 9 step 7650/768: loss 1.612e+00  global 2.642e+00  evt_align 1.347e+00
+[20/04/26 00:23:05][src.callback.progress][INFO] - Epoch 9: v_loss 1.828e+00  loss 1.622e+00  v_global 2.932e+00  global 2.488e+00  v_t2m/len 1530  v_t2m/R01 4.44%  v_t2m/R02 5.69%  v_t2m/R03 7.44%  v_t2m/R05 10.72%  v_t2m/R10 13.65%  v_t2m/MedR 151.0%  v_m2t/len 1530  v_m2t/R01 3.46%  v_m2t/R02 3.99%  v_m2t/R03 5.42%  v_m2t/R05 7.57%  v_m2t/R10 10.92%  v_m2t/MedR 200.0%
+[20/04/26 00:23:07][src.callback.progress][INFO] - Epoch 10 step 7700/768: loss 1.618e+00  global 3.163e+00  evt_align 1.302e+00
+[20/04/26 00:23:08][src.callback.progress][INFO] - Epoch 10 step 7750/768: loss 1.583e+00  global 2.598e+00  evt_align 1.323e+00
+[20/04/26 00:23:09][src.callback.progress][INFO] - Epoch 10 step 7800/768: loss 1.869e+00  global 2.330e+00  evt_align 1.636e+00
+[20/04/26 00:23:10][src.callback.progress][INFO] - Epoch 10 step 7850/768: loss 1.628e+00  global 2.860e+00  evt_align 1.342e+00
+[20/04/26 00:23:12][src.callback.progress][INFO] - Epoch 10 step 7900/768: loss 1.685e+00  global 2.894e+00  evt_align 1.396e+00
+[20/04/26 00:23:13][src.callback.progress][INFO] - Epoch 10 step 7950/768: loss 1.457e+00  global 2.219e+00  evt_align 1.235e+00
+[20/04/26 00:23:14][src.callback.progress][INFO] - Epoch 10 step 8000/768: loss 1.852e+00  global 2.498e+00  evt_align 1.602e+00
+[20/04/26 00:23:15][src.callback.progress][INFO] - Epoch 10 step 8050/768: loss 1.396e+00  global 2.332e+00  evt_align 1.162e+00
+[20/04/26 00:23:17][src.callback.progress][INFO] - Epoch 10 step 8100/768: loss 1.721e+00  global 2.971e+00  evt_align 1.424e+00
+[20/04/26 00:23:18][src.callback.progress][INFO] - Epoch 10 step 8150/768: loss 1.550e+00  global 2.722e+00  evt_align 1.278e+00
+[20/04/26 00:23:19][src.callback.progress][INFO] - Epoch 10 step 8200/768: loss 2.056e+00  global 2.680e+00  evt_align 1.788e+00
+[20/04/26 00:23:20][src.callback.progress][INFO] - Epoch 10 step 8250/768: loss 1.509e+00  global 2.156e+00  evt_align 1.293e+00
+[20/04/26 00:23:21][src.callback.progress][INFO] - Epoch 10 step 8300/768: loss 1.455e+00  global 2.354e+00  evt_align 1.220e+00
+[20/04/26 00:23:23][src.callback.progress][INFO] - Epoch 10 step 8350/768: loss 1.360e+00  global 2.201e+00  evt_align 1.140e+00
+[20/04/26 00:23:24][src.callback.progress][INFO] - Epoch 10 step 8400/768: loss 1.700e+00  global 2.364e+00  evt_align 1.464e+00
+[20/04/26 00:23:27][src.callback.progress][INFO] - Epoch 10: v_loss 1.810e+00  loss 1.605e+00  v_global 2.932e+00  global 2.488e+00  v_t2m/len 1530  v_t2m/R01 4.44%  v_t2m/R02 5.69%  v_t2m/R03 7.44%  v_t2m/R05 10.72%  v_t2m/R10 13.65%  v_t2m/MedR 151.0%  v_m2t/len 1530  v_m2t/R01 3.46%  v_m2t/R02 3.99%  v_m2t/R03 5.42%  v_m2t/R05 7.57%  v_m2t/R10 10.92%  v_m2t/MedR 200.0%
+[20/04/26 00:23:28][src.callback.progress][INFO] - Epoch 11 step 8450/768: loss 1.262e+00  global 2.358e+00  evt_align 1.026e+00
+[20/04/26 00:23:29][src.callback.progress][INFO] - Epoch 11 step 8500/768: loss 1.685e+00  global 2.451e+00  evt_align 1.440e+00
+[20/04/26 00:23:30][src.callback.progress][INFO] - Epoch 11 step 8550/768: loss 1.433e+00  global 2.719e+00  evt_align 1.161e+00
+[20/04/26 00:23:31][src.callback.progress][INFO] - Epoch 11 step 8600/768: loss 1.322e+00  global 2.595e+00  evt_align 1.062e+00
+[20/04/26 00:23:33][src.callback.progress][INFO] - Epoch 11 step 8650/768: loss 1.389e+00  global 2.367e+00  evt_align 1.152e+00
+[20/04/26 00:23:34][src.callback.progress][INFO] - Epoch 11 step 8700/768: loss 1.904e+00  global 2.965e+00  evt_align 1.608e+00
+[20/04/26 00:23:35][src.callback.progress][INFO] - Epoch 11 step 8750/768: loss 1.603e+00  global 2.369e+00  evt_align 1.366e+00
+[20/04/26 00:23:36][src.callback.progress][INFO] - Epoch 11 step 8800/768: loss 1.827e+00  global 2.601e+00  evt_align 1.567e+00
+[20/04/26 00:23:38][src.callback.progress][INFO] - Epoch 11 step 8850/768: loss 1.434e+00  global 2.531e+00  evt_align 1.181e+00
+[20/04/26 00:23:39][src.callback.progress][INFO] - Epoch 11 step 8900/768: loss 1.570e+00  global 2.198e+00  evt_align 1.351e+00
+[20/04/26 00:23:40][src.callback.progress][INFO] - Epoch 11 step 8950/768: loss 1.865e+00  global 2.609e+00  evt_align 1.604e+00
+[20/04/26 00:23:41][src.callback.progress][INFO] - Epoch 11 step 9000/768: loss 1.770e+00  global 2.386e+00  evt_align 1.531e+00
+[20/04/26 00:23:43][src.callback.progress][INFO] - Epoch 11 step 9050/768: loss 1.605e+00  global 3.208e+00  evt_align 1.284e+00
+[20/04/26 00:23:44][src.callback.progress][INFO] - Epoch 11 step 9100/768: loss 1.386e+00  global 2.423e+00  evt_align 1.144e+00
+[20/04/26 00:23:45][src.callback.progress][INFO] - Epoch 11 step 9150/768: loss 1.406e+00  global 2.108e+00  evt_align 1.195e+00
+[20/04/26 00:23:46][src.callback.progress][INFO] - Epoch 11 step 9200/768: loss 1.489e+00  global 2.904e+00  evt_align 1.199e+00
+[20/04/26 00:23:49][src.callback.progress][INFO] - Epoch 11: v_loss 1.801e+00  loss 1.585e+00  v_global 2.932e+00  global 2.486e+00  v_t2m/len 1530  v_t2m/R01 4.44%  v_t2m/R02 5.69%  v_t2m/R03 7.44%  v_t2m/R05 10.72%  v_t2m/R10 13.65%  v_t2m/MedR 151.0%  v_m2t/len 1530  v_m2t/R01 3.46%  v_m2t/R02 3.99%  v_m2t/R03 5.42%  v_m2t/R05 7.57%  v_m2t/R10 10.92%  v_m2t/MedR 200.0%
+[20/04/26 00:23:50][src.callback.progress][INFO] - Epoch 12 step 9250/768: loss 1.280e+00  global 2.519e+00  evt_align 1.028e+00
+[20/04/26 00:23:51][src.callback.progress][INFO] - Epoch 12 step 9300/768: loss 1.792e+00  global 2.529e+00  evt_align 1.539e+00
+[20/04/26 00:23:53][src.callback.progress][INFO] - Epoch 12 step 9350/768: loss 1.301e+00  global 2.407e+00  evt_align 1.060e+00
+[20/04/26 00:23:54][src.callback.progress][INFO] - Epoch 12 step 9400/768: loss 1.580e+00  global 2.951e+00  evt_align 1.285e+00
+[20/04/26 00:23:55][src.callback.progress][INFO] - Epoch 12 step 9450/768: loss 1.490e+00  global 2.546e+00  evt_align 1.235e+00
+[20/04/26 00:23:56][src.callback.progress][INFO] - Epoch 12 step 9500/768: loss 1.880e+00  global 2.659e+00  evt_align 1.614e+00
+[20/04/26 00:23:58][src.callback.progress][INFO] - Epoch 12 step 9550/768: loss 1.604e+00  global 2.659e+00  evt_align 1.338e+00
+[20/04/26 00:23:59][src.callback.progress][INFO] - Epoch 12 step 9600/768: loss 1.429e+00  global 2.739e+00  evt_align 1.156e+00
+[20/04/26 00:24:00][src.callback.progress][INFO] - Epoch 12 step 9650/768: loss 1.643e+00  global 1.989e+00  evt_align 1.444e+00
+[20/04/26 00:24:02][src.callback.progress][INFO] - Epoch 12 step 9700/768: loss 1.731e+00  global 2.574e+00  evt_align 1.473e+00
+[20/04/26 00:24:03][src.callback.progress][INFO] - Epoch 12 step 9750/768: loss 1.534e+00  global 2.753e+00  evt_align 1.259e+00
+[20/04/26 00:24:04][src.callback.progress][INFO] - Epoch 12 step 9800/768: loss 1.462e+00  global 2.466e+00  evt_align 1.215e+00
+[20/04/26 00:24:05][src.callback.progress][INFO] - Epoch 12 step 9850/768: loss 1.262e+00  global 2.461e+00  evt_align 1.015e+00
+[20/04/26 00:24:07][src.callback.progress][INFO] - Epoch 12 step 9900/768: loss 1.575e+00  global 2.394e+00  evt_align 1.335e+00
+[20/04/26 00:24:08][src.callback.progress][INFO] - Epoch 12 step 9950/768: loss 1.392e+00  global 2.053e+00  evt_align 1.187e+00
+[20/04/26 00:24:11][src.callback.progress][INFO] - Epoch 12: v_loss 1.789e+00  loss 1.573e+00  v_global 2.932e+00  global 2.488e+00  v_t2m/len 1530  v_t2m/R01 4.44%  v_t2m/R02 5.69%  v_t2m/R03 7.44%  v_t2m/R05 10.72%  v_t2m/R10 13.65%  v_t2m/MedR 151.0%  v_m2t/len 1530  v_m2t/R01 3.46%  v_m2t/R02 3.99%  v_m2t/R03 5.42%  v_m2t/R05 7.57%  v_m2t/R10 10.92%  v_m2t/MedR 200.0%
+[20/04/26 00:24:12][src.callback.progress][INFO] - Epoch 13 step 10000/768: loss 1.618e+00  global 2.914e+00  evt_align 1.327e+00
+[20/04/26 00:24:13][src.callback.progress][INFO] - Epoch 13 step 10050/768: loss 1.631e+00  global 2.455e+00  evt_align 1.386e+00
+[20/04/26 00:24:15][src.callback.progress][INFO] - Epoch 13 step 10100/768: loss 1.428e+00  global 2.082e+00  evt_align 1.219e+00
+[20/04/26 00:24:16][src.callback.progress][INFO] - Epoch 13 step 10150/768: loss 1.445e+00  global 2.548e+00  evt_align 1.190e+00
+[20/04/26 00:24:17][src.callback.progress][INFO] - Epoch 13 step 10200/768: loss 1.828e+00  global 2.732e+00  evt_align 1.555e+00
+[20/04/26 00:24:18][src.callback.progress][INFO] - Epoch 13 step 10250/768: loss 1.262e+00  global 2.296e+00  evt_align 1.033e+00
+[20/04/26 00:24:20][src.callback.progress][INFO] - Epoch 13 step 10300/768: loss 1.496e+00  global 2.513e+00  evt_align 1.245e+00
+[20/04/26 00:24:21][src.callback.progress][INFO] - Epoch 13 step 10350/768: loss 1.545e+00  global 2.547e+00  evt_align 1.291e+00
+[20/04/26 00:24:22][src.callback.progress][INFO] - Epoch 13 step 10400/768: loss 1.366e+00  global 2.433e+00  evt_align 1.122e+00
+[20/04/26 00:24:23][src.callback.progress][INFO] - Epoch 13 step 10450/768: loss 1.764e+00  global 2.948e+00  evt_align 1.469e+00
+[20/04/26 00:24:25][src.callback.progress][INFO] - Epoch 13 step 10500/768: loss 1.254e+00  global 2.690e+00  evt_align 9.845e-01
+[20/04/26 00:24:26][src.callback.progress][INFO] - Epoch 13 step 10550/768: loss 1.661e+00  global 2.552e+00  evt_align 1.406e+00
+[20/04/26 00:24:27][src.callback.progress][INFO] - Epoch 13 step 10600/768: loss 1.408e+00  global 2.110e+00  evt_align 1.197e+00
+[20/04/26 00:24:28][src.callback.progress][INFO] - Epoch 13 step 10650/768: loss 1.363e+00  global 2.054e+00  evt_align 1.158e+00
+[20/04/26 00:24:29][src.callback.progress][INFO] - Epoch 13 step 10700/768: loss 1.532e+00  global 2.701e+00  evt_align 1.262e+00
+[20/04/26 00:24:31][src.callback.progress][INFO] - Epoch 13 step 10750/768: loss 1.735e+00  global 2.812e+00  evt_align 1.454e+00
+[20/04/26 00:24:32][src.callback.progress][INFO] - Epoch 13: v_loss 1.780e+00  loss 1.548e+00  v_global 2.932e+00  global 2.489e+00  v_t2m/len 1530  v_t2m/R01 4.44%  v_t2m/R02 5.69%  v_t2m/R03 7.44%  v_t2m/R05 10.72%  v_t2m/R10 13.65%  v_t2m/MedR 151.0%  v_m2t/len 1530  v_m2t/R01 3.46%  v_m2t/R02 3.99%  v_m2t/R03 5.42%  v_m2t/R05 7.57%  v_m2t/R10 10.92%  v_m2t/MedR 200.0%
+[20/04/26 00:24:35][src.callback.progress][INFO] - Epoch 14 step 10800/768: loss 1.270e+00  global 2.503e+00  evt_align 1.020e+00
+[20/04/26 00:24:36][src.callback.progress][INFO] - Epoch 14 step 10850/768: loss 1.712e+00  global 2.508e+00  evt_align 1.461e+00
+[20/04/26 00:24:37][src.callback.progress][INFO] - Epoch 14 step 10900/768: loss 1.716e+00  global 2.422e+00  evt_align 1.474e+00
+[20/04/26 00:24:38][src.callback.progress][INFO] - Epoch 14 step 10950/768: loss 1.681e+00  global 2.740e+00  evt_align 1.407e+00
+[20/04/26 00:24:40][src.callback.progress][INFO] - Epoch 14 step 11000/768: loss 1.606e+00  global 2.529e+00  evt_align 1.353e+00
+[20/04/26 00:24:41][src.callback.progress][INFO] - Epoch 14 step 11050/768: loss 1.563e+00  global 2.466e+00  evt_align 1.316e+00
+[20/04/26 00:24:42][src.callback.progress][INFO] - Epoch 14 step 11100/768: loss 1.565e+00  global 2.416e+00  evt_align 1.323e+00
+[20/04/26 00:24:43][src.callback.progress][INFO] - Epoch 14 step 11150/768: loss 1.313e+00  global 2.253e+00  evt_align 1.088e+00
+[20/04/26 00:24:45][src.callback.progress][INFO] - Epoch 14 step 11200/768: loss 1.630e+00  global 2.432e+00  evt_align 1.387e+00
+[20/04/26 00:24:46][src.callback.progress][INFO] - Epoch 14 step 11250/768: loss 1.748e+00  global 2.745e+00  evt_align 1.473e+00
+[20/04/26 00:24:47][src.callback.progress][INFO] - Epoch 14 step 11300/768: loss 1.300e+00  global 2.509e+00  evt_align 1.049e+00
+[20/04/26 00:24:48][src.callback.progress][INFO] - Epoch 14 step 11350/768: loss 1.612e+00  global 1.927e+00  evt_align 1.419e+00
+[20/04/26 00:24:50][src.callback.progress][INFO] - Epoch 14 step 11400/768: loss 1.397e+00  global 2.175e+00  evt_align 1.179e+00
+[20/04/26 00:24:51][src.callback.progress][INFO] - Epoch 14 step 11450/768: loss 2.079e+00  global 3.140e+00  evt_align 1.765e+00
+[20/04/26 00:24:52][src.callback.progress][INFO] - Epoch 14 step 11500/768: loss 1.498e+00  global 2.763e+00  evt_align 1.222e+00
+[20/04/26 00:24:55][src.callback.progress][INFO] - Epoch 14: v_loss 1.769e+00  loss 1.544e+00  v_global 2.932e+00  global 2.494e+00  v_t2m/len 1530  v_t2m/R01 4.44%  v_t2m/R02 5.69%  v_t2m/R03 7.44%  v_t2m/R05 10.72%  v_t2m/R10 13.65%  v_t2m/MedR 151.0%  v_m2t/len 1530  v_m2t/R01 3.46%  v_m2t/R02 3.99%  v_m2t/R03 5.42%  v_m2t/R05 7.57%  v_m2t/R10 10.92%  v_m2t/MedR 200.0%
+[20/04/26 00:24:56][src.callback.progress][INFO] - Epoch 15 step 11550/768: loss 1.699e+00  global 1.986e+00  evt_align 1.501e+00
+[20/04/26 00:24:57][src.callback.progress][INFO] - Epoch 15 step 11600/768: loss 1.754e+00  global 2.578e+00  evt_align 1.496e+00
+[20/04/26 00:24:59][src.callback.progress][INFO] - Epoch 15 step 11650/768: loss 1.192e+00  global 2.815e+00  evt_align 9.102e-01
+[20/04/26 00:25:00][src.callback.progress][INFO] - Epoch 15 step 11700/768: loss 1.673e+00  global 2.222e+00  evt_align 1.451e+00
+[20/04/26 00:25:01][src.callback.progress][INFO] - Epoch 15 step 11750/768: loss 1.571e+00  global 2.239e+00  evt_align 1.348e+00
+[20/04/26 00:25:03][src.callback.progress][INFO] - Epoch 15 step 11800/768: loss 1.673e+00  global 2.612e+00  evt_align 1.412e+00
+[20/04/26 00:25:04][src.callback.progress][INFO] - Epoch 15 step 11850/768: loss 1.704e+00  global 2.456e+00  evt_align 1.458e+00
+[20/04/26 00:25:06][src.callback.progress][INFO] - Epoch 15 step 11900/768: loss 1.328e+00  global 2.195e+00  evt_align 1.109e+00
+[20/04/26 00:25:07][src.callback.progress][INFO] - Epoch 15 step 11950/768: loss 1.187e+00  global 2.070e+00  evt_align 9.799e-01
+[20/04/26 00:25:09][src.callback.progress][INFO] - Epoch 15 step 12000/768: loss 1.521e+00  global 2.098e+00  evt_align 1.311e+00
+[20/04/26 00:25:10][src.callback.progress][INFO] - Epoch 15 step 12050/768: loss 1.417e+00  global 2.193e+00  evt_align 1.197e+00
+[20/04/26 00:25:12][src.callback.progress][INFO] - Epoch 15 step 12100/768: loss 1.441e+00  global 2.374e+00  evt_align 1.204e+00
+[20/04/26 00:25:13][src.callback.progress][INFO] - Epoch 15 step 12150/768: loss 1.562e+00  global 2.301e+00  evt_align 1.332e+00
+[20/04/26 00:25:15][src.callback.progress][INFO] - Epoch 15 step 12200/768: loss 1.420e+00  global 2.738e+00  evt_align 1.147e+00
+[20/04/26 00:25:17][src.callback.progress][INFO] - Epoch 15 step 12250/768: loss 1.382e+00  global 2.868e+00  evt_align 1.095e+00
+[20/04/26 00:25:20][src.callback.progress][INFO] - Epoch 15: v_loss 1.756e+00  loss 1.539e+00  v_global 2.932e+00  global 2.500e+00  v_t2m/len 1530  v_t2m/R01 4.44%  v_t2m/R02 5.69%  v_t2m/R03 7.44%  v_t2m/R05 10.72%  v_t2m/R10 13.65%  v_t2m/MedR 151.0%  v_m2t/len 1530  v_m2t/R01 3.46%  v_m2t/R02 3.99%  v_m2t/R03 5.42%  v_m2t/R05 7.57%  v_m2t/R10 10.92%  v_m2t/MedR 200.0%
+[20/04/26 00:25:21][src.callback.progress][INFO] - Epoch 16 step 12300/768: loss 1.584e+00  global 2.353e+00  evt_align 1.348e+00
+[20/04/26 00:25:23][src.callback.progress][INFO] - Epoch 16 step 12350/768: loss 1.568e+00  global 2.524e+00  evt_align 1.315e+00
+[20/04/26 00:25:24][src.callback.progress][INFO] - Epoch 16 step 12400/768: loss 1.527e+00  global 2.329e+00  evt_align 1.294e+00
+[20/04/26 00:25:26][src.callback.progress][INFO] - Epoch 16 step 12450/768: loss 1.549e+00  global 3.018e+00  evt_align 1.248e+00
+[20/04/26 00:25:27][src.callback.progress][INFO] - Epoch 16 step 12500/768: loss 1.459e+00  global 2.765e+00  evt_align 1.182e+00
+[20/04/26 00:25:29][src.callback.progress][INFO] - Epoch 16 step 12550/768: loss 1.521e+00  global 2.500e+00  evt_align 1.271e+00
+[20/04/26 00:25:30][src.callback.progress][INFO] - Epoch 16 step 12600/768: loss 1.470e+00  global 2.436e+00  evt_align 1.226e+00
+[20/04/26 00:25:32][src.callback.progress][INFO] - Epoch 16 step 12650/768: loss 1.396e+00  global 2.074e+00  evt_align 1.188e+00
+[20/04/26 00:25:33][src.callback.progress][INFO] - Epoch 16 step 12700/768: loss 1.613e+00  global 2.611e+00  evt_align 1.352e+00
+[20/04/26 00:25:35][src.callback.progress][INFO] - Epoch 16 step 12750/768: loss 1.577e+00  global 2.817e+00  evt_align 1.295e+00
+[20/04/26 00:25:37][src.callback.progress][INFO] - Epoch 16 step 12800/768: loss 1.697e+00  global 2.966e+00  evt_align 1.401e+00
+[20/04/26 00:25:38][src.callback.progress][INFO] - Epoch 16 step 12850/768: loss 1.826e+00  global 3.083e+00  evt_align 1.518e+00
+[20/04/26 00:25:40][src.callback.progress][INFO] - Epoch 16 step 12900/768: loss 1.476e+00  global 1.798e+00  evt_align 1.297e+00
+[20/04/26 00:25:41][src.callback.progress][INFO] - Epoch 16 step 12950/768: loss 1.430e+00  global 2.486e+00  evt_align 1.181e+00
+[20/04/26 00:25:43][src.callback.progress][INFO] - Epoch 16 step 13000/768: loss 1.251e+00  global 2.407e+00  evt_align 1.010e+00
+[20/04/26 00:25:44][src.callback.progress][INFO] - Epoch 16 step 13050/768: loss 1.513e+00  global 2.563e+00  evt_align 1.256e+00
+[20/04/26 00:25:47][src.callback.progress][INFO] - Epoch 16: v_loss 1.750e+00  loss 1.530e+00  v_global 2.932e+00  global 2.490e+00  v_t2m/len 1530  v_t2m/R01 4.44%  v_t2m/R02 5.69%  v_t2m/R03 7.44%  v_t2m/R05 10.72%  v_t2m/R10 13.65%  v_t2m/MedR 151.0%  v_m2t/len 1530  v_m2t/R01 3.46%  v_m2t/R02 3.99%  v_m2t/R03 5.42%  v_m2t/R05 7.57%  v_m2t/R10 10.92%  v_m2t/MedR 200.0%
+[20/04/26 00:25:49][src.callback.progress][INFO] - Epoch 17 step 13100/768: loss 1.598e+00  global 2.593e+00  evt_align 1.339e+00
+[20/04/26 00:25:51][src.callback.progress][INFO] - Epoch 17 step 13150/768: loss 1.253e+00  global 2.126e+00  evt_align 1.040e+00
+[20/04/26 00:25:52][src.callback.progress][INFO] - Epoch 17 step 13200/768: loss 1.403e+00  global 3.054e+00  evt_align 1.097e+00
+[20/04/26 00:25:54][src.callback.progress][INFO] - Epoch 17 step 13250/768: loss 1.587e+00  global 2.474e+00  evt_align 1.340e+00
+[20/04/26 00:25:55][src.callback.progress][INFO] - Epoch 17 step 13300/768: loss 1.674e+00  global 2.602e+00  evt_align 1.413e+00
+[20/04/26 00:25:57][src.callback.progress][INFO] - Epoch 17 step 13350/768: loss 1.549e+00  global 2.297e+00  evt_align 1.320e+00
+[20/04/26 00:25:59][src.callback.progress][INFO] - Epoch 17 step 13400/768: loss 1.667e+00  global 2.071e+00  evt_align 1.460e+00
+[20/04/26 00:26:00][src.callback.progress][INFO] - Epoch 17 step 13450/768: loss 1.520e+00  global 2.304e+00  evt_align 1.290e+00
+[20/04/26 00:26:02][src.callback.progress][INFO] - Epoch 17 step 13500/768: loss 1.555e+00  global 2.710e+00  evt_align 1.284e+00
+[20/04/26 00:26:03][src.callback.progress][INFO] - Epoch 17 step 13550/768: loss 1.614e+00  global 2.270e+00  evt_align 1.387e+00
+[20/04/26 00:26:05][src.callback.progress][INFO] - Epoch 17 step 13600/768: loss 1.732e+00  global 2.730e+00  evt_align 1.459e+00
+[20/04/26 00:26:06][src.callback.progress][INFO] - Epoch 17 step 13650/768: loss 1.538e+00  global 2.207e+00  evt_align 1.317e+00
+[20/04/26 00:26:08][src.callback.progress][INFO] - Epoch 17 step 13700/768: loss 1.388e+00  global 2.413e+00  evt_align 1.147e+00
+[20/04/26 00:26:09][src.callback.progress][INFO] - Epoch 17 step 13750/768: loss 1.656e+00  global 2.912e+00  evt_align 1.365e+00
+[20/04/26 00:26:11][src.callback.progress][INFO] - Epoch 17 step 13800/768: loss 1.157e+00  global 1.980e+00  evt_align 9.593e-01
+[20/04/26 00:26:14][src.callback.progress][INFO] - Epoch 17: v_loss 1.745e+00  loss 1.513e+00  v_global 2.932e+00  global 2.489e+00  v_t2m/len 1530  v_t2m/R01 4.44%  v_t2m/R02 5.69%  v_t2m/R03 7.44%  v_t2m/R05 10.72%  v_t2m/R10 13.65%  v_t2m/MedR 151.0%  v_m2t/len 1530  v_m2t/R01 3.46%  v_m2t/R02 3.99%  v_m2t/R03 5.42%  v_m2t/R05 7.57%  v_m2t/R10 10.92%  v_m2t/MedR 200.0%
+[20/04/26 00:26:15][src.callback.progress][INFO] - Epoch 18 step 13850/768: loss 1.684e+00  global 2.473e+00  evt_align 1.436e+00
+[20/04/26 00:26:17][src.callback.progress][INFO] - Epoch 18 step 13900/768: loss 1.419e+00  global 2.361e+00  evt_align 1.183e+00
+[20/04/26 00:26:18][src.callback.progress][INFO] - Epoch 18 step 13950/768: loss 1.336e+00  global 2.542e+00  evt_align 1.082e+00
+[20/04/26 00:26:20][src.callback.progress][INFO] - Epoch 18 step 14000/768: loss 1.481e+00  global 1.942e+00  evt_align 1.287e+00
+[20/04/26 00:26:21][src.callback.progress][INFO] - Epoch 18 step 14050/768: loss 1.634e+00  global 2.255e+00  evt_align 1.409e+00
+[20/04/26 00:26:23][src.callback.progress][INFO] - Epoch 18 step 14100/768: loss 1.497e+00  global 2.673e+00  evt_align 1.230e+00
+[20/04/26 00:26:25][src.callback.progress][INFO] - Epoch 18 step 14150/768: loss 1.504e+00  global 2.814e+00  evt_align 1.222e+00
+[20/04/26 00:26:26][src.callback.progress][INFO] - Epoch 18 step 14200/768: loss 1.614e+00  global 2.721e+00  evt_align 1.342e+00
+[20/04/26 00:26:28][src.callback.progress][INFO] - Epoch 18 step 14250/768: loss 1.626e+00  global 2.585e+00  evt_align 1.368e+00
+[20/04/26 00:26:29][src.callback.progress][INFO] - Epoch 18 step 14300/768: loss 1.210e+00  global 2.428e+00  evt_align 9.673e-01
+[20/04/26 00:26:31][src.callback.progress][INFO] - Epoch 18 step 14350/768: loss 1.713e+00  global 2.816e+00  evt_align 1.431e+00
+[20/04/26 00:26:32][src.callback.progress][INFO] - Epoch 18 step 14400/768: loss 1.506e+00  global 2.326e+00  evt_align 1.273e+00
+[20/04/26 00:26:34][src.callback.progress][INFO] - Epoch 18 step 14450/768: loss 1.251e+00  global 2.259e+00  evt_align 1.025e+00
+[20/04/26 00:26:35][src.callback.progress][INFO] - Epoch 18 step 14500/768: loss 1.078e+00  global 1.911e+00  evt_align 8.871e-01
+[20/04/26 00:26:37][src.callback.progress][INFO] - Epoch 18 step 14550/768: loss 1.700e+00  global 2.548e+00  evt_align 1.445e+00
+[20/04/26 00:26:40][src.callback.progress][INFO] - Epoch 18: v_loss 1.735e+00  loss 1.506e+00  v_global 2.932e+00  global 2.493e+00  v_t2m/len 1530  v_t2m/R01 4.44%  v_t2m/R02 5.69%  v_t2m/R03 7.44%  v_t2m/R05 10.72%  v_t2m/R10 13.65%  v_t2m/MedR 151.0%  v_m2t/len 1530  v_m2t/R01 3.46%  v_m2t/R02 3.99%  v_m2t/R03 5.42%  v_m2t/R05 7.57%  v_m2t/R10 10.92%  v_m2t/MedR 200.0%
+[20/04/26 00:26:41][src.callback.progress][INFO] - Epoch 19 step 14600/768: loss 1.488e+00  global 2.526e+00  evt_align 1.236e+00
+[20/04/26 00:26:43][src.callback.progress][INFO] - Epoch 19 step 14650/768: loss 1.220e+00  global 2.202e+00  evt_align 1.000e+00
+[20/04/26 00:26:44][src.callback.progress][INFO] - Epoch 19 step 14700/768: loss 1.797e+00  global 2.468e+00  evt_align 1.550e+00
+[20/04/26 00:26:46][src.callback.progress][INFO] - Epoch 19 step 14750/768: loss 1.750e+00  global 2.504e+00  evt_align 1.499e+00
+[20/04/26 00:26:48][src.callback.progress][INFO] - Epoch 19 step 14800/768: loss 1.286e+00  global 2.243e+00  evt_align 1.062e+00
+[20/04/26 00:26:49][src.callback.progress][INFO] - Epoch 19 step 14850/768: loss 1.443e+00  global 2.561e+00  evt_align 1.186e+00
+[20/04/26 00:26:51][src.callback.progress][INFO] - Epoch 19 step 14900/768: loss 1.913e+00  global 3.150e+00  evt_align 1.598e+00
+[20/04/26 00:26:53][src.callback.progress][INFO] - Epoch 19 step 14950/768: loss 1.617e+00  global 2.292e+00  evt_align 1.388e+00
+[20/04/26 00:26:54][src.callback.progress][INFO] - Epoch 19 step 15000/768: loss 1.427e+00  global 2.280e+00  evt_align 1.199e+00
+[20/04/26 00:26:56][src.callback.progress][INFO] - Epoch 19 step 15050/768: loss 1.379e+00  global 2.202e+00  evt_align 1.158e+00
+[20/04/26 00:26:58][src.callback.progress][INFO] - Epoch 19 step 15100/768: loss 1.499e+00  global 2.119e+00  evt_align 1.287e+00
+[20/04/26 00:26:59][src.callback.progress][INFO] - Epoch 19 step 15150/768: loss 1.479e+00  global 2.387e+00  evt_align 1.240e+00
+[20/04/26 00:27:01][src.callback.progress][INFO] - Epoch 19 step 15200/768: loss 1.332e+00  global 2.503e+00  evt_align 1.081e+00
+[20/04/26 00:27:03][src.callback.progress][INFO] - Epoch 19 step 15250/768: loss 1.417e+00  global 2.143e+00  evt_align 1.203e+00
+[20/04/26 00:27:04][src.callback.progress][INFO] - Epoch 19 step 15300/768: loss 1.442e+00  global 2.172e+00  evt_align 1.225e+00
+[20/04/26 00:27:06][src.callback.progress][INFO] - Epoch 19 step 15350/768: loss 1.567e+00  global 2.423e+00  evt_align 1.325e+00
+[20/04/26 00:27:09][src.callback.progress][INFO] - Epoch 19: v_loss 1.735e+00  loss 1.499e+00  v_global 2.932e+00  global 2.490e+00  v_t2m/len 1530  v_t2m/R01 4.44%  v_t2m/R02 5.69%  v_t2m/R03 7.44%  v_t2m/R05 10.72%  v_t2m/R10 13.65%  v_t2m/MedR 151.0%  v_m2t/len 1530  v_m2t/R01 3.46%  v_m2t/R02 3.99%  v_m2t/R03 5.42%  v_m2t/R05 7.57%  v_m2t/R10 10.92%  v_m2t/MedR 200.0%
+[20/04/26 00:27:11][src.callback.progress][INFO] - Epoch 20 step 15400/768: loss 1.494e+00  global 2.614e+00  evt_align 1.232e+00
+[20/04/26 00:27:13][src.callback.progress][INFO] - Epoch 20 step 15450/768: loss 1.987e+00  global 2.732e+00  evt_align 1.713e+00
+[20/04/26 00:27:14][src.callback.progress][INFO] - Epoch 20 step 15500/768: loss 1.742e+00  global 2.645e+00  evt_align 1.477e+00
+[20/04/26 00:27:16][src.callback.progress][INFO] - Epoch 20 step 15550/768: loss 1.477e+00  global 2.119e+00  evt_align 1.266e+00
+[20/04/26 00:27:17][src.callback.progress][INFO] - Epoch 20 step 15600/768: loss 1.333e+00  global 2.804e+00  evt_align 1.052e+00
+[20/04/26 00:27:19][src.callback.progress][INFO] - Epoch 20 step 15650/768: loss 1.332e+00  global 2.875e+00  evt_align 1.044e+00
+[20/04/26 00:27:21][src.callback.progress][INFO] - Epoch 20 step 15700/768: loss 1.629e+00  global 2.697e+00  evt_align 1.360e+00
+[20/04/26 00:27:22][src.callback.progress][INFO] - Epoch 20 step 15750/768: loss 1.433e+00  global 2.403e+00  evt_align 1.193e+00
+[20/04/26 00:27:24][src.callback.progress][INFO] - Epoch 20 step 15800/768: loss 1.508e+00  global 2.529e+00  evt_align 1.256e+00
+[20/04/26 00:27:25][src.callback.progress][INFO] - Epoch 20 step 15850/768: loss 1.508e+00  global 2.200e+00  evt_align 1.288e+00
+[20/04/26 00:27:27][src.callback.progress][INFO] - Epoch 20 step 15900/768: loss 1.439e+00  global 2.641e+00  evt_align 1.175e+00
+[20/04/26 00:27:28][src.callback.progress][INFO] - Epoch 20 step 15950/768: loss 1.532e+00  global 2.094e+00  evt_align 1.322e+00
+[20/04/26 00:27:30][src.callback.progress][INFO] - Epoch 20 step 16000/768: loss 1.347e+00  global 2.328e+00  evt_align 1.114e+00
+[20/04/26 00:27:32][src.callback.progress][INFO] - Epoch 20 step 16050/768: loss 1.507e+00  global 2.884e+00  evt_align 1.218e+00
+[20/04/26 00:27:33][src.callback.progress][INFO] - Epoch 20 step 16100/768: loss 1.465e+00  global 2.366e+00  evt_align 1.228e+00
+[20/04/26 00:27:36][src.callback.progress][INFO] - Epoch 20: v_loss 1.729e+00  loss 1.495e+00  v_global 2.932e+00  global 2.492e+00  v_t2m/len 1530  v_t2m/R01 4.44%  v_t2m/R02 5.69%  v_t2m/R03 7.44%  v_t2m/R05 10.72%  v_t2m/R10 13.65%  v_t2m/MedR 151.0%  v_m2t/len 1530  v_m2t/R01 3.46%  v_m2t/R02 3.99%  v_m2t/R03 5.42%  v_m2t/R05 7.57%  v_m2t/R10 10.92%  v_m2t/MedR 200.0%
+[20/04/26 00:27:38][src.callback.progress][INFO] - Epoch 21 step 16150/768: loss 1.390e+00  global 2.979e+00  evt_align 1.092e+00
+[20/04/26 00:27:39][src.callback.progress][INFO] - Epoch 21 step 16200/768: loss 1.580e+00  global 3.063e+00  evt_align 1.274e+00
+[20/04/26 00:27:41][src.callback.progress][INFO] - Epoch 21 step 16250/768: loss 1.484e+00  global 2.422e+00  evt_align 1.242e+00
+[20/04/26 00:27:42][src.callback.progress][INFO] - Epoch 21 step 16300/768: loss 1.374e+00  global 2.538e+00  evt_align 1.121e+00
+[20/04/26 00:27:44][src.callback.progress][INFO] - Epoch 21 step 16350/768: loss 1.643e+00  global 2.849e+00  evt_align 1.358e+00
+[20/04/26 00:27:45][src.callback.progress][INFO] - Epoch 21 step 16400/768: loss 1.459e+00  global 2.295e+00  evt_align 1.230e+00
+[20/04/26 00:27:47][src.callback.progress][INFO] - Epoch 21 step 16450/768: loss 1.469e+00  global 2.247e+00  evt_align 1.244e+00
+[20/04/26 00:27:49][src.callback.progress][INFO] - Epoch 21 step 16500/768: loss 1.506e+00  global 2.353e+00  evt_align 1.271e+00
+[20/04/26 00:27:50][src.callback.progress][INFO] - Epoch 21 step 16550/768: loss 1.698e+00  global 2.192e+00  evt_align 1.479e+00
+[20/04/26 00:27:52][src.callback.progress][INFO] - Epoch 21 step 16600/768: loss 1.805e+00  global 2.580e+00  evt_align 1.547e+00
+[20/04/26 00:27:53][src.callback.progress][INFO] - Epoch 21 step 16650/768: loss 1.205e+00  global 2.198e+00  evt_align 9.850e-01
+[20/04/26 00:27:55][src.callback.progress][INFO] - Epoch 21 step 16700/768: loss 1.597e+00  global 2.154e+00  evt_align 1.381e+00
+[20/04/26 00:27:57][src.callback.progress][INFO] - Epoch 21 step 16750/768: loss 1.756e+00  global 2.400e+00  evt_align 1.516e+00
+[20/04/26 00:27:58][src.callback.progress][INFO] - Epoch 21 step 16800/768: loss 1.416e+00  global 2.174e+00  evt_align 1.199e+00
+[20/04/26 00:28:00][src.callback.progress][INFO] - Epoch 21 step 16850/768: loss 1.687e+00  global 2.595e+00  evt_align 1.427e+00
+[20/04/26 00:28:03][src.callback.progress][INFO] - Epoch 21: v_loss 1.721e+00  loss 1.486e+00  v_global 2.932e+00  global 2.495e+00  v_t2m/len 1530  v_t2m/R01 4.44%  v_t2m/R02 5.69%  v_t2m/R03 7.44%  v_t2m/R05 10.72%  v_t2m/R10 13.65%  v_t2m/MedR 151.0%  v_m2t/len 1530  v_m2t/R01 3.46%  v_m2t/R02 3.99%  v_m2t/R03 5.42%  v_m2t/R05 7.57%  v_m2t/R10 10.92%  v_m2t/MedR 200.0%
+[20/04/26 00:28:04][src.callback.progress][INFO] - Epoch 22 step 16900/768: loss 1.307e+00  global 2.742e+00  evt_align 1.032e+00
+[20/04/26 00:28:06][src.callback.progress][INFO] - Epoch 22 step 16950/768: loss 1.234e+00  global 2.385e+00  evt_align 9.951e-01
+[20/04/26 00:28:07][src.callback.progress][INFO] - Epoch 22 step 17000/768: loss 1.730e+00  global 2.358e+00  evt_align 1.495e+00
+[20/04/26 00:28:09][src.callback.progress][INFO] - Epoch 22 step 17050/768: loss 1.428e+00  global 2.572e+00  evt_align 1.171e+00
+[20/04/26 00:28:10][src.callback.progress][INFO] - Epoch 22 step 17100/768: loss 1.552e+00  global 2.660e+00  evt_align 1.286e+00
+[20/04/26 00:28:12][src.callback.progress][INFO] - Epoch 22 step 17150/768: loss 1.570e+00  global 2.686e+00  evt_align 1.302e+00
+[20/04/26 00:28:13][src.callback.progress][INFO] - Epoch 22 step 17200/768: loss 1.615e+00  global 2.050e+00  evt_align 1.410e+00
+[20/04/26 00:28:15][src.callback.progress][INFO] - Epoch 22 step 17250/768: loss 1.395e+00  global 2.585e+00  evt_align 1.137e+00
+[20/04/26 00:28:17][src.callback.progress][INFO] - Epoch 22 step 17300/768: loss 1.363e+00  global 2.676e+00  evt_align 1.095e+00
+[20/04/26 00:28:18][src.callback.progress][INFO] - Epoch 22 step 17350/768: loss 1.390e+00  global 2.346e+00  evt_align 1.156e+00
+[20/04/26 00:28:20][src.callback.progress][INFO] - Epoch 22 step 17400/768: loss 1.601e+00  global 2.809e+00  evt_align 1.320e+00
+[20/04/26 00:28:21][src.callback.progress][INFO] - Epoch 22 step 17450/768: loss 1.519e+00  global 2.851e+00  evt_align 1.234e+00
+[20/04/26 00:28:23][src.callback.progress][INFO] - Epoch 22 step 17500/768: loss 1.630e+00  global 2.558e+00  evt_align 1.375e+00
+[20/04/26 00:28:25][src.callback.progress][INFO] - Epoch 22 step 17550/768: loss 1.366e+00  global 3.135e+00  evt_align 1.053e+00
+[20/04/26 00:28:26][src.callback.progress][INFO] - Epoch 22 step 17600/768: loss 1.553e+00  global 2.263e+00  evt_align 1.327e+00
+[20/04/26 00:28:28][src.callback.progress][INFO] - Epoch 22 step 17650/768: loss 1.766e+00  global 2.398e+00  evt_align 1.527e+00
+[20/04/26 00:28:31][src.callback.progress][INFO] - Epoch 22: v_loss 1.722e+00  loss 1.485e+00  v_global 2.932e+00  global 2.489e+00  v_t2m/len 1530  v_t2m/R01 4.44%  v_t2m/R02 5.69%  v_t2m/R03 7.44%  v_t2m/R05 10.72%  v_t2m/R10 13.65%  v_t2m/MedR 151.0%  v_m2t/len 1530  v_m2t/R01 3.46%  v_m2t/R02 3.99%  v_m2t/R03 5.42%  v_m2t/R05 7.57%  v_m2t/R10 10.92%  v_m2t/MedR 200.0%
+[20/04/26 00:28:33][src.callback.progress][INFO] - Epoch 23 step 17700/768: loss 1.114e+00  global 2.500e+00  evt_align 8.637e-01
+[20/04/26 00:28:35][src.callback.progress][INFO] - Epoch 23 step 17750/768: loss 1.408e+00  global 2.706e+00  evt_align 1.137e+00
+[20/04/26 00:28:37][src.callback.progress][INFO] - Epoch 23 step 17800/768: loss 1.336e+00  global 2.317e+00  evt_align 1.104e+00
+[20/04/26 00:28:38][src.callback.progress][INFO] - Epoch 23 step 17850/768: loss 1.288e+00  global 2.423e+00  evt_align 1.046e+00
+[20/04/26 00:28:40][src.callback.progress][INFO] - Epoch 23 step 17900/768: loss 1.408e+00  global 2.653e+00  evt_align 1.143e+00
+[20/04/26 00:28:41][src.callback.progress][INFO] - Epoch 23 step 17950/768: loss 1.594e+00  global 2.241e+00  evt_align 1.370e+00
+[20/04/26 00:28:43][src.callback.progress][INFO] - Epoch 23 step 18000/768: loss 1.457e+00  global 2.379e+00  evt_align 1.219e+00
+[20/04/26 00:28:45][src.callback.progress][INFO] - Epoch 23 step 18050/768: loss 1.421e+00  global 2.052e+00  evt_align 1.216e+00
+[20/04/26 00:28:46][src.callback.progress][INFO] - Epoch 23 step 18100/768: loss 1.662e+00  global 2.555e+00  evt_align 1.407e+00
+[20/04/26 00:28:48][src.callback.progress][INFO] - Epoch 23 step 18150/768: loss 1.400e+00  global 2.734e+00  evt_align 1.126e+00
+[20/04/26 00:28:49][src.callback.progress][INFO] - Epoch 23 step 18200/768: loss 1.392e+00  global 2.506e+00  evt_align 1.141e+00
+[20/04/26 00:28:51][src.callback.progress][INFO] - Epoch 23 step 18250/768: loss 1.426e+00  global 2.255e+00  evt_align 1.200e+00
+[20/04/26 00:28:53][src.callback.progress][INFO] - Epoch 23 step 18300/768: loss 1.497e+00  global 2.675e+00  evt_align 1.229e+00
+[20/04/26 00:28:54][src.callback.progress][INFO] - Epoch 23 step 18350/768: loss 1.675e+00  global 2.544e+00  evt_align 1.420e+00
+[20/04/26 00:28:56][src.callback.progress][INFO] - Epoch 23 step 18400/768: loss 1.686e+00  global 2.770e+00  evt_align 1.409e+00
+[20/04/26 00:28:59][src.callback.progress][INFO] - Epoch 23: v_loss 1.718e+00  loss 1.482e+00  v_global 2.932e+00  global 2.493e+00  v_t2m/len 1530  v_t2m/R01 4.44%  v_t2m/R02 5.69%  v_t2m/R03 7.44%  v_t2m/R05 10.72%  v_t2m/R10 13.65%  v_t2m/MedR 151.0%  v_m2t/len 1530  v_m2t/R01 3.46%  v_m2t/R02 3.99%  v_m2t/R03 5.42%  v_m2t/R05 7.57%  v_m2t/R10 10.92%  v_m2t/MedR 200.0%
+[20/04/26 00:29:00][src.callback.progress][INFO] - Epoch 24 step 18450/768: loss 1.525e+00  global 2.266e+00  evt_align 1.298e+00
+[20/04/26 00:29:02][src.callback.progress][INFO] - Epoch 24 step 18500/768: loss 1.522e+00  global 2.746e+00  evt_align 1.247e+00
+[20/04/26 00:29:04][src.callback.progress][INFO] - Epoch 24 step 18550/768: loss 1.444e+00  global 2.386e+00  evt_align 1.206e+00
+[20/04/26 00:29:05][src.callback.progress][INFO] - Epoch 24 step 18600/768: loss 1.548e+00  global 2.421e+00  evt_align 1.306e+00
+[20/04/26 00:29:07][src.callback.progress][INFO] - Epoch 24 step 18650/768: loss 1.442e+00  global 2.215e+00  evt_align 1.221e+00
+[20/04/26 00:29:08][src.callback.progress][INFO] - Epoch 24 step 18700/768: loss 1.512e+00  global 3.095e+00  evt_align 1.203e+00
+[20/04/26 00:29:10][src.callback.progress][INFO] - Epoch 24 step 18750/768: loss 1.356e+00  global 2.773e+00  evt_align 1.078e+00
+[20/04/26 00:29:11][src.callback.progress][INFO] - Epoch 24 step 18800/768: loss 1.241e+00  global 2.478e+00  evt_align 9.936e-01
+[20/04/26 00:29:12][src.callback.progress][INFO] - Epoch 24 step 18850/768: loss 1.643e+00  global 2.928e+00  evt_align 1.351e+00
+[20/04/26 00:29:13][src.callback.progress][INFO] - Epoch 24 step 18900/768: loss 1.724e+00  global 2.667e+00  evt_align 1.457e+00
+[20/04/26 00:29:15][src.callback.progress][INFO] - Epoch 24 step 18950/768: loss 1.853e+00  global 2.577e+00  evt_align 1.596e+00
+[20/04/26 00:29:16][src.callback.progress][INFO] - Epoch 24 step 19000/768: loss 1.453e+00  global 2.415e+00  evt_align 1.211e+00
+[20/04/26 00:29:17][src.callback.progress][INFO] - Epoch 24 step 19050/768: loss 1.643e+00  global 2.707e+00  evt_align 1.373e+00
+[20/04/26 00:29:18][src.callback.progress][INFO] - Epoch 24 step 19100/768: loss 1.562e+00  global 2.852e+00  evt_align 1.277e+00
+[20/04/26 00:29:19][src.callback.progress][INFO] - Epoch 24 step 19150/768: loss 1.196e+00  global 2.604e+00  evt_align 9.351e-01
+[20/04/26 00:29:21][src.callback.progress][INFO] - Epoch 24 step 19200/768: loss 4.605e-01  global 4.006e-01  evt_align 4.204e-01
+[20/04/26 00:29:22][src.callback.progress][INFO] - Epoch 24: v_loss 1.703e+00  loss 1.469e+00  v_global 2.932e+00  global 2.492e+00  v_t2m/len 1530  v_t2m/R01 4.44%  v_t2m/R02 5.69%  v_t2m/R03 7.44%  v_t2m/R05 10.72%  v_t2m/R10 13.65%  v_t2m/MedR 151.0%  v_m2t/len 1530  v_m2t/R01 3.46%  v_m2t/R02 3.99%  v_m2t/R03 5.42%  v_m2t/R05 7.57%  v_m2t/R10 10.92%  v_m2t/MedR 200.0%
+[20/04/26 00:29:24][src.callback.progress][INFO] - Epoch 25 step 19250/768: loss 1.539e+00  global 2.574e+00  evt_align 1.281e+00
+[20/04/26 00:29:26][src.callback.progress][INFO] - Epoch 25 step 19300/768: loss 1.536e+00  global 2.996e+00  evt_align 1.237e+00
+[20/04/26 00:29:27][src.callback.progress][INFO] - Epoch 25 step 19350/768: loss 1.521e+00  global 2.361e+00  evt_align 1.285e+00
+[20/04/26 00:29:28][src.callback.progress][INFO] - Epoch 25 step 19400/768: loss 1.246e+00  global 2.787e+00  evt_align 9.669e-01
+[20/04/26 00:29:29][src.callback.progress][INFO] - Epoch 25 step 19450/768: loss 1.554e+00  global 2.293e+00  evt_align 1.325e+00
+[20/04/26 00:29:31][src.callback.progress][INFO] - Epoch 25 step 19500/768: loss 1.197e+00  global 2.242e+00  evt_align 9.727e-01
+[20/04/26 00:29:32][src.callback.progress][INFO] - Epoch 25 step 19550/768: loss 1.461e+00  global 2.635e+00  evt_align 1.198e+00
+[20/04/26 00:29:33][src.callback.progress][INFO] - Epoch 25 step 19600/768: loss 1.480e+00  global 2.753e+00  evt_align 1.205e+00
+[20/04/26 00:29:34][src.callback.progress][INFO] - Epoch 25 step 19650/768: loss 1.324e+00  global 2.513e+00  evt_align 1.073e+00
+[20/04/26 00:29:35][src.callback.progress][INFO] - Epoch 25 step 19700/768: loss 1.236e+00  global 2.392e+00  evt_align 9.969e-01
+[20/04/26 00:29:37][src.callback.progress][INFO] - Epoch 25 step 19750/768: loss 1.596e+00  global 2.856e+00  evt_align 1.310e+00
+[20/04/26 00:29:38][src.callback.progress][INFO] - Epoch 25 step 19800/768: loss 1.458e+00  global 3.120e+00  evt_align 1.146e+00
+[20/04/26 00:29:39][src.callback.progress][INFO] - Epoch 25 step 19850/768: loss 1.687e+00  global 2.324e+00  evt_align 1.454e+00
+[20/04/26 00:29:40][src.callback.progress][INFO] - Epoch 25 step 19900/768: loss 1.505e+00  global 2.316e+00  evt_align 1.273e+00
+[20/04/26 00:29:42][src.callback.progress][INFO] - Epoch 25 step 19950/768: loss 1.569e+00  global 2.747e+00  evt_align 1.294e+00
+[20/04/26 00:29:44][src.callback.progress][INFO] - Epoch 25: v_loss 1.707e+00  loss 1.464e+00  v_global 2.932e+00  global 2.495e+00  v_t2m/len 1530  v_t2m/R01 4.44%  v_t2m/R02 5.69%  v_t2m/R03 7.44%  v_t2m/R05 10.72%  v_t2m/R10 13.65%  v_t2m/MedR 151.0%  v_m2t/len 1530  v_m2t/R01 3.46%  v_m2t/R02 3.99%  v_m2t/R03 5.42%  v_m2t/R05 7.57%  v_m2t/R10 10.92%  v_m2t/MedR 200.0%
+[20/04/26 00:29:45][src.callback.progress][INFO] - Epoch 26 step 20000/768: loss 1.835e+00  global 2.450e+00  evt_align 1.590e+00
+[20/04/26 00:29:47][src.callback.progress][INFO] - Epoch 26 step 20050/768: loss 1.555e+00  global 2.224e+00  evt_align 1.333e+00
+[20/04/26 00:29:48][src.callback.progress][INFO] - Epoch 26 step 20100/768: loss 1.228e+00  global 2.570e+00  evt_align 9.711e-01
+[20/04/26 00:29:49][src.callback.progress][INFO] - Epoch 26 step 20150/768: loss 1.377e+00  global 2.507e+00  evt_align 1.126e+00
+[20/04/26 00:29:50][src.callback.progress][INFO] - Epoch 26 step 20200/768: loss 1.474e+00  global 1.820e+00  evt_align 1.292e+00
+[20/04/26 00:29:52][src.callback.progress][INFO] - Epoch 26 step 20250/768: loss 1.926e+00  global 2.784e+00  evt_align 1.648e+00
+[20/04/26 00:29:53][src.callback.progress][INFO] - Epoch 26 step 20300/768: loss 1.411e+00  global 2.321e+00  evt_align 1.179e+00
+[20/04/26 00:29:54][src.callback.progress][INFO] - Epoch 26 step 20350/768: loss 1.746e+00  global 2.205e+00  evt_align 1.526e+00
+[20/04/26 00:29:55][src.callback.progress][INFO] - Epoch 26 step 20400/768: loss 1.334e+00  global 2.382e+00  evt_align 1.096e+00
+[20/04/26 00:29:56][src.callback.progress][INFO] - Epoch 26 step 20450/768: loss 1.446e+00  global 2.656e+00  evt_align 1.181e+00
+[20/04/26 00:29:58][src.callback.progress][INFO] - Epoch 26 step 20500/768: loss 1.278e+00  global 2.065e+00  evt_align 1.071e+00
+[20/04/26 00:29:59][src.callback.progress][INFO] - Epoch 26 step 20550/768: loss 1.292e+00  global 2.590e+00  evt_align 1.033e+00
+[20/04/26 00:30:00][src.callback.progress][INFO] - Epoch 26 step 20600/768: loss 1.298e+00  global 2.628e+00  evt_align 1.035e+00
+[20/04/26 00:30:01][src.callback.progress][INFO] - Epoch 26 step 20650/768: loss 1.478e+00  global 2.144e+00  evt_align 1.264e+00
+[20/04/26 00:30:03][src.callback.progress][INFO] - Epoch 26 step 20700/768: loss 1.466e+00  global 2.312e+00  evt_align 1.235e+00
+[20/04/26 00:30:05][src.callback.progress][INFO] - Epoch 26: v_loss 1.689e+00  loss 1.460e+00  v_global 2.932e+00  global 2.492e+00  v_t2m/len 1530  v_t2m/R01 4.44%  v_t2m/R02 5.69%  v_t2m/R03 7.44%  v_t2m/R05 10.72%  v_t2m/R10 13.65%  v_t2m/MedR 151.0%  v_m2t/len 1530  v_m2t/R01 3.46%  v_m2t/R02 3.99%  v_m2t/R03 5.42%  v_m2t/R05 7.57%  v_m2t/R10 10.92%  v_m2t/MedR 200.0%
+[20/04/26 00:30:06][src.callback.progress][INFO] - Epoch 27 step 20750/768: loss 1.341e+00  global 2.825e+00  evt_align 1.058e+00
+[20/04/26 00:30:08][src.callback.progress][INFO] - Epoch 27 step 20800/768: loss 1.654e+00  global 2.835e+00  evt_align 1.370e+00
+[20/04/26 00:30:09][src.callback.progress][INFO] - Epoch 27 step 20850/768: loss 1.478e+00  global 2.534e+00  evt_align 1.225e+00
+[20/04/26 00:30:10][src.callback.progress][INFO] - Epoch 27 step 20900/768: loss 1.509e+00  global 3.129e+00  evt_align 1.196e+00
+[20/04/26 00:30:11][src.callback.progress][INFO] - Epoch 27 step 20950/768: loss 1.437e+00  global 2.883e+00  evt_align 1.149e+00
+[20/04/26 00:30:13][src.callback.progress][INFO] - Epoch 27 step 21000/768: loss 1.532e+00  global 2.743e+00  evt_align 1.258e+00
+[20/04/26 00:30:14][src.callback.progress][INFO] - Epoch 27 step 21050/768: loss 1.663e+00  global 2.630e+00  evt_align 1.400e+00
+[20/04/26 00:30:15][src.callback.progress][INFO] - Epoch 27 step 21100/768: loss 1.552e+00  global 3.093e+00  evt_align 1.242e+00
+[20/04/26 00:30:17][src.callback.progress][INFO] - Epoch 27 step 21150/768: loss 1.383e+00  global 2.311e+00  evt_align 1.152e+00
+[20/04/26 00:30:18][src.callback.progress][INFO] - Epoch 27 step 21200/768: loss 1.315e+00  global 2.281e+00  evt_align 1.087e+00
+[20/04/26 00:30:19][src.callback.progress][INFO] - Epoch 27 step 21250/768: loss 1.594e+00  global 2.648e+00  evt_align 1.329e+00
+[20/04/26 00:30:20][src.callback.progress][INFO] - Epoch 27 step 21300/768: loss 1.616e+00  global 2.437e+00  evt_align 1.373e+00
+[20/04/26 00:30:22][src.callback.progress][INFO] - Epoch 27 step 21350/768: loss 1.308e+00  global 1.909e+00  evt_align 1.117e+00
+[20/04/26 00:30:23][src.callback.progress][INFO] - Epoch 27 step 21400/768: loss 1.598e+00  global 2.672e+00  evt_align 1.331e+00
+[20/04/26 00:30:24][src.callback.progress][INFO] - Epoch 27 step 21450/768: loss 1.501e+00  global 2.501e+00  evt_align 1.251e+00
+[20/04/26 00:30:25][src.callback.progress][INFO] - Epoch 27 step 21500/768: loss 1.577e+00  global 2.108e+00  evt_align 1.366e+00
+[20/04/26 00:30:27][src.callback.progress][INFO] - Epoch 27: v_loss 1.682e+00  loss 1.450e+00  v_global 2.932e+00  global 2.496e+00  v_t2m/len 1530  v_t2m/R01 4.44%  v_t2m/R02 5.69%  v_t2m/R03 7.44%  v_t2m/R05 10.72%  v_t2m/R10 13.65%  v_t2m/MedR 151.0%  v_m2t/len 1530  v_m2t/R01 3.46%  v_m2t/R02 3.99%  v_m2t/R03 5.42%  v_m2t/R05 7.57%  v_m2t/R10 10.92%  v_m2t/MedR 200.0%
+[20/04/26 00:30:29][src.callback.progress][INFO] - Epoch 28 step 21550/768: loss 1.606e+00  global 2.762e+00  evt_align 1.330e+00
+[20/04/26 00:30:31][src.callback.progress][INFO] - Epoch 28 step 21600/768: loss 1.666e+00  global 2.418e+00  evt_align 1.424e+00
+[20/04/26 00:30:32][src.callback.progress][INFO] - Epoch 28 step 21650/768: loss 1.482e+00  global 2.750e+00  evt_align 1.207e+00
+[20/04/26 00:30:33][src.callback.progress][INFO] - Epoch 28 step 21700/768: loss 1.547e+00  global 2.304e+00  evt_align 1.317e+00
+[20/04/26 00:30:34][src.callback.progress][INFO] - Epoch 28 step 21750/768: loss 1.688e+00  global 2.625e+00  evt_align 1.426e+00
+[20/04/26 00:30:35][src.callback.progress][INFO] - Epoch 28 step 21800/768: loss 1.306e+00  global 2.327e+00  evt_align 1.073e+00
+[20/04/26 00:30:37][src.callback.progress][INFO] - Epoch 28 step 21850/768: loss 1.386e+00  global 2.819e+00  evt_align 1.104e+00
+[20/04/26 00:30:38][src.callback.progress][INFO] - Epoch 28 step 21900/768: loss 1.447e+00  global 2.212e+00  evt_align 1.226e+00
+[20/04/26 00:30:39][src.callback.progress][INFO] - Epoch 28 step 21950/768: loss 1.320e+00  global 2.501e+00  evt_align 1.070e+00
+[20/04/26 00:30:41][src.callback.progress][INFO] - Epoch 28 step 22000/768: loss 1.532e+00  global 2.342e+00  evt_align 1.298e+00
+[20/04/26 00:30:42][src.callback.progress][INFO] - Epoch 28 step 22050/768: loss 1.543e+00  global 2.359e+00  evt_align 1.307e+00
+[20/04/26 00:30:43][src.callback.progress][INFO] - Epoch 28 step 22100/768: loss 1.378e+00  global 2.672e+00  evt_align 1.111e+00
+[20/04/26 00:30:44][src.callback.progress][INFO] - Epoch 28 step 22150/768: loss 1.714e+00  global 2.386e+00  evt_align 1.475e+00
+[20/04/26 00:30:46][src.callback.progress][INFO] - Epoch 28 step 22200/768: loss 1.292e+00  global 1.959e+00  evt_align 1.096e+00
+[20/04/26 00:30:47][src.callback.progress][INFO] - Epoch 28 step 22250/768: loss 1.481e+00  global 2.767e+00  evt_align 1.204e+00

@@ -1,0 +1,140 @@
+{
+    "data": {
+        "motion_loader": {
+            "schema": "guo263",
+            "nfeats": 263,
+            "motion_dir": "../datasets/HumanML3D-E-MP/motion_formats/guo263",
+            "mean_path": "../datasets/HumanML3D-E-MP/motion_format_stats/guo263/Mean.npy",
+            "std_path": "../datasets/HumanML3D-E-MP/motion_format_stats/guo263/Std.npy"
+        },
+        "_target_": "src.data.humanml3de_event.HumanML3DEventDataset",
+        "dataset_root": "../datasets/HumanML3D-E-MP",
+        "motion_dir": "../datasets/HumanML3D-E-MP/motion_formats/guo263",
+        "mean_path": "../datasets/HumanML3D-E-MP/motion_format_stats/guo263/Mean.npy",
+        "std_path": "../datasets/HumanML3D-E-MP/motion_format_stats/guo263/Std.npy",
+        "motion_rep": "guo263",
+        "strict_motion_length": false,
+        "text_to_token_emb": {
+            "_target_": "src.data.text.TokenEmbeddings",
+            "path": "../datasets/HumanML3D-E-MP",
+            "modelname": "distilbert-base-uncased",
+            "preload": true
+        },
+        "text_to_sent_emb": {
+            "_target_": "src.data.text.SentenceEmbeddings",
+            "path": "../datasets/HumanML3D-E-MP",
+            "modelname": "sentence-transformers/all-mpnet-base-v2",
+            "preload": true
+        },
+        "preload": false,
+        "strict_event_parse": false,
+        "nsim_subset_size": 100,
+        "nsim_min_similarity": 0.75,
+        "nsim_split_path": "../datasets/HumanML3D-E-MP/nsim_test.txt"
+    },
+    "model": {
+        "_target_": "src.model.TMR",
+        "motion_encoder": {
+            "_target_": "src.model.ACTORStyleEncoder",
+            "nfeats": 263,
+            "vae": true,
+            "latent_dim": 256,
+            "ff_size": 1024,
+            "num_layers": 6,
+            "num_heads": 4,
+            "dropout": 0.1,
+            "activation": "gelu"
+        },
+        "text_encoder": {
+            "_target_": "src.model.ACTORStyleEncoder",
+            "nfeats": 768,
+            "vae": true,
+            "latent_dim": 256,
+            "ff_size": 1024,
+            "num_layers": 6,
+            "num_heads": 4,
+            "dropout": 0.1,
+            "activation": "gelu"
+        },
+        "motion_decoder": {
+            "_target_": "src.model.ACTORStyleDecoder",
+            "nfeats": 263,
+            "latent_dim": 256,
+            "ff_size": 1024,
+            "num_layers": 6,
+            "num_heads": 4,
+            "dropout": 0.1,
+            "activation": "gelu"
+        },
+        "vae": true,
+        "lmd": {
+            "recons": 1.0,
+            "latent": 1e-05,
+            "kl": 1e-05,
+            "contrastive": 0.1
+        },
+        "lr": 0.0001,
+        "temperature": 0.1,
+        "threshold_selfsim": 0.8,
+        "threshold_selfsim_metrics": 0.95
+    },
+    "trainer": {
+        "_target_": "pytorch_lightning.Trainer",
+        "max_epochs": 1,
+        "log_every_n_steps": 50,
+        "num_sanity_val_steps": 0,
+        "check_val_every_n_epoch": 1,
+        "accelerator": "cpu",
+        "devices": 1,
+        "callbacks": [
+            {
+                "_target_": "pytorch_lightning.callbacks.ModelCheckpoint",
+                "filename": "latest-{epoch}",
+                "every_n_epochs": 1,
+                "save_top_k": 1,
+                "save_last": true
+            },
+            {
+                "_target_": "pytorch_lightning.callbacks.ModelCheckpoint",
+                "filename": "latest-{epoch}",
+                "monitor": "step",
+                "mode": "max",
+                "every_n_epochs": 100,
+                "save_top_k": -1,
+                "save_last": false
+            },
+            {
+                "_target_": "pytorch_lightning.callbacks.ModelCheckpoint",
+                "monitor": "val_loss",
+                "mode": "min",
+                "save_top_k": 3,
+                "save_last": true,
+                "filename": "e_{epoch:03d}-val_{val:.2f}"
+            },
+            {
+                "_target_": "src.callback.progress.ProgressLogger",
+                "precision": 3
+            },
+            {
+                "_target_": "src.callback.tqdmbar.TQDMProgressBar"
+            }
+        ],
+        "logger": {
+            "_target_": "pytorch_lightning.loggers.TensorBoardLogger",
+            "save_dir": "outputs/tmp_postcache_workers8",
+            "name": "tmr_humanml3d_e_mp_emp_guo263"
+        },
+        "limit_train_batches": 1,
+        "limit_val_batches": 1
+    },
+    "run_dir": "outputs/tmp_postcache_workers8",
+    "seed": 1234,
+    "logger_level": "INFO",
+    "ckpt": "last",
+    "resume_dir": null,
+    "dataloader": {
+        "_target_": "torch.utils.data.DataLoader",
+        "batch_size": 4,
+        "num_workers": 8
+    }
+}

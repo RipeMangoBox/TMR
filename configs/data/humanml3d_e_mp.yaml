@@ -13,15 +13,15 @@ strict_motion_length: false
 
 text_to_token_emb:
   _target_: src.data.text.TokenEmbeddings
-  path: datasets/annotations/humanml3d
+  path: ${..dataset_root}
   modelname: distilbert-base-uncased
-  preload: false
+  preload: true
 
 text_to_sent_emb:
   _target_: src.data.text.SentenceEmbeddings
-  path: datasets/annotations/humanml3d
+  path: ${..dataset_root}
   modelname: sentence-transformers/all-mpnet-base-v2
-  preload: false
+  preload: true
 
 preload: false
 strict_event_parse: false

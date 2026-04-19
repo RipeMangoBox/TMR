@@ -20,10 +20,11 @@ threshold_selfsim: 0.80
 threshold_selfsim_metrics: 0.95
 event_align_tau: 0.1
 
-# Keep D2a's minimal-head recipe and only expand the motion unfreeze scope.
-warm_start_weights_dir: RUN_DIR/stage4_1_realdata_e50_b128_d1/last_weights
+# For multi-motion-rep comparison: warm-start from the original pretrained
+# backbone directly (no D1 intermediate needed per motion rep).
+warm_start_weights_dir: models/tmr_humanml3d_guoh3dfeats/last_weights
 warm_start_ckpt: null
-warm_start_event_head: true
+warm_start_event_head: false
 
 freeze_motion_backbone: false
 freeze_text_encoder: true
