@@ -1,0 +1,30 @@
+defaults:
+  - motion_loader: emp_guo263
+  - _self_
+
+_target_: src.data.humanml3de_event.HumanML3DEventDataset
+
+dataset_root: ${oc.env:HUMANML3DE_MP_ROOT,/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E-MP}
+motion_dir: ${.motion_loader.motion_dir}
+mean_path: ${.motion_loader.mean_path}
+std_path: ${.motion_loader.std_path}
+motion_rep: ${.motion_loader.schema}
+strict_motion_length: false
+
+text_to_token_emb:
+  _target_: src.data.text.TokenEmbeddings
+  path: datasets/annotations/humanml3d
+  modelname: distilbert-base-uncased
+  preload: false
+
+text_to_sent_emb:
+  _target_: src.data.text.SentenceEmbeddings
+  path: datasets/annotations/humanml3d
+  modelname: sentence-transformers/all-mpnet-base-v2
+  preload: false
+
+preload: false
+strict_event_parse: false
+nsim_subset_size: 100
+nsim_min_similarity: 0.75
+nsim_split_path: ${.dataset_root}/nsim_test.txt

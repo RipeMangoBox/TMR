@@ -1,0 +1,18 @@
+[12/04/26 17:36:20][lightning_fabric.utilities.seed][INFO] - Seed set to 1234
+[12/04/26 17:36:20][__main__][INFO] - Loading the model
+[12/04/26 17:36:20][src.load][INFO] -     event_proj_e loaded
+[12/04/26 17:36:20][src.load][INFO] -     motion_decoder loaded
+[12/04/26 17:36:20][src.load][INFO] -     text_encoder loaded
+[12/04/26 17:36:20][src.load][INFO] -     event_proj_t loaded
+[12/04/26 17:36:20][src.load][INFO] -     motion_encoder loaded
+[12/04/26 17:36:20][src.load][INFO] - Loading previous checkpoint done
+[12/04/26 17:36:20][src.load][INFO] - Put the model on cuda
+[12/04/26 17:36:20][src.load][INFO] - Put the model in eval mode
+[12/04/26 17:38:08][__main__][INFO] - Testing done, metrics saved in:
+RUN_DIR/stage4_1_realdata_e50_b128_d1/contrastive_metrics/normal.yaml
+[12/04/26 17:38:11][__main__][INFO] - Testing done, metrics saved in:
+RUN_DIR/stage4_1_realdata_e50_b128_d1/contrastive_metrics/threshold_0.95.yaml
+[12/04/26 17:38:18][__main__][INFO] - Testing done, metrics saved in:
+RUN_DIR/stage4_1_realdata_e50_b128_d1/contrastive_metrics/nsim.yaml
+[12/04/26 17:38:43][__main__][INFO] - Testing done, metrics saved in:
+RUN_DIR/stage4_1_realdata_e50_b128_d1/contrastive_metrics/guo.yaml

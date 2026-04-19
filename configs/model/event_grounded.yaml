@@ -1,0 +1,36 @@
+defaults:
+  - _self_
+
+_target_: src.model.event_grounded.EventGroundedRetriever
+
+# Default path matches the current HumanML3DEventDataset / TMR-style 263-d stream.
+# Override this to 66 or patch-token dims if you switch to a native MotionPatches path.
+motion_input_dim: ${data.motion_loader.nfeats}
+text_input_dim: 768
+latent_dim: 256
+
+max_events: 6
+max_segments: ${.max_events}
+
+text_ff_size: 512
+text_num_layers: 2
+text_num_heads: 4
+
+motion_ff_size: 512
+motion_num_layers: 2
+motion_num_heads: 4
+
+dropout: 0.1
+activation: gelu
+
+text_pooler: attention
+segment_pooler: attention
+segmentation_strategy: auto
+
+temperature: 0.07
+learnable_temperature: false
+enable_k1_global_fallback: true
+k1_global_weight: 1.0
+
+matching_eps: 1.0e-6
+matching_invalid_score: -1.0e4

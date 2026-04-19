@@ -4,12 +4,11 @@ defaults:
 
 _target_: src.model.tmr_d1_5.TMRD15FrozenMinimalHeadUniformPool
 
-# HumanML3D-E guoh3dfeats dimensionality
 motion_encoder:
-  nfeats: 263
+  nfeats: ${data.motion_loader.nfeats}
 
 motion_decoder:
-  nfeats: 263
+  nfeats: ${data.motion_loader.nfeats}
 
 lmd:
   global: 0.1

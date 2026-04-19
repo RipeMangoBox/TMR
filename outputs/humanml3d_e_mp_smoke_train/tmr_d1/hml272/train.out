@@ -1,0 +1,37 @@
+[19/04/26 22:23:03][__main__][INFO] - Training script
+[19/04/26 22:23:03][__main__][INFO] - The config can be found here: 
+outputs/humanml3d_e_mp_smoke_train/tmr_d1/hml272/config.json
+[19/04/26 22:23:05][lightning_fabric.utilities.seed][INFO] - Seed set to 42
+[19/04/26 22:23:05][__main__][INFO] - Loading the dataloaders
+[19/04/26 22:23:08][__main__][INFO] - Loading the model
+[19/04/26 22:23:08][src.model.tmr_d1][INFO] - Warm-start loaded 74/75 tensors into motion_encoder; skipped_shape=1 missing=1 unexpected=0
+[19/04/26 22:23:08][src.model.tmr_d1][INFO] - Warm-start shape mismatches for motion_encoder (first 8): ['projection.weight: ckpt(256, 263) != model(256, 272)']
+[19/04/26 22:23:08][src.model.tmr_d1][INFO] - Warm-start loaded 108/110 tensors into motion_decoder; skipped_shape=2 missing=2 unexpected=0
+[19/04/26 22:23:08][src.model.tmr_d1][INFO] - Warm-start shape mismatches for motion_decoder (first 8): ['final_layer.weight: ckpt(263, 256) != model(272, 256)', 'final_layer.bias: ckpt(263,) != model(272,)']
+[19/04/26 22:23:08][__main__][INFO] - Training
+[19/04/26 22:23:08][pytorch_lightning.utilities.rank_zero][INFO] - GPU available: True (cuda), used: False
+[19/04/26 22:23:08][pytorch_lightning.utilities.rank_zero][INFO] - TPU available: False, using: 0 TPU cores
+[19/04/26 22:23:08][pytorch_lightning.utilities.rank_zero][INFO] - HPU available: False, using: 0 HPUs
+[19/04/26 22:23:08][pytorch_lightning.utilities.rank_zero][INFO] - `Trainer(limit_train_batches=1)` was configured so 1 batch per epoch will be used.
+[19/04/26 22:23:08][pytorch_lightning.utilities.rank_zero][INFO] - `Trainer(limit_val_batches=1)` was configured so 1 batch will be used.
+[19/04/26 22:23:08][pytorch_lightning.callbacks.model_summary][INFO] - 
+  | Name                   | Type              | Params | Mode 
+---------------------------------------------------------------------
+0 | motion_encoder         | ACTORStyleEncoder | 4.8 M  | eval 
+1 | text_encoder           | ACTORStyleEncoder | 4.9 M  | eval 
+2 | motion_decoder         | ACTORStyleDecoder | 6.4 M  | eval 
+3 | reconstruction_loss_fn | SmoothL1Loss      | 0      | train
+4 | latent_loss_fn         | SmoothL1Loss      | 0      | train
+5 | event_proj_e           | Linear            | 65.8 K | train
+6 | event_proj_t           | Linear            | 65.8 K | train
+---------------------------------------------------------------------
+131 K     Trainable params
+16.1 M    Non-trainable params
+16.3 M    Total params
+65.068    Total estimated model params size (MB)
+4         Modules in train mode
+222       Modules in eval mode
+[19/04/26 22:23:08][src.callback.progress][INFO] - Training started
+[19/04/26 22:23:12][src.callback.progress][INFO] - Epoch 0: v_loss 4.168e-01  loss 6.428e-01  v_global 8.268e-01  global 3.139e-01  v_t2m/len 2  v_t2m/R01 100.0%  v_t2m/R02 100.0%  v_t2m/R03 100.0%  v_t2m/R05 100.0%  v_t2m/R10 100.0%  v_t2m/MedR 1.0%  v_m2t/len 2  v_m2t/R01 50.0%  v_m2t/R02 100.0%  v_m2t/R03 100.0%  v_m2t/R05 100.0%  v_m2t/R10 100.0%  v_m2t/MedR 1.5%
+[19/04/26 22:23:12][pytorch_lightning.utilities.rank_zero][INFO] - `Trainer.fit` stopped: `max_epochs=1` reached.
+[19/04/26 22:23:12][src.callback.progress][INFO] - Training done

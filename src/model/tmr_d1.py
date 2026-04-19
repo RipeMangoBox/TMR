@@ -1,3 +1,4 @@
+import logging
 from pathlib import Path
 from typing import Dict, Optional
 
@@ -9,6 +10,9 @@ from torch import Tensor
 from .losses import InfoNCE_with_filtering
 from .metrics import all_contrastive_metrics
 from .temos import TEMOS
+
+
+logger = logging.getLogger(__name__)
 
 
 def _get_sim_matrix(x: Tensor, y: Tensor) -> Tensor:
@@ -72,6 +76,52 @@ class TMRD1FrozenMinimalHead(TEMOS):
         self.validation_step_m_latents = []
         self.validation_step_sent_emb = []
 
+    def _load_module_state(
+        self, module: nn.Module, state_dict: Dict[str, Tensor], module_name: str
+    ) -> bool:
+        target_state = module.state_dict()
+        loadable_state = {}
+        skipped_keys = []
+        for key, value in state_dict.items():
+            target_value = target_state.get(key)
+            if target_value is None:
+                continue
+            if tuple(target_value.shape) != tuple(value.shape):
+                skipped_keys.append(
+                    f"{key}: ckpt{tuple(value.shape)} != model{tuple(target_value.shape)}"
+                )
+                continue
+            loadable_state[key] = value
+
+        if not loadable_state:
+            if state_dict:
+                logger.warning(
+                    "Warm-start skipped %s because no parameter shapes matched.", module_name
+                )
+            return False
+
+        missing_keys, unexpected_keys = module.load_state_dict(
+            loadable_state, strict=False
+        )
+        skipped_count = len(skipped_keys)
+        if skipped_count or missing_keys or unexpected_keys:
+            logger.info(
+                "Warm-start loaded %s/%s tensors into %s; skipped_shape=%s missing=%s unexpected=%s",
+                len(loadable_state),
+                len(target_state),
+                module_name,
+                skipped_count,
+                len(missing_keys),
+                len(unexpected_keys),
+            )
+            if skipped_count:
+                logger.info(
+                    "Warm-start shape mismatches for %s (first 8): %s",
+                    module_name,
+                    skipped_keys[:8],
+                )
+        return True
+
     def _load_module_from_state(self, module: nn.Module, state: Dict, prefix: str) -> bool:
         module_state = {}
         direct_prefix = f"{prefix}."
@@ -83,8 +133,7 @@ class TMRD1FrozenMinimalHead(TEMOS):
                 module_state[key[len(direct_prefix) :]] = value
         if not module_state:
             return False
-        module.load_state_dict(module_state, strict=True)
-        return True
+        return self._load_module_state(module, module_state, prefix)
 
     def _load_warm_start(
         self, warm_start_weights_dir: Optional[str], warm_start_ckpt: Optional[str]
@@ -96,16 +145,22 @@ class TMRD1FrozenMinimalHead(TEMOS):
             motion_decoder_path = weights_dir / "motion_decoder.pt"
 
             if motion_encoder_path.exists():
-                self.motion_encoder.load_state_dict(
-                    torch.load(motion_encoder_path, map_location="cpu"), strict=True
+                self._load_module_state(
+                    self.motion_encoder,
+                    torch.load(motion_encoder_path, map_location="cpu"),
+                    "motion_encoder",
                 )
             if text_encoder_path.exists():
-                self.text_encoder.load_state_dict(
-                    torch.load(text_encoder_path, map_location="cpu"), strict=True
+                self._load_module_state(
+                    self.text_encoder,
+                    torch.load(text_encoder_path, map_location="cpu"),
+                    "text_encoder",
                 )
             if motion_decoder_path.exists():
-                self.motion_decoder.load_state_dict(
-                    torch.load(motion_decoder_path, map_location="cpu"), strict=True
+                self._load_module_state(
+                    self.motion_decoder,
+                    torch.load(motion_decoder_path, map_location="cpu"),
+                    "motion_decoder",
                 )
 
         if warm_start_ckpt:

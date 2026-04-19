@@ -1,0 +1,5 @@
+schema: pos66
+nfeats: 66
+motion_dir: ${oc.env:HUMANML3DE_MP_ROOT,/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E-MP}/motion_formats/pos66
+mean_path: ${oc.env:HUMANML3DE_MP_ROOT,/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E-MP}/motion_format_stats/pos66/Mean.npy
+std_path: ${oc.env:HUMANML3DE_MP_ROOT,/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E-MP}/motion_format_stats/pos66/Std.npy

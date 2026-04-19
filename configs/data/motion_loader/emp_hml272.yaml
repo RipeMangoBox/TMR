@@ -1,0 +1,5 @@
+schema: hml272
+nfeats: 272
+motion_dir: ${oc.env:HUMANML3DE_MP_ROOT,/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E-MP}/motion_formats/hml272
+mean_path: ${oc.env:HUMANML3DE_MP_ROOT,/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E-MP}/motion_format_stats/hml272/Mean.npy
+std_path: ${oc.env:HUMANML3DE_MP_ROOT,/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E-MP}/motion_format_stats/hml272/Std.npy

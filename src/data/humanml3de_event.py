@@ -1,7 +1,7 @@
 import re
 from collections import Counter
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
 import numpy as np
 import torch
@@ -104,6 +104,35 @@ def load_humanml3de_split(split_path: Path) -> Dict[str, Dict]:
     )
 
 
+def _cfg_get(config: Any, key: str, default=None):
+    if config is None:
+        return default
+    getter = getattr(config, "get", None)
+    if callable(getter):
+        return getter(key, default)
+    return getattr(config, key, default)
+
+
+def _load_stat_vector(path: Optional[Path]) -> Optional[np.ndarray]:
+    if path is None:
+        return None
+    if not path.exists():
+        raise FileNotFoundError(f"Missing stats file: {path}")
+    vector = np.load(path).astype(np.float32, copy=False)
+    return vector.reshape(-1)
+
+
+def _load_motion_array(path: Path) -> np.ndarray:
+    if not path.exists():
+        raise FileNotFoundError(f"Missing motion file: {path}")
+    motion = np.load(path).astype(np.float32, copy=False)
+    if motion.ndim == 3:
+        return motion.reshape(motion.shape[0], -1)
+    if motion.ndim == 2:
+        return motion
+    raise ValueError(f"Unsupported motion shape in {path}: {motion.shape}")
+
+
 def extract_event_captions(
     text_entry: Dict, strict_event_parse: bool = False
 ) -> Tuple[List[str], str]:
@@ -138,6 +167,12 @@ class HumanML3DEventDataset(Dataset):
         dataset_root: str,
         text_to_sent_emb,
         text_to_token_emb,
+        motion_loader: Optional[Any] = None,
+        motion_dir: Optional[str] = None,
+        mean_path: Optional[str] = None,
+        std_path: Optional[str] = None,
+        motion_rep: Optional[str] = None,
+        strict_motion_length: bool = False,
         split: str = "train",
         preload: bool = False,
         strict_event_parse: bool = False,
@@ -151,6 +186,23 @@ class HumanML3DEventDataset(Dataset):
         self.text_to_sent_emb = text_to_sent_emb
         self.text_to_token_emb = text_to_token_emb
         self.strict_event_parse = strict_event_parse
+        motion_dir = motion_dir or _cfg_get(motion_loader, "motion_dir")
+        mean_path = mean_path or _cfg_get(motion_loader, "mean_path")
+        std_path = std_path or _cfg_get(motion_loader, "std_path")
+        motion_rep = motion_rep or _cfg_get(motion_loader, "schema")
+        configured_nfeats = _cfg_get(motion_loader, "nfeats")
+        self.motion_dir = (
+            Path(motion_dir).expanduser().resolve() if motion_dir is not None else None
+        )
+        self.mean = _load_stat_vector(
+            Path(mean_path).expanduser().resolve() if mean_path is not None else None
+        )
+        self.std = _load_stat_vector(
+            Path(std_path).expanduser().resolve() if std_path is not None else None
+        )
+        self.motion_rep = motion_rep or "packaged_motion"
+        self.strict_motion_length = strict_motion_length
+        self.uses_external_motion = self.motion_dir is not None
         self.nsim_subset_size = nsim_subset_size
         self.nsim_min_similarity = nsim_min_similarity
         if nsim_split_path is not None:
@@ -180,9 +232,29 @@ class HumanML3DEventDataset(Dataset):
             motion = sample.get("motion")
             length = sample.get("length")
             text_entries = sample.get("text", [])
-            if motion is None or length is None or not isinstance(text_entries, list):
+            if length is None or not isinstance(text_entries, list):
                 dropped += 1
                 continue
+            if not self.uses_external_motion and motion is None:
+                dropped += 1
+                continue
+            if self.uses_external_motion:
+                motion_path = self.motion_dir / f"{keyid}.npy"
+                if not motion_path.exists():
+                    raise FileNotFoundError(
+                        f"Missing external motion for keyid={keyid}: {motion_path}"
+                    )
+                motion_payload = None
+            else:
+                motion_payload = np.asarray(motion, dtype=np.float32)
+                if motion_payload.ndim == 3:
+                    motion_payload = motion_payload.reshape(motion_payload.shape[0], -1)
+                elif motion_payload.ndim != 2:
+                    raise ValueError(
+                        f"Unsupported packaged motion shape for keyid={keyid}: "
+                        f"{motion_payload.shape}"
+                    )
+                length = int(motion_payload.shape[0])
 
             normalized_texts = []
             for text_entry in text_entries:
@@ -212,7 +284,7 @@ class HumanML3DEventDataset(Dataset):
             self.samples.append(
                 {
                     "keyid": str(keyid),
-                    "motion": motion,
+                    "motion": motion_payload,
                     "length": int(length),
                     "texts": normalized_texts,
                 }
@@ -223,12 +295,23 @@ class HumanML3DEventDataset(Dataset):
 
         self.keyids = [sample["keyid"] for sample in self.samples]
         self.samples_by_keyid = {sample["keyid"]: sample for sample in self.samples}
-        self.nfeats = int(self.samples[0]["motion"].shape[-1]) if self.samples else 0
+        self.nfeats = 0
+        if self.samples:
+            inferred_nfeats = self._load_motion_array_by_keyid(self.samples[0]["keyid"]).shape[-1]
+            if configured_nfeats is not None and int(configured_nfeats) != inferred_nfeats:
+                raise ValueError(
+                    "Configured nfeats does not match loaded motion representation: "
+                    f"configured={configured_nfeats}, inferred={inferred_nfeats}, "
+                    f"motion_rep={self.motion_rep}"
+                )
+            self.nfeats = inferred_nfeats
 
         print(
             "[HumanML3DEventDataset] "
             f"split={split} dataset_root={self.dataset_root} "
             f"samples={len(self.samples)} dropped={dropped} "
+            f"motion_rep={self.motion_rep} nfeats={self.nfeats} "
+            f"external_motion={self.uses_external_motion} "
             f"event_sources={dict(event_source_counter)}"
         )
 
@@ -260,8 +343,7 @@ class HumanML3DEventDataset(Dataset):
         caption = text_item["caption"]
         events = text_item["events"]
 
-        motion = torch.from_numpy(sample["motion"]).to(torch.float)
-        motion_x_dict = {"x": motion, "length": int(sample["length"])}
+        motion_x_dict = self._build_motion_x_dict(sample)
 
         text_x_dict = self.text_to_token_emb(caption)
         sent_emb = self.text_to_sent_emb(caption)
@@ -286,8 +368,7 @@ class HumanML3DEventDataset(Dataset):
         text_item = self._select_text_item(sample, training=False)
         caption = text_item["caption"]
 
-        motion = torch.from_numpy(sample["motion"]).to(torch.float)
-        motion_x_dict = {"x": motion, "length": int(sample["length"])}
+        motion_x_dict = self._build_motion_x_dict(sample)
         text_x_dict = self.text_to_token_emb(caption)
         sent_emb = self.text_to_sent_emb(caption)
 
@@ -298,6 +379,39 @@ class HumanML3DEventDataset(Dataset):
             "keyid": sample["keyid"],
             "sent_emb": sent_emb,
         }
+
+    def _normalize_motion(self, motion: np.ndarray) -> np.ndarray:
+        if self.mean is None or self.std is None:
+            return motion.astype(np.float32, copy=False)
+        if self.mean.shape[0] != motion.shape[-1] or self.std.shape[0] != motion.shape[-1]:
+            raise ValueError(
+                "Stats dimension mismatch for motion representation: "
+                f"motion={motion.shape[-1]}, mean={self.mean.shape}, std={self.std.shape}, "
+                f"motion_rep={self.motion_rep}"
+            )
+        normalized = (motion - self.mean[np.newaxis, :]) / np.clip(
+            self.std[np.newaxis, :], a_min=1.0e-12, a_max=None
+        )
+        return normalized.astype(np.float32, copy=False)
+
+    def _load_motion_array_by_keyid(self, keyid: str) -> np.ndarray:
+        if self.uses_external_motion:
+            motion = _load_motion_array(self.motion_dir / f"{keyid}.npy")
+            return self._normalize_motion(motion)
+        sample = self.samples_by_keyid[keyid]
+        return np.asarray(sample["motion"], dtype=np.float32)
+
+    def _build_motion_x_dict(self, sample: Dict) -> Dict[str, torch.Tensor | int]:
+        motion = self._load_motion_array_by_keyid(sample["keyid"])
+        motion_length = int(motion.shape[0])
+        if self.strict_motion_length and motion_length != int(sample["length"]):
+            raise ValueError(
+                "Motion length mismatch for event sample: "
+                f"keyid={sample['keyid']}, split_length={sample['length']}, "
+                f"loaded_length={motion_length}, motion_rep={self.motion_rep}"
+            )
+        motion_tensor = torch.from_numpy(motion).to(torch.float)
+        return {"x": motion_tensor, "length": motion_length}
 
     def _resolve_nsim_subset(self, samples: List[Dict]) -> List[Dict]:
         subset = self._build_nsim_subset_from_split_file(samples)

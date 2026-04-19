@@ -1,0 +1,5 @@
+schema: hy201_recon
+nfeats: 201
+motion_dir: ${oc.env:HUMANML3DE_MP_ROOT,/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E-MP}/motion_formats/hy201_recon
+mean_path: ${oc.env:HUMANML3DE_MP_ROOT,/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E-MP}/motion_format_stats/hy201_recon/Mean.npy
+std_path: ${oc.env:HUMANML3DE_MP_ROOT,/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E-MP}/motion_format_stats/hy201_recon/Std.npy

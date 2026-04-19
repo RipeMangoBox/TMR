@@ -517,3 +517,247 @@ PrimaryScore(strict)
 
 **先把 TMR 的 winner 机制，以最保守、最少变量的方式嫁接到 MotionPatches backbone；
 先赢 strict retrieval，再谈更复杂的 temporal adapter / alignment。**
+
+## 13. Motion Rep 重做计划（2026-04-19）
+
+### 13.1 本轮核对结论
+
+这轮核对的目标不是判断“现有 9MB 实验是否有参考价值”，而是判断它们是否回答了现在真正想问的问题：
+
+- `motion rep` 本身是否按原论文语义构造；
+- `kimodo / pos66` 在 T5 下的对比是否发生在 **原始 MotionPatches full ckpt / full ClipModel** 框架里；
+- 带旋转表示与 MotionPatches 原生 `pos66` 的对比，是否真的是同一条 full-backbone 路线。
+
+结论是：**当前两组实验都不满足这个目标，需要重做。**
+
+- 现有 `motion_repr_ablation_*` 与 `t5s/*` 走的是 `MotionReprBaseline`，只保存约 `9MB` 的轻量 state dict。
+- 它们没有走 MotionPatches 的 `ClipModel + DistilBERT/T5 + ViT motion encoder` 主干。
+- 因此它们可以保留为轻量 probe，但**不能再当成与原始 `583M/610MB` MotionPatches ckpt 对应的公平主结论**。
+
+### 13.2 各 motion rep 的判定
+
+#### `guo263`
+
+- 原始 HumanML3D / Guo 表示来自 **position -> IK -> canonical** 流程。
+- `src/guofeats/motion_representation.py` 明确复现了这一点：先做统一骨架、落地、`XZ` 归零、初始朝向对齐到 `+Z`，再 `inverse_kinematics_np(...)` 提取 cont6d 与 root velocity。
+- 但当前 `build_humanml3de_mp_motion_formats.py` 里的 `guo263` 不是原版：
+  - 它先读取打包好的 `guo263`；
+  - 然后把 `67:193` 的 rotation 段替换成了 `hml272` 提取出的 `non_root_rot6d`。
+- 所以当前落盘的 `guo263` 只能算 **guo263_hml272swap hybrid**，**不再是原论文设定**。
+
+判定：
+
+- `guo263` 的“原始语义”应当保留 **canonical + IK**。
+- 当前本地导出结果 **不符合** 原论文设定。
+
+#### `kimodo_like_261`
+
+- Kimodo 原始表示在 `kimodo_motionrep.py` / 文档里定义为：
+  - `smooth_root_pos`
+  - `global_root_heading`
+  - `local_joints_positions`
+  - `global_rot_data`
+  - `velocities`
+  - `foot_contacts`
+- 关键点是：
+  - rotation 是 **global joint rotations**，不是 local rot6d；
+  - position block 保留整套 joints 语义，不是简单丢掉 root 后直接拼 `new_joints[:, 1:]`；
+  - smooth root 与 foot contact 也不是当前脚本里的简化 `1-2-1` 卷积和固定阈值差分。
+- 当前 `_build_kimodo_like_261(...)` 使用的是：
+  - `smooth_root_positions(root_pos)`
+  - `forward_heading`
+  - `non_root_pos`
+  - `joint_velocity(non_root_pos)`
+  - `non_root local_rot6d`
+  - `foot_contact`
+
+判定：
+
+- 当前 `kimodo_like_261` 是 **kimodo-inspired hybrid**；
+- rotation 本该是 **global**，当前却来自 `hml272` 的 local/non-root rot6d；
+- 因而 **不符合** Kimodo 原始表示设定。
+
+#### `hml272` / `humanml272`
+
+- 272-dim 仓库与 MotionStreamer 使用的是原生 SMPL 旋转，不走 IK recovery。
+- 但当前本地 `build_humanml3d_272_self.py` 只是一个 **self-processed aligned** 版本，不是官方流程原样复现。
+- 它与原仓库 `representation_272.py` 的关系是：
+  - 表示布局大体对齐；
+  - 但数据源改成了本地 HumanML3D clip 对齐版本；
+  - `metadata.json` 里也明确写了 `fps=20`，并且 `save_repr272[:-1]` 去对齐本地 `new_joints` 长度。
+- 272-dim 官方脚本来自 `amass_process.py -> face_z_transform.py -> infer_get_joints.py -> representation_272.py`，其中 `amass_process.py` 明确写了 `ex_fps = 30`。
+
+判定：
+
+- `hml272` 当前是 **本地对齐版 272**，不是官方 272 repo / MotionStreamer paper 的原样数据资产；
+- 它仍然属于 **原生 SMPL rot6d，不是 IK**；
+- 但从“是否符合原论文数据处理设定”看，答案仍然是 **不完全符合**。
+
+#### `hy201_recon`
+
+- HY Motion 论文把单帧表示写成 `R201`：
+  - `t ∈ R3`
+  - `r ∈ R6`
+  - `j_r ∈ R21x6`
+  - `j_p ∈ R22x3`
+- 这意味着它要的是：
+  - **global root translation**
+  - **global body orientation**
+  - **local joint rotations**
+  - **local joint positions**
+- 当前 `_build_hy201_recon(...)` 的拼接维度是对的，但它的 rotation 来源不是直接 paper-style root/body orientation：
+  - `root_rot6d` 来自当前 `hml272` 的 rotation block 提取；
+  - 而当前 `hml272` 本身又是本地 aligned 版本，不是官方 30fps 管线；
+  - 因此这里的 root orientation 并不能直接等同于 HY Motion paper 里的 `global body orientation`。
+
+判定：
+
+- `hy201_recon` 当前仍然是 **基于 native SMPL rot6d 的重构版**，不是 IK；
+- 但它**不是 paper-faithful 的 HY Motion 201 表示**；
+- 尤其 root orientation 来源需要改成直接来自对齐后的 canonical SMPL root orient，而不是从 `hml272` 反拆。
+
+#### `smpl_d135_recon`
+
+- 这个表示当前没有找到独立论文定义，它本质上是：
+  - `root_rot6d`
+  - `root_xz_velocity`
+  - `root_y`
+  - `21 x rot6d`
+- 它同样继承了当前 `hml272` root/local rotation 的来源问题。
+
+判定：
+
+- 它可以保留为“native SMPL rot6d minimal variant”候选；
+- 但当前实现仍然属于 **从本地 aligned hml272 反拆出来的 recon schema**；
+- 如果它要进入正式主对比，必须先明确其 paper/source 定义，至少要与 `hml272 / HY201` 的 canonical SMPL 源保持一致。
+
+### 13.3 总结性判断
+
+从“是否回答当前研究问题”这个标准看，当前资产应当拆成两类：
+
+- 可以保留的：
+  - 现有 `9MB` ablation / T5 结果，可作为轻量 probe 或方向性参考。
+- 不能再直接当主结论的：
+  - `guo263` 当前 hybrid 版；
+  - `kimodo_like_261` 当前 local-rot 简化版；
+  - `hml272` 当前 local aligned 版；
+  - `hy201_recon` 当前从 `hml272` 反拆的 recon 版；
+  - 所有基于这些数据、且仍走 `MotionReprBaseline` 的 T5 结果。
+
+因此本轮正式决策为：
+
+- **motion rep 本身需要重做；**
+- **基于这些 motion rep 的 full MotionPatches DistilBERT 实验需要重做；**
+- **后续 T5 三组实验也必须建立在新的 phase 1 full-backbone checkpoint 之上。**
+
+### 13.4 Phase 1：Full MotionPatches DistilBERT + ViT 重做
+
+目标：
+
+- 保持 MotionPatches 主体不变；
+- `pos66` 继续作为原生基线；
+- 只为带旋转表示新增 full-backbone 输入路径；
+- 输出的 checkpoint 必须仍然属于 **full ClipModel 家族**，不再落回 `9MB` 轻量基线。
+
+本阶段纳入训练的 schema：
+
+- `guo263`
+- `kimodo_like_261`
+- `hml272`
+- `hy201_recon`
+- `smpl_d135_recon`
+
+本阶段不重训的 schema：
+
+- `pos66`
+
+`pos66` 的对照锚点使用两条：
+
+- `plain00_s42`：
+  - HumanML3D-E-MP / strict regime 下的 full MotionPatches plain baseline；
+  - `PrimaryScore(strict) = 43.86375`；
+  - checkpoint 量级与原始 full ckpt 一致，约 `583M`。
+- `pretrained_hmle_b0_eval`：
+  - 原始 MotionPatches `pretrained/HumanML3D/best_model.pt` 在 HumanML3D-E keyid strict 上的公平重评锚点；
+  - `PrimaryScore(strict) = 43.5312`。
+
+#### Phase 1 的初始化策略
+
+推荐策略：
+
+- **不用随机从零训练整个模型；**
+- **也不再使用 `MotionReprBaseline` 那条轻量脚本；**
+- 采用 full MotionPatches `ClipModel`；
+- 以 **`plain00_s42` 的 full checkpoint** 作为首选 warm start；
+- 如果某些 motion-side 输入层 shape 不兼容，只重置：
+  - rep-specific motion stem / patch embed；
+  - 必要的 motion positional adaptation 参数；
+  - 其它 shape-compatible 的 ViT blocks、text encoder、projection head 全部沿用。
+
+这样做的原因是：
+
+- 它与当前要比较的 `pos66` full baseline 属于同一 regime；
+- 它保留了 MotionPatches 真正有效的 DistilBERT + ViT 主干；
+- 它把变量尽量压缩在“motion rep 输入方式”本身；
+- 比完全随机初始化更接近用户要的“原始 `583M/610MB` ckpt setting 对应的公平对比”。
+
+#### Phase 1 的实现要求
+
+- 新建一套 **paper-faithful motion-format rebuild** 资产，避免覆盖旧结果：
+  - `datasets/HumanML3D-E-MP/motion_formats_paper_v1`
+  - `datasets/HumanML3D-E-MP/motion_format_stats_paper_v1`
+- 新数据构造原则：
+  - `guo263`：保留原始 packaged `guo263`，不再替换 rotation 段。
+  - `kimodo_like_261`：按 Kimodo 真实语义重建，尤其要改成 **global rotations**。
+  - `hml272`：明确为 canonical SMPL 旋转版本；若继续沿用 local aligned 数据，需在命名和文档中说明，不得再冒充官方 272。
+  - `hy201_recon`：root orientation 改为直接来自 canonical SMPL root orient。
+  - `smpl_d135_recon`：与上面同源，不再从当前 `hml272` 反拆 root orientation。
+- 新训练输出目录：
+  - `MotionPatches-main/checkpoints/motion_repr_full_paper_v1/<schema>/...`
+- 主指标继续沿用：
+  - HumanML3D-E keyid strict retrieval split
+  - `PrimaryScore(strict)`
+  - 联动检查 `R@1 / R@5 / normal / nsim`
+
+### 13.5 Phase 2：基于 Phase 1 checkpoint 的 T5 三组实验
+
+Phase 2 不再直接复用任何 `t5s/*` 里的 `9MB` 结果。
+
+正确路径应为：
+
+- 先完成 Phase 1；
+- 用户从 Phase 1 结果里挑选若干 motion rep；
+- 对每个入选 motion rep，都从其 **Phase 1 full checkpoint** 出发做 text-side 替换实验；
+- T5 结果仍然保存为 full MotionPatches checkpoint，而不是轻量 baseline state dict。
+
+Phase 2 默认三组 text encoder：
+
+- `flan-t5-base`
+- `t5-base`
+- `t5-large`
+
+Phase 2 的公平对照：
+
+- 同 motion rep 的 DistilBERT full checkpoint
+- 同训练/eval split
+- 同 strict retrieval metric
+
+### 13.6 这轮之后的执行顺序
+
+按优先级执行：
+
+1. 先修正 `motion format` 构建脚本，把 `guo263 / kimodo_like_261 / hml272 / hy201_recon / smpl_d135_recon` 的语义问题修正。
+2. 落新的 `motion_formats_paper_v1` 与 `motion_format_stats_paper_v1`，不覆盖旧目录。
+3. 在 full MotionPatches 路线上接入非 `pos66` 的输入分支，并以 `plain00_s42` 作为 warm start 跑 Phase 1。
+4. 汇总 Phase 1 结果后，由用户选择进入 Phase 2 的 motion rep。
+5. 再运行基于 full checkpoint 的三组 T5 实验。
+
+### 13.7 当前状态标签
+
+从现在开始，旧实验的状态统一记为：
+
+- `motion_repr_ablation_local_2026-04-18_serial`: `legacy-lightweight-probe`
+- `motion_repr_ablation_hml272swap_2026-04-19_serial_run2`: `legacy-lightweight-probe`
+- `checkpoints/t5s/*`: `legacy-lightweight-probe`
+
+它们不删除，但不再作为本问题的正式结论来源。

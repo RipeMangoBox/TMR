@@ -1,0 +1,5 @@
+schema: kimodo_like_261
+nfeats: 261
+motion_dir: ${oc.env:HUMANML3DE_MP_ROOT,/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E-MP}/motion_formats/kimodo_like_261
+mean_path: ${oc.env:HUMANML3DE_MP_ROOT,/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E-MP}/motion_format_stats/kimodo_like_261/Mean.npy
+std_path: ${oc.env:HUMANML3DE_MP_ROOT,/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E-MP}/motion_format_stats/kimodo_like_261/Std.npy

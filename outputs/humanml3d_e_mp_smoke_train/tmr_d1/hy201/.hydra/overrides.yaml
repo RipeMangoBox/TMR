@@ -1,0 +1,13 @@
+- data=humanml3d_e_mp
+- data/motion_loader=emp_hy201_recon
+- model=tmr_d1
+- run_dir=outputs/humanml3d_e_mp_smoke_train/tmr_d1/hy201
+- dataloader.batch_size=2
+- dataloader.num_workers=0
+- seed=42
+- trainer.max_epochs=1
+- trainer.accelerator=cpu
+- trainer.devices=1
+- +trainer.limit_train_batches=1
+- +trainer.limit_val_batches=1
+- trainer.num_sanity_val_steps=0

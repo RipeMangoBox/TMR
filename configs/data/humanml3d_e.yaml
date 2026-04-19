@@ -2,6 +2,10 @@ _target_: src.data.humanml3de_event.HumanML3DEventDataset
 
 dataset_root: /home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E
 
+motion_loader:
+  schema: guo263
+  nfeats: 263
+
 text_to_token_emb:
   _target_: src.data.text.TokenEmbeddings
   path: datasets/annotations/humanml3d

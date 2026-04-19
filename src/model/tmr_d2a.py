@@ -41,8 +41,10 @@ class TMRD2aLastTwoMotionBlocks(TMRD1FrozenMinimalHead):
 
             for module_name, module_path in weight_paths.items():
                 if module_path.exists():
-                    getattr(self, module_name).load_state_dict(
-                        torch.load(module_path, map_location="cpu"), strict=True
+                    self._load_module_state(
+                        getattr(self, module_name),
+                        torch.load(module_path, map_location="cpu"),
+                        module_name,
                     )
 
         if warm_start_ckpt:

@@ -1,0 +1,19 @@
+[12/04/26 23:16:27][lightning_fabric.utilities.seed][INFO] - Seed set to 1234
+[12/04/26 23:16:27][__main__][INFO] - Loading the model
+[12/04/26 23:16:27][src.load][INFO] - The extracted model is not found. Split into submodules..
+[12/04/26 23:16:28][src.load][INFO] -     event_proj_e loaded
+[12/04/26 23:16:28][src.load][INFO] -     motion_decoder loaded
+[12/04/26 23:16:28][src.load][INFO] -     text_encoder loaded
+[12/04/26 23:16:28][src.load][INFO] -     event_proj_t loaded
+[12/04/26 23:16:28][src.load][INFO] -     motion_encoder loaded
+[12/04/26 23:16:28][src.load][INFO] - Loading previous checkpoint done
+[12/04/26 23:16:28][src.load][INFO] - Put the model on cuda
+[12/04/26 23:16:28][src.load][INFO] - Put the model in eval mode
+[12/04/26 23:19:06][__main__][INFO] - Testing done, metrics saved in:
+RUN_DIR/phase2_realdata_e50_b128_p2a/contrastive_metrics/normal.yaml
+[12/04/26 23:19:08][__main__][INFO] - Testing done, metrics saved in:
+RUN_DIR/phase2_realdata_e50_b128_p2a/contrastive_metrics/threshold_0.95.yaml
+[12/04/26 23:19:17][__main__][INFO] - Testing done, metrics saved in:
+RUN_DIR/phase2_realdata_e50_b128_p2a/contrastive_metrics/nsim.yaml
+[12/04/26 23:19:51][__main__][INFO] - Testing done, metrics saved in:
+RUN_DIR/phase2_realdata_e50_b128_p2a/contrastive_metrics/guo.yaml
