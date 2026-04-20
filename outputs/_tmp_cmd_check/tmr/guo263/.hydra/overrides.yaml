@@ -1,0 +1,8 @@
+- data=humanml3d_e_mp
+- data/motion_loader=emp_guo263
+- model=tmr
+- run_dir=outputs/_tmp_cmd_check/tmr/guo263
+- dataloader.batch_size=128
+- dataloader.num_workers=0
+- seed=1234
+- trainer.max_epochs=2

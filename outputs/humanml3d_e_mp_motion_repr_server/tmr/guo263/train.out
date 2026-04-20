@@ -1,0 +1,166 @@
+[20/04/26 15:22:04][__main__][INFO] - Training script
+[20/04/26 15:22:04][__main__][INFO] - The config can be found here: 
+outputs/humanml3d_e_mp_motion_repr_server/tmr/guo263/config.json
+[20/04/26 15:22:06][lightning_fabric.utilities.seed][INFO] - Seed set to 1234
+[20/04/26 15:22:06][__main__][INFO] - Loading the dataloaders
+[20/04/26 15:22:21][__main__][INFO] - Loading the model
+[20/04/26 15:22:21][__main__][INFO] - Training
+[20/04/26 15:22:21][pytorch_lightning.utilities.rank_zero][INFO] - GPU available: True (cuda), used: True
+[20/04/26 15:22:21][pytorch_lightning.utilities.rank_zero][INFO] - TPU available: False, using: 0 TPU cores
+[20/04/26 15:22:21][pytorch_lightning.utilities.rank_zero][INFO] - HPU available: False, using: 0 HPUs
+[20/04/26 15:22:21][pytorch_lightning.accelerators.cuda][INFO] - LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+[20/04/26 15:22:21][pytorch_lightning.callbacks.model_summary][INFO] - 
+  | Name                   | Type              | Params | Mode 
+---------------------------------------------------------------------
+0 | motion_encoder         | ACTORStyleEncoder | 4.8 M  | train
+1 | text_encoder           | ACTORStyleEncoder | 4.9 M  | train
+2 | motion_decoder         | ACTORStyleDecoder | 6.4 M  | train
+3 | reconstruction_loss_fn | SmoothL1Loss      | 0      | train
+4 | latent_loss_fn         | SmoothL1Loss      | 0      | train
+---------------------------------------------------------------------
+16.1 M    Trainable params
+0         Non-trainable params
+16.1 M    Total params
+64.523    Total estimated model params size (MB)
+224       Modules in train mode
+0         Modules in eval mode
+[20/04/26 15:22:21][src.callback.progress][INFO] - Training started
+[20/04/26 15:22:44][src.callback.progress][INFO] - Epoch 0 step 50/192: loss 9.604e-01
+[20/04/26 15:23:07][src.callback.progress][INFO] - Epoch 0 step 100/192: loss 9.082e-01
+[20/04/26 15:23:30][src.callback.progress][INFO] - Epoch 0 step 150/192: loss 9.102e-01
+[20/04/26 15:23:52][src.callback.progress][INFO] - Epoch 0: v_recons 4.491e-01  recons 4.840e-01  v_loss 8.666e-01  loss 9.447e-01  v_latent 1.163e+00  latent 1.238e+00  v_kl 6.026e+00  kl 7.171e+00  v_contrastive 4.174e+00  contrastive 4.606e+00  v_t2m/len 1530  v_t2m/R01 0.51%  v_t2m/R02 1.17%  v_t2m/R03 1.83%  v_t2m/R05 3.2%  v_t2m/R10 6.4%  v_t2m/MedR 166.0%  v_m2t/len 1530  v_m2t/R01 0.64%  v_m2t/R02 1.7%  v_m2t/R03 2.16%  v_m2t/R05 3.0%  v_m2t/R10 6.46%  v_m2t/MedR 172.0%
+[20/04/26 15:23:57][src.callback.progress][INFO] - Epoch 1 step 200/192: loss 8.660e-01
+[20/04/26 15:24:20][src.callback.progress][INFO] - Epoch 1 step 250/192: loss 8.917e-01
+[20/04/26 15:24:44][src.callback.progress][INFO] - Epoch 1 step 300/192: loss 8.274e-01
+[20/04/26 15:25:08][src.callback.progress][INFO] - Epoch 1 step 350/192: loss 8.320e-01
+[20/04/26 15:25:26][src.callback.progress][INFO] - Epoch 1: v_recons 4.345e-01  recons 4.412e-01  v_loss 8.068e-01  loss 8.342e-01  v_latent 1.123e+00  latent 1.156e+00  v_kl 7.686e+00  kl 6.647e+00  v_contrastive 3.722e+00  contrastive 3.929e+00  v_t2m/len 1530  v_t2m/R01 1.5%  v_t2m/R02 2.88%  v_t2m/R03 4.51%  v_t2m/R05 5.88%  v_t2m/R10 11.56%  v_t2m/MedR 88.0%  v_m2t/len 1530  v_m2t/R01 1.7%  v_m2t/R02 3.26%  v_m2t/R03 4.57%  v_m2t/R05 6.53%  v_m2t/R10 11.43%  v_m2t/MedR 96.0%
+[20/04/26 15:25:28][pytorch_lightning.utilities.rank_zero][INFO] - `Trainer.fit` stopped: `max_epochs=2` reached.
+[20/04/26 15:25:28][src.callback.progress][INFO] - Training done
+[20/04/26 15:42:17][__main__][INFO] - Training script
+[20/04/26 15:42:17][__main__][INFO] - The config can be found here: 
+outputs/humanml3d_e_mp_motion_repr_server/tmr/guo263/config.json
+[20/04/26 15:42:28][__main__][INFO] - Training script
+[20/04/26 15:42:28][__main__][INFO] - The config can be found here: 
+outputs/humanml3d_e_mp_motion_repr_server/tmr/guo263/config.json
+[20/04/26 15:42:30][lightning_fabric.utilities.seed][INFO] - Seed set to 1234
+[20/04/26 15:42:30][__main__][INFO] - Loading the dataloaders
+[20/04/26 15:42:39][__main__][INFO] - Loading the model
+[20/04/26 15:42:39][__main__][INFO] - Training
+[20/04/26 15:42:39][pytorch_lightning.utilities.rank_zero][INFO] - GPU available: True (cuda), used: True
+[20/04/26 15:42:39][pytorch_lightning.utilities.rank_zero][INFO] - TPU available: False, using: 0 TPU cores
+[20/04/26 15:42:39][pytorch_lightning.utilities.rank_zero][INFO] - HPU available: False, using: 0 HPUs
+[20/04/26 15:42:40][pytorch_lightning.accelerators.cuda][INFO] - LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+[20/04/26 15:42:40][pytorch_lightning.callbacks.model_summary][INFO] - 
+  | Name                   | Type              | Params | Mode 
+---------------------------------------------------------------------
+0 | motion_encoder         | ACTORStyleEncoder | 4.8 M  | train
+1 | text_encoder           | ACTORStyleEncoder | 4.9 M  | train
+2 | motion_decoder         | ACTORStyleDecoder | 6.4 M  | train
+3 | reconstruction_loss_fn | SmoothL1Loss      | 0      | train
+4 | latent_loss_fn         | SmoothL1Loss      | 0      | train
+---------------------------------------------------------------------
+16.1 M    Trainable params
+0         Non-trainable params
+16.1 M    Total params
+64.523    Total estimated model params size (MB)
+224       Modules in train mode
+0         Modules in eval mode
+[20/04/26 15:42:40][src.callback.progress][INFO] - Training started
+[20/04/26 15:43:00][src.callback.progress][INFO] - Epoch 0 step 50/192: loss 9.604e-01
+[20/04/26 15:43:20][src.callback.progress][INFO] - Epoch 0 step 100/192: loss 9.082e-01
+[20/04/26 15:43:40][src.callback.progress][INFO] - Epoch 0 step 150/192: loss 9.102e-01
+[20/04/26 15:43:59][src.callback.progress][INFO] - Epoch 0: v_recons 4.491e-01  recons 4.840e-01  v_loss 8.666e-01  loss 9.447e-01  v_latent 1.163e+00  latent 1.238e+00  v_kl 6.026e+00  kl 7.171e+00  v_contrastive 4.174e+00  contrastive 4.606e+00  v_t2m/len 1530  v_t2m/R01 0.51%  v_t2m/R02 1.17%  v_t2m/R03 1.83%  v_t2m/R05 3.2%  v_t2m/R10 6.4%  v_t2m/MedR 166.0%  v_m2t/len 1530  v_m2t/R01 0.64%  v_m2t/R02 1.7%  v_m2t/R03 2.16%  v_m2t/R05 3.0%  v_m2t/R10 6.46%  v_m2t/MedR 172.0%
+[20/04/26 15:44:04][src.callback.progress][INFO] - Epoch 1 step 200/192: loss 8.660e-01
+[20/04/26 15:44:24][src.callback.progress][INFO] - Epoch 1 step 250/192: loss 8.917e-01
+[20/04/26 15:44:45][src.callback.progress][INFO] - Epoch 1 step 300/192: loss 8.274e-01
+[20/04/26 15:45:05][src.callback.progress][INFO] - Epoch 1 step 350/192: loss 8.321e-01
+[20/04/26 15:45:21][src.callback.progress][INFO] - Epoch 1: v_recons 4.345e-01  recons 4.412e-01  v_loss 8.067e-01  loss 8.342e-01  v_latent 1.123e+00  latent 1.156e+00  v_kl 7.685e+00  kl 6.648e+00  v_contrastive 3.722e+00  contrastive 3.929e+00  v_t2m/len 1530  v_t2m/R01 1.5%  v_t2m/R02 2.88%  v_t2m/R03 4.57%  v_t2m/R05 5.82%  v_t2m/R10 11.63%  v_t2m/MedR 88.0%  v_m2t/len 1530  v_m2t/R01 1.75%  v_m2t/R02 3.2%  v_m2t/R03 4.51%  v_m2t/R05 6.46%  v_m2t/R10 11.5%  v_m2t/MedR 96.0%
+[20/04/26 15:45:28][src.callback.progress][INFO] - Epoch 2 step 400/192: loss 7.877e-01
+[20/04/26 15:45:49][src.callback.progress][INFO] - Epoch 2 step 450/192: loss 8.318e-01
+[20/04/26 15:46:10][src.callback.progress][INFO] - Epoch 2 step 500/192: loss 8.540e-01
+[20/04/26 15:46:31][src.callback.progress][INFO] - Epoch 2 step 550/192: loss 7.807e-01
+[20/04/26 15:46:44][src.callback.progress][INFO] - Epoch 2: v_recons 4.246e-01  recons 4.280e-01  v_loss 7.760e-01  loss 7.870e-01  v_latent 1.056e+00  latent 1.096e+00  v_kl 1.878e+01  kl 1.383e+01  v_contrastive 3.511e+00  contrastive 3.589e+00  v_t2m/len 1530  v_t2m/R01 2.16%  v_t2m/R02 4.25%  v_t2m/R03 5.42%  v_t2m/R05 8.3%  v_t2m/R10 13.92%  v_t2m/MedR 74.0%  v_m2t/len 1530  v_m2t/R01 2.28%  v_m2t/R02 4.38%  v_m2t/R03 6.01%  v_m2t/R05 8.81%  v_m2t/R10 14.77%  v_m2t/MedR 72.0%
+[20/04/26 15:46:56][src.callback.progress][INFO] - Epoch 3 step 600/192: loss 7.560e-01
+[20/04/26 15:47:16][src.callback.progress][INFO] - Epoch 3 step 650/192: loss 7.302e-01
+[20/04/26 15:47:38][src.callback.progress][INFO] - Epoch 3 step 700/192: loss 7.907e-01
+[20/04/26 15:47:59][src.callback.progress][INFO] - Epoch 3 step 750/192: loss 8.261e-01
+[20/04/26 15:48:09][src.callback.progress][INFO] - Epoch 3: v_recons 4.117e-01  recons 4.170e-01  v_loss 7.450e-01  loss 7.566e-01  v_latent 1.017e+00  latent 1.047e+00  v_kl 3.473e+01  kl 3.221e+01  v_contrastive 3.330e+00  contrastive 3.393e+00  v_t2m/len 1530  v_t2m/R01 2.42%  v_t2m/R02 4.44%  v_t2m/R03 6.46%  v_t2m/R05 10.64%  v_t2m/R10 18.37%  v_t2m/MedR 54.0%  v_m2t/len 1530  v_m2t/R01 2.48%  v_m2t/R02 4.96%  v_m2t/R03 7.38%  v_m2t/R05 10.32%  v_m2t/R10 17.64%  v_m2t/MedR 56.0%
+[20/04/26 15:48:23][src.callback.progress][INFO] - Epoch 4 step 800/192: loss 7.561e-01
+[20/04/26 15:48:44][src.callback.progress][INFO] - Epoch 4 step 850/192: loss 8.224e-01
+[20/04/26 15:49:05][src.callback.progress][INFO] - Epoch 4 step 900/192: loss 7.270e-01
+[20/04/26 15:49:26][src.callback.progress][INFO] - Epoch 4 step 950/192: loss 7.227e-01
+[20/04/26 15:49:33][src.callback.progress][INFO] - Epoch 4: v_recons 4.011e-01  recons 4.078e-01  v_loss 7.213e-01  loss 7.311e-01  v_latent 9.928e-01  latent 1.017e+00  v_kl 4.145e+01  kl 4.574e+01  v_contrastive 3.197e+00  contrastive 3.229e+00  v_t2m/len 1530  v_t2m/R01 3.2%  v_t2m/R02 6.46%  v_t2m/R03 9.14%  v_t2m/R05 14.71%  v_t2m/R10 23.01%  v_t2m/MedR 44.0%  v_m2t/len 1530  v_m2t/R01 3.0%  v_m2t/R02 6.01%  v_m2t/R03 7.78%  v_m2t/R05 12.42%  v_m2t/R10 21.62%  v_m2t/MedR 43.0%
+[20/04/26 15:49:51][src.callback.progress][INFO] - Epoch 5 step 1000/192: loss 6.983e-01
+[20/04/26 15:50:12][src.callback.progress][INFO] - Epoch 5 step 1050/192: loss 7.186e-01
+[20/04/26 15:50:33][src.callback.progress][INFO] - Epoch 5 step 1100/192: loss 6.697e-01
+[20/04/26 15:50:54][src.callback.progress][INFO] - Epoch 5 step 1150/192: loss 6.935e-01
+[20/04/26 15:50:57][src.callback.progress][INFO] - Epoch 5: v_recons 3.924e-01  recons 3.967e-01  v_loss 6.997e-01  loss 7.077e-01  v_latent 9.850e-01  latent 1.003e+00  v_kl 3.746e+01  kl 5.096e+01  v_contrastive 3.070e+00  contrastive 3.104e+00  v_t2m/len 1530  v_t2m/R01 4.11%  v_t2m/R02 6.98%  v_t2m/R03 9.47%  v_t2m/R05 14.11%  v_t2m/R10 23.2%  v_t2m/MedR 40.0%  v_m2t/len 1530  v_m2t/R01 4.25%  v_m2t/R02 7.71%  v_m2t/R03 10.59%  v_m2t/R05 14.89%  v_m2t/R10 23.92%  v_m2t/MedR 45.0%
+[20/04/26 15:51:18][src.callback.progress][INFO] - Epoch 6 step 1200/192: loss 7.131e-01
+[20/04/26 15:51:41][src.callback.progress][INFO] - Epoch 6 step 1250/192: loss 6.741e-01
+[20/04/26 15:52:02][src.callback.progress][INFO] - Epoch 6 step 1300/192: loss 6.990e-01
+[20/04/26 15:52:21][src.callback.progress][INFO] - Epoch 6: v_recons 3.834e-01  recons 3.892e-01  v_loss 6.825e-01  loss 6.907e-01  v_latent 9.785e-01  latent 9.940e-01  v_kl 3.523e+01  kl 4.874e+01  v_contrastive 2.988e+00  contrastive 3.010e+00  v_t2m/len 1530  v_t2m/R01 3.85%  v_t2m/R02 6.86%  v_t2m/R03 9.86%  v_t2m/R05 14.57%  v_t2m/R10 25.69%  v_t2m/MedR 34.0%  v_m2t/len 1530  v_m2t/R01 4.84%  v_m2t/R02 8.23%  v_m2t/R03 11.1%  v_m2t/R05 15.1%  v_m2t/R10 25.03%  v_m2t/MedR 37.0%
+[20/04/26 15:52:25][src.callback.progress][INFO] - Epoch 7 step 1350/192: loss 7.087e-01
+[20/04/26 15:52:45][src.callback.progress][INFO] - Epoch 7 step 1400/192: loss 6.580e-01
+[20/04/26 15:53:06][src.callback.progress][INFO] - Epoch 7 step 1450/192: loss 6.680e-01
+[20/04/26 15:53:26][src.callback.progress][INFO] - Epoch 7 step 1500/192: loss 7.068e-01
+[20/04/26 15:53:43][src.callback.progress][INFO] - Epoch 7: v_recons 3.787e-01  recons 3.827e-01  v_loss 6.710e-01  loss 6.761e-01  v_latent 9.746e-01  latent 9.888e-01  v_kl 3.718e+01  kl 4.738e+01  v_contrastive 2.920e+00  contrastive 2.929e+00  v_t2m/len 1530  v_t2m/R01 4.71%  v_t2m/R02 8.68%  v_t2m/R03 11.63%  v_t2m/R05 16.79%  v_t2m/R10 27.05%  v_t2m/MedR 32.0%  v_m2t/len 1530  v_m2t/R01 5.94%  v_m2t/R02 9.53%  v_m2t/R03 11.89%  v_m2t/R05 17.9%  v_m2t/R10 26.86%  v_m2t/MedR 34.0%
+[20/04/26 15:53:50][src.callback.progress][INFO] - Epoch 8 step 1550/192: loss 7.176e-01
+[20/04/26 15:54:11][src.callback.progress][INFO] - Epoch 8 step 1600/192: loss 6.529e-01
+[20/04/26 15:54:32][src.callback.progress][INFO] - Epoch 8 step 1650/192: loss 6.801e-01
+[20/04/26 15:54:53][src.callback.progress][INFO] - Epoch 8 step 1700/192: loss 6.506e-01
+[20/04/26 15:55:07][src.callback.progress][INFO] - Epoch 8: v_recons 3.730e-01  recons 3.750e-01  v_loss 6.602e-01  loss 6.597e-01  v_latent 9.762e-01  latent 9.822e-01  v_kl 3.810e+01  kl 4.670e+01  v_contrastive 2.869e+00  contrastive 2.842e+00  v_t2m/len 1530  v_t2m/R01 5.03%  v_t2m/R02 9.35%  v_t2m/R03 12.22%  v_t2m/R05 18.76%  v_t2m/R10 28.55%  v_t2m/MedR 32.0%  v_m2t/len 1530  v_m2t/R01 5.15%  v_m2t/R02 10.26%  v_m2t/R03 13.39%  v_m2t/R05 18.81%  v_m2t/R10 28.76%  v_m2t/MedR 33.0%
+[20/04/26 15:55:18][src.callback.progress][INFO] - Epoch 9 step 1750/192: loss 6.526e-01
+[20/04/26 15:55:38][src.callback.progress][INFO] - Epoch 9 step 1800/192: loss 6.224e-01
+[20/04/26 15:55:59][src.callback.progress][INFO] - Epoch 9 step 1850/192: loss 6.184e-01
+[20/04/26 15:56:19][src.callback.progress][INFO] - Epoch 9 step 1900/192: loss 6.689e-01
+[20/04/26 15:56:29][src.callback.progress][INFO] - Epoch 9: v_recons 3.676e-01  recons 3.694e-01  v_loss 6.471e-01  loss 6.460e-01  v_latent 9.721e-01  latent 9.791e-01  v_kl 3.467e+01  kl 4.430e+01  v_contrastive 2.791e+00  contrastive 2.762e+00  v_t2m/len 1530  v_t2m/R01 5.36%  v_t2m/R02 9.47%  v_t2m/R03 13.92%  v_t2m/R05 19.54%  v_t2m/R10 31.76%  v_t2m/MedR 26.0%  v_m2t/len 1530  v_m2t/R01 5.69%  v_m2t/R02 9.02%  v_m2t/R03 12.75%  v_m2t/R05 19.35%  v_m2t/R10 30.78%  v_m2t/MedR 30.0%
+[20/04/26 15:56:43][src.callback.progress][INFO] - Epoch 10 step 1950/192: loss 6.192e-01
+[20/04/26 15:57:03][src.callback.progress][INFO] - Epoch 10 step 2000/192: loss 6.594e-01
+[20/04/26 15:57:23][src.callback.progress][INFO] - Epoch 10 step 2050/192: loss 6.349e-01
+[20/04/26 15:57:44][src.callback.progress][INFO] - Epoch 10 step 2100/192: loss 6.452e-01
+[20/04/26 15:57:51][src.callback.progress][INFO] - Epoch 10: v_recons 3.612e-01  recons 3.648e-01  v_loss 6.354e-01  loss 6.339e-01  v_latent 9.671e-01  latent 9.735e-01  v_kl 3.601e+01  kl 4.376e+01  v_contrastive 2.738e+00  contrastive 2.686e+00  v_t2m/len 1530  v_t2m/R01 6.01%  v_t2m/R02 10.77%  v_t2m/R03 14.05%  v_t2m/R05 22.03%  v_t2m/R10 33.86%  v_t2m/MedR 26.0%  v_m2t/len 1530  v_m2t/R01 6.4%  v_m2t/R02 10.64%  v_m2t/R03 14.84%  v_m2t/R05 21.18%  v_m2t/R10 32.15%  v_m2t/MedR 26.0%
+[20/04/26 15:58:07][src.callback.progress][INFO] - Epoch 11 step 2150/192: loss 6.129e-01
+[20/04/26 15:58:27][src.callback.progress][INFO] - Epoch 11 step 2200/192: loss 6.760e-01
+[20/04/26 15:58:48][src.callback.progress][INFO] - Epoch 11 step 2250/192: loss 5.634e-01
+[20/04/26 15:59:10][src.callback.progress][INFO] - Epoch 11 step 2300/192: loss 6.585e-01
+[20/04/26 15:59:13][src.callback.progress][INFO] - Epoch 11: v_recons 3.591e-01  recons 3.610e-01  v_loss 6.241e-01  loss 6.224e-01  v_latent 9.627e-01  latent 9.699e-01  v_kl 3.756e+01  kl 4.295e+01  v_contrastive 2.646e+00  contrastive 2.610e+00  v_t2m/len 1530  v_t2m/R01 6.67%  v_t2m/R02 12.93%  v_t2m/R03 17.05%  v_t2m/R05 23.53%  v_t2m/R10 34.31%  v_t2m/MedR 22.0%  v_m2t/len 1530  v_m2t/R01 7.11%  v_m2t/R02 12.22%  v_m2t/R03 15.88%  v_m2t/R05 22.54%  v_m2t/R10 33.59%  v_m2t/MedR 24.0%
+[20/04/26 15:59:34][src.callback.progress][INFO] - Epoch 12 step 2350/192: loss 5.853e-01
+[20/04/26 15:59:55][src.callback.progress][INFO] - Epoch 12 step 2400/192: loss 6.040e-01
+[20/04/26 16:00:16][src.callback.progress][INFO] - Epoch 12 step 2450/192: loss 5.655e-01
+[20/04/26 16:00:39][src.callback.progress][INFO] - Epoch 12: v_recons 3.553e-01  recons 3.574e-01  v_loss 6.115e-01  loss 6.117e-01  v_latent 9.548e-01  latent 9.651e-01  v_kl 3.428e+01  kl 4.108e+01  v_contrastive 2.558e+00  contrastive 2.539e+00  v_t2m/len 1530  v_t2m/R01 7.84%  v_t2m/R02 13.19%  v_t2m/R03 18.23%  v_t2m/R05 24.77%  v_t2m/R10 36.79%  v_t2m/MedR 21.0%  v_m2t/len 1530  v_m2t/R01 7.38%  v_m2t/R02 12.55%  v_m2t/R03 17.64%  v_m2t/R05 24.37%  v_m2t/R10 35.81%  v_m2t/MedR 21.0%
+[20/04/26 16:00:42][src.callback.progress][INFO] - Epoch 13 step 2500/192: loss 6.088e-01
+[20/04/26 16:01:03][src.callback.progress][INFO] - Epoch 13 step 2550/192: loss 6.093e-01
+[20/04/26 16:01:24][src.callback.progress][INFO] - Epoch 13 step 2600/192: loss 6.182e-01
+[20/04/26 16:01:44][src.callback.progress][INFO] - Epoch 13 step 2650/192: loss 5.924e-01
+[20/04/26 16:02:02][src.callback.progress][INFO] - Epoch 13: v_recons 3.545e-01  recons 3.549e-01  v_loss 6.098e-01  loss 6.023e-01  v_latent 9.575e-01  latent 9.606e-01  v_kl 3.196e+01  kl 3.866e+01  v_contrastive 2.549e+00  contrastive 2.470e+00  v_t2m/len 1530  v_t2m/R01 8.3%  v_t2m/R02 13.72%  v_t2m/R03 18.55%  v_t2m/R05 26.54%  v_t2m/R10 36.47%  v_t2m/MedR 21.0%  v_m2t/len 1530  v_m2t/R01 8.56%  v_m2t/R02 13.59%  v_m2t/R03 17.7%  v_m2t/R05 24.25%  v_m2t/R10 36.59%  v_m2t/MedR 21.0%
+[20/04/26 16:02:08][src.callback.progress][INFO] - Epoch 14 step 2700/192: loss 5.526e-01
+[20/04/26 16:02:29][src.callback.progress][INFO] - Epoch 14 step 2750/192: loss 5.504e-01
+[20/04/26 16:02:50][src.callback.progress][INFO] - Epoch 14 step 2800/192: loss 6.248e-01
+[20/04/26 16:03:11][src.callback.progress][INFO] - Epoch 14 step 2850/192: loss 6.091e-01
+[20/04/26 16:03:25][src.callback.progress][INFO] - Epoch 14: v_recons 3.538e-01  recons 3.515e-01  v_loss 6.042e-01  loss 5.930e-01  v_latent 9.523e-01  latent 9.549e-01  v_kl 3.127e+01  kl 3.719e+01  v_contrastive 2.501e+00  contrastive 2.411e+00  v_t2m/len 1530  v_t2m/R01 9.22%  v_t2m/R02 14.77%  v_t2m/R03 20.12%  v_t2m/R05 26.86%  v_t2m/R10 37.65%  v_t2m/MedR 20.0%  v_m2t/len 1530  v_m2t/R01 8.81%  v_m2t/R02 13.98%  v_m2t/R03 18.5%  v_m2t/R05 25.62%  v_m2t/R10 36.13%  v_m2t/MedR 21.0%
+[20/04/26 16:03:36][src.callback.progress][INFO] - Epoch 15 step 2900/192: loss 5.536e-01
+[20/04/26 16:03:58][src.callback.progress][INFO] - Epoch 15 step 2950/192: loss 5.553e-01
+[20/04/26 16:04:19][src.callback.progress][INFO] - Epoch 15 step 3000/192: loss 5.811e-01
+[20/04/26 16:04:40][src.callback.progress][INFO] - Epoch 15 step 3050/192: loss 5.607e-01
+[20/04/26 16:04:51][src.callback.progress][INFO] - Epoch 15: v_recons 3.484e-01  recons 3.490e-01  v_loss 5.937e-01  loss 5.820e-01  v_latent 9.456e-01  latent 9.495e-01  v_kl 2.970e+01  kl 3.490e+01  v_contrastive 2.450e+00  contrastive 2.327e+00  v_t2m/len 1530  v_t2m/R01 7.9%  v_t2m/R02 14.57%  v_t2m/R03 20.06%  v_t2m/R05 28.95%  v_t2m/R10 40.77%  v_t2m/MedR 16.5%  v_m2t/len 1530  v_m2t/R01 8.81%  v_m2t/R02 14.57%  v_m2t/R03 19.35%  v_m2t/R05 27.05%  v_m2t/R10 38.16%  v_m2t/MedR 18.0%
+[20/04/26 16:05:03][src.callback.progress][INFO] - Epoch 16 step 3100/192: loss 5.453e-01
+[20/04/26 16:05:23][src.callback.progress][INFO] - Epoch 16 step 3150/192: loss 5.352e-01
+[20/04/26 16:05:44][src.callback.progress][INFO] - Epoch 16 step 3200/192: loss 5.924e-01
+[20/04/26 16:06:04][src.callback.progress][INFO] - Epoch 16 step 3250/192: loss 5.370e-01
+[20/04/26 16:06:12][src.callback.progress][INFO] - Epoch 16: v_recons 3.472e-01  recons 3.465e-01  v_loss 5.890e-01  loss 5.756e-01  v_latent 9.440e-01  latent 9.446e-01  v_kl 2.600e+01  kl 3.415e+01  v_contrastive 2.416e+00  contrastive 2.288e+00  v_t2m/len 1530  v_t2m/R01 8.36%  v_t2m/R02 13.85%  v_t2m/R03 18.04%  v_t2m/R05 26.6%  v_t2m/R10 39.79%  v_t2m/MedR 18.0%  v_m2t/len 1530  v_m2t/R01 8.68%  v_m2t/R02 14.64%  v_m2t/R03 19.02%  v_m2t/R05 25.87%  v_m2t/R10 37.38%  v_m2t/MedR 19.0%
+[20/04/26 16:06:28][src.callback.progress][INFO] - Epoch 17 step 3300/192: loss 6.264e-01
+[20/04/26 16:06:52][src.callback.progress][INFO] - Epoch 17 step 3350/192: loss 5.733e-01
+[20/04/26 16:07:16][src.callback.progress][INFO] - Epoch 17 step 3400/192: loss 5.866e-01
+[20/04/26 16:07:41][src.callback.progress][INFO] - Epoch 17 step 3450/192: loss 5.632e-01
+[20/04/26 16:07:47][src.callback.progress][INFO] - Epoch 17: v_recons 3.451e-01  recons 3.446e-01  v_loss 5.846e-01  loss 5.686e-01  v_latent 9.381e-01  latent 9.419e-01  v_kl 2.741e+01  kl 3.118e+01  v_contrastive 2.392e+00  contrastive 2.237e+00  v_t2m/len 1530  v_t2m/R01 9.4%  v_t2m/R02 15.56%  v_t2m/R03 20.52%  v_t2m/R05 27.78%  v_t2m/R10 41.36%  v_t2m/MedR 16.0%  v_m2t/len 1530  v_m2t/R01 9.07%  v_m2t/R02 15.42%  v_m2t/R03 20.78%  v_m2t/R05 27.05%  v_m2t/R10 39.47%  v_m2t/MedR 18.0%
+[20/04/26 16:08:12][src.callback.progress][INFO] - Epoch 18 step 3500/192: loss 5.734e-01
+[20/04/26 16:08:32][src.callback.progress][INFO] - Epoch 18 step 3550/192: loss 5.729e-01
+[20/04/26 16:08:52][src.callback.progress][INFO] - Epoch 18 step 3600/192: loss 6.243e-01
+[20/04/26 16:09:14][src.callback.progress][INFO] - Epoch 18: v_recons 3.429e-01  recons 3.422e-01  v_loss 5.779e-01  loss 5.592e-01  v_latent 9.365e-01  latent 9.350e-01  v_kl 2.528e+01  kl 2.948e+01  v_contrastive 2.348e+00  contrastive 2.168e+00  v_t2m/len 1530  v_t2m/R01 9.14%  v_t2m/R02 14.84%  v_t2m/R03 19.93%  v_t2m/R05 28.76%  v_t2m/R10 40.25%  v_t2m/MedR 16.0%  v_m2t/len 1530  v_m2t/R01 9.8%  v_m2t/R02 15.02%  v_m2t/R03 20.0%  v_m2t/R05 26.27%  v_m2t/R10 38.95%  v_m2t/MedR 19.0%
+[20/04/26 16:09:16][src.callback.progress][INFO] - Epoch 19 step 3650/192: loss 5.719e-01
+[20/04/26 16:09:37][src.callback.progress][INFO] - Epoch 19 step 3700/192: loss 5.582e-01
+[20/04/26 16:09:58][src.callback.progress][INFO] - Epoch 19 step 3750/192: loss 5.669e-01
+[20/04/26 16:10:20][src.callback.progress][INFO] - Epoch 19 step 3800/192: loss 5.058e-01
+[20/04/26 16:10:38][src.callback.progress][INFO] - Epoch 19: v_recons 3.412e-01  recons 3.404e-01  v_loss 5.716e-01  loss 5.515e-01  v_latent 9.311e-01  latent 9.292e-01  v_kl 2.365e+01  kl 2.795e+01  v_contrastive 2.302e+00  contrastive 2.108e+00  v_t2m/len 1530  v_t2m/R01 9.93%  v_t2m/R02 16.54%  v_t2m/R03 21.11%  v_t2m/R05 30.78%  v_t2m/R10 43.45%  v_t2m/MedR 15.0%  v_m2t/len 1530  v_m2t/R01 8.94%  v_m2t/R02 15.61%  v_m2t/R03 21.04%  v_m2t/R05 29.79%  v_m2t/R10 41.04%  v_m2t/MedR 16.0%
+[20/04/26 16:10:40][pytorch_lightning.utilities.rank_zero][INFO] - `Trainer.fit` stopped: `max_epochs=20` reached.
+[20/04/26 16:10:40][src.callback.progress][INFO] - Training done

@@ -1,0 +1,113 @@
+data:
+  motion_loader:
+    schema: guo263
+    nfeats: 263
+    motion_dir: ${oc.env:HUMANML3DE_MP_ROOT,/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E-MP}/motion_formats/guo263
+    mean_path: ${oc.env:HUMANML3DE_MP_ROOT,/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E-MP}/motion_format_stats/guo263/Mean.npy
+    std_path: ${oc.env:HUMANML3DE_MP_ROOT,/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E-MP}/motion_format_stats/guo263/Std.npy
+  _target_: src.data.humanml3de_event.HumanML3DEventDataset
+  dataset_root: ${oc.env:HUMANML3DE_MP_ROOT,/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E-MP}
+  motion_dir: ${.motion_loader.motion_dir}
+  mean_path: ${.motion_loader.mean_path}
+  std_path: ${.motion_loader.std_path}
+  motion_rep: ${.motion_loader.schema}
+  strict_motion_length: false
+  text_to_token_emb:
+    _target_: src.data.text.TokenEmbeddings
+    path: ${..dataset_root}
+    modelname: distilbert-base-uncased
+    preload: true
+  text_to_sent_emb:
+    _target_: src.data.text.SentenceEmbeddings
+    path: ${..dataset_root}
+    modelname: sentence-transformers/all-mpnet-base-v2
+    preload: true
+  preload: false
+  strict_event_parse: false
+  nsim_subset_size: 100
+  nsim_min_similarity: 0.75
+  nsim_split_path: ${.dataset_root}/nsim_test.txt
+model:
+  _target_: src.model.TMR
+  motion_encoder:
+    _target_: src.model.ACTORStyleEncoder
+    nfeats: ${data.motion_loader.nfeats}
+    vae: true
+    latent_dim: 256
+    ff_size: 1024
+    num_layers: 6
+    num_heads: 4
+    dropout: 0.1
+    activation: gelu
+  text_encoder:
+    _target_: src.model.ACTORStyleEncoder
+    nfeats: 768
+    vae: true
+    latent_dim: 256
+    ff_size: 1024
+    num_layers: 6
+    num_heads: 4
+    dropout: 0.1
+    activation: gelu
+  motion_decoder:
+    _target_: src.model.ACTORStyleDecoder
+    nfeats: ${data.motion_loader.nfeats}
+    latent_dim: 256
+    ff_size: 1024
+    num_layers: 6
+    num_heads: 4
+    dropout: 0.1
+    activation: gelu
+  vae: true
+  lmd:
+    recons: 1.0
+    latent: 1.0e-05
+    kl: 1.0e-05
+    contrastive: 0.1
+  lr: 0.0001
+  temperature: 0.1
+  threshold_selfsim: 0.8
+  threshold_selfsim_metrics: 0.95
+trainer:
+  _target_: pytorch_lightning.Trainer
+  max_epochs: 20
+  log_every_n_steps: 50
+  num_sanity_val_steps: 0
+  check_val_every_n_epoch: 1
+  accelerator: gpu
+  devices: 1
+  callbacks:
+  - _target_: pytorch_lightning.callbacks.ModelCheckpoint
+    filename: latest-{epoch}
+    every_n_epochs: 1
+    save_top_k: 1
+    save_last: true
+  - _target_: pytorch_lightning.callbacks.ModelCheckpoint
+    filename: latest-{epoch}
+    monitor: step
+    mode: max
+    every_n_epochs: 100
+    save_top_k: -1
+    save_last: false
+  - _target_: pytorch_lightning.callbacks.ModelCheckpoint
+    monitor: val_loss
+    mode: min
+    save_top_k: 3
+    save_last: true
+    filename: e_{epoch:03d}-val_{val:.2f}
+  - _target_: src.callback.progress.ProgressLogger
+    precision: 3
+  - _target_: src.callback.tqdmbar.TQDMProgressBar
+  logger:
+    _target_: pytorch_lightning.loggers.TensorBoardLogger
+    save_dir: ${run_dir}
+    name: ${hydra:runtime.choices.model}_${hydra:runtime.choices.data}_${hydra:runtime.choices.data/motion_loader}
+run_dir: outputs/humanml3d_e_mp_motion_repr_server/tmr/guo263
+seed: 1234
+logger_level: INFO
+ckpt: last
+resume_dir: null
+dataloader:
+  _target_: torch.utils.data.DataLoader
+  batch_size: 128
+  num_workers: 0

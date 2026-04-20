@@ -1,0 +1,33 @@
+[20/04/26 15:38:58][__main__][INFO] - Training script
+[20/04/26 15:38:58][__main__][INFO] - The config can be found here: 
+outputs/_tmp_cmd_check/tmr/guo263/config.json
+[20/04/26 15:39:00][lightning_fabric.utilities.seed][INFO] - Seed set to 1234
+[20/04/26 15:39:00][__main__][INFO] - Loading the dataloaders
+[20/04/26 15:39:09][__main__][INFO] - Loading the model
+[20/04/26 15:39:09][__main__][INFO] - Training
+[20/04/26 15:39:09][pytorch_lightning.utilities.rank_zero][INFO] - GPU available: True (cuda), used: True
+[20/04/26 15:39:10][pytorch_lightning.utilities.rank_zero][INFO] - TPU available: False, using: 0 TPU cores
+[20/04/26 15:39:10][pytorch_lightning.utilities.rank_zero][INFO] - HPU available: False, using: 0 HPUs
+[20/04/26 15:39:10][pytorch_lightning.accelerators.cuda][INFO] - LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+[20/04/26 15:39:10][pytorch_lightning.callbacks.model_summary][INFO] - 
+  | Name                   | Type              | Params | Mode 
+---------------------------------------------------------------------
+0 | motion_encoder         | ACTORStyleEncoder | 4.8 M  | train
+1 | text_encoder           | ACTORStyleEncoder | 4.9 M  | train
+2 | motion_decoder         | ACTORStyleDecoder | 6.4 M  | train
+3 | reconstruction_loss_fn | SmoothL1Loss      | 0      | train
+4 | latent_loss_fn         | SmoothL1Loss      | 0      | train
+---------------------------------------------------------------------
+16.1 M    Trainable params
+0         Non-trainable params
+16.1 M    Total params
+64.523    Total estimated model params size (MB)
+224       Modules in train mode
+0         Modules in eval mode
+[20/04/26 15:39:10][src.callback.progress][INFO] - Training started
+[20/04/26 15:39:34][src.callback.progress][INFO] - Epoch 0 step 50/192: loss 9.604e-01
+[20/04/26 15:39:59][src.callback.progress][INFO] - Epoch 0 step 100/192: loss 9.082e-01
+[20/04/26 15:40:24][src.callback.progress][INFO] - Epoch 0 step 150/192: loss 9.102e-01
+[20/04/26 15:40:47][src.callback.progress][INFO] - Epoch 0: v_recons 4.491e-01  recons 4.840e-01  v_loss 8.666e-01  loss 9.447e-01  v_latent 1.163e+00  latent 1.238e+00  v_kl 6.026e+00  kl 7.171e+00  v_contrastive 4.174e+00  contrastive 4.606e+00  v_t2m/len 1530  v_t2m/R01 0.51%  v_t2m/R02 1.17%  v_t2m/R03 1.83%  v_t2m/R05 3.2%  v_t2m/R10 6.4%  v_t2m/MedR 166.0%  v_m2t/len 1530  v_m2t/R01 0.64%  v_m2t/R02 1.7%  v_m2t/R03 2.16%  v_m2t/R05 3.0%  v_m2t/R10 6.46%  v_m2t/MedR 172.0%
+[20/04/26 15:40:52][src.callback.progress][INFO] - Epoch 1 step 200/192: loss 8.660e-01
+[20/04/26 15:41:06][pytorch_lightning.trainer.connectors.signal_connector][INFO] - [rank: 0] Received SIGTERM: 15

@@ -1,0 +1,31 @@
+defaults:
+  - temos
+  - _self_
+
+_target_: src.model.tmr_p2a.TMRP2aFullMotionTextEncoder
+
+motion_encoder:
+  nfeats: ${data.motion_loader.nfeats}
+
+motion_decoder:
+  nfeats: ${data.motion_loader.nfeats}
+
+lmd:
+  global: 0.1
+  evt_align: 1.0
+
+lr: 1e-4
+temperature: 0.1
+threshold_selfsim: 0.80
+threshold_selfsim_metrics: 0.95
+event_align_tau: 0.1
+
+# From-scratch training for HumanML3D-E-MP motion rep comparison.
+# No warm-start: motion data distribution differs from original TMR.
+warm_start_weights_dir: null
+warm_start_ckpt: null
+warm_start_event_head: false
+
+freeze_motion_backbone: false
+freeze_text_encoder: false
+freeze_motion_decoder: true

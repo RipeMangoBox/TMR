@@ -3,6 +3,42 @@
 This file now keeps only the current consolidated state. Detailed metrics and
 the `P2a` comparison live in `STAGE4_1_REALDATA_UNIFIED_SUMMARY.md`.
 
+## 2026-04-20 HumanML3D-E-MP Launcher Update
+
+### Default Change
+
+- `scripts/run_tmr_humanml3de_mp_gpu0.sh` now defaults to:
+  - `MODEL_NAME=tmr_d2b_retrieval_first`
+  - `BATCH_SIZE=32`
+  - `SEED=1234`
+  - `SCHEMAS=(guo263)`
+- `scripts/run_tmr_humanml3de_mp_gpu1.sh` now defaults to:
+  - `MODEL_NAME=tmr_d2b_retrieval_first`
+  - `BATCH_SIZE=32`
+  - `SEED=1234`
+- `scripts/run_tmr_humanml3de_mp_motion_repr.py` is aligned with the same
+  retrieval-first defaults.
+
+### Why
+
+- The old launcher default (`tmr_d2b` + `batch_size=128`) was not comparable to
+  the original `tmr_humanml3d_guoh3dfeats` baseline and could drive severe
+  global-retrieval collapse on HumanML3D-E-MP.
+- The new `tmr_d2b_retrieval_first` config keeps the D2b full-motion setup but
+  changes the default loss balance to:
+  - `global: 1.0`
+  - `evt_align: 0.25`
+- The launcher now matches the baseline batch size and seed by default so
+  `guo263` comparisons are fairer.
+
+### How To Recover The Old Behavior
+
+- Override the model explicitly, for example:
+  - `MODEL_NAME_OVERRIDE=tmr_d2b`
+- Override batch or schemas when needed, for example:
+  - `BATCH_SIZE_OVERRIDE=128`
+  - `SCHEMAS_OVERRIDE="guo263 pos66 kimodo261"`
+
 ## 2026-04-12 Current Canonical State
 
 ### Final Outcome

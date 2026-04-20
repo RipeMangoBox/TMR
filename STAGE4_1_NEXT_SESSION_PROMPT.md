@@ -52,6 +52,12 @@ STAGE4_1_REALDATA_UNIFIED_SUMMARY.md。
 - D2a / D2b 默认 warm-start 应以：
   - RUN_DIR/stage4_1_realdata_e50_b128_d1/last_weights
   为准
+- HumanML3D-E-MP motion-repr launcher 现在默认走 retrieval-first 配方：
+  - `scripts/run_tmr_humanml3de_mp_gpu0.sh`
+  - `scripts/run_tmr_humanml3de_mp_gpu1.sh`
+  - 默认 `MODEL_NAME=tmr_d2b_retrieval_first`
+  - 默认 `BATCH_SIZE=32`
+  - 默认 `SEED=1234`
 
 如果你要继续做 Phase 2 或新实验，请遵守：
 1. 不要覆盖当前正式 family；新实验请显式加新后缀。

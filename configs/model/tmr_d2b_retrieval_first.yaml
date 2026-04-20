@@ -1,0 +1,10 @@
+defaults:
+  - tmr_d2b
+  - _self_
+
+# Keep D2b full-motion adaptation, but bias the default objective toward
+# preserving global retrieval so HumanML3D-E-MP runs stay comparable to the
+# original guoh3dfeats baseline.
+lmd:
+  global: 1.0
+  evt_align: 0.25

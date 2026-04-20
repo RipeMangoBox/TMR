@@ -5,14 +5,11 @@ REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "${REPO_DIR}"
 
 GPU_ID="${GPU_ID_OVERRIDE:-1}"
-MODEL_NAME="${MODEL_NAME_OVERRIDE:-tmr_d2b}"
+STAGE="${STAGE_OVERRIDE:-all}"
 RUN_ROOT="${RUN_ROOT_OVERRIDE:-outputs/humanml3d_e_mp_motion_repr_server}"
-EPOCHS="${EPOCHS_OVERRIDE:-1000}"
 BATCH_SIZE="${BATCH_SIZE_OVERRIDE:-128}"
-# HumanML3D-E-MP now has reusable caption/event embedding caches; keep the
-# launcher aligned with the original multi-worker TMR regime unless overridden.
 NUM_WORKERS="${NUM_WORKERS_OVERRIDE:-8}"
-SEED="${SEED_OVERRIDE:-42}"
+SEED="${SEED_OVERRIDE:-1234}"
 RETRIEVAL_BATCH_SIZE="${RETRIEVAL_BATCH_SIZE_OVERRIDE:-256}"
 LOG_DIR="${LOG_DIR_OVERRIDE:-${RUN_ROOT}/logs}"
 mkdir -p "${LOG_DIR}"
@@ -40,10 +37,10 @@ else
 fi
 
 TIMESTAMP="$(date '+%Y-%m-%d_%H-%M-%S')"
-LOG_PATH="${LOG_DIR}/gpu${GPU_ID}_${MODEL_NAME}_${TIMESTAMP}.log"
+LOG_PATH="${LOG_DIR}/gpu${GPU_ID}_${STAGE}_${TIMESTAMP}.log"
 
 echo "[tmr-hml3de-mp][gpu${GPU_ID}] repo=${REPO_DIR}"
-echo "[tmr-hml3de-mp][gpu${GPU_ID}] model=${MODEL_NAME}"
+echo "[tmr-hml3de-mp][gpu${GPU_ID}] stage=${STAGE}"
 echo "[tmr-hml3de-mp][gpu${GPU_ID}] schemas=${SCHEMAS[*]}"
 echo "[tmr-hml3de-mp][gpu${GPU_ID}] run_root=${RUN_ROOT}"
 echo "[tmr-hml3de-mp][gpu${GPU_ID}] log=${LOG_PATH}"
@@ -58,9 +55,8 @@ CMD=(
   TMR
   python
   scripts/run_tmr_humanml3de_mp_motion_repr.py
-  --model "${MODEL_NAME}" \
+  --stage "${STAGE}" \
   --schemas "${SCHEMAS[@]}" \
-  --epochs "${EPOCHS}" \
   --batch-size "${BATCH_SIZE}" \
   --num-workers "${NUM_WORKERS}" \
   --seed "${SEED}" \
