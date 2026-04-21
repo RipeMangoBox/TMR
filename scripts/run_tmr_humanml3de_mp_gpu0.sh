@@ -5,7 +5,7 @@ REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "${REPO_DIR}"
 
 GPU_ID="${GPU_ID_OVERRIDE:-0}"
-STAGE="${STAGE_OVERRIDE:-all}"
+STAGE="${STAGE_OVERRIDE:-warmstart}"
 RUN_ROOT="${RUN_ROOT_OVERRIDE:-outputs/humanml3d_e_mp_motion_repr_server}"
 BATCH_SIZE="${BATCH_SIZE_OVERRIDE:-128}"
 NUM_WORKERS="${NUM_WORKERS_OVERRIDE:-8}"

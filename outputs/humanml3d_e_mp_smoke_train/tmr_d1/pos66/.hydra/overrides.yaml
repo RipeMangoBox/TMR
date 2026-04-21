@@ -1,4 +1,0 @@
-- run_dir=outputs/humanml3d_e_mp_smoke_train/tmr_d1/pos66
-- device=cuda
-- protocol=all
-- batch_size=256

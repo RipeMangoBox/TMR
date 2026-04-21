@@ -1,0 +1,9 @@
+[20/04/26 23:11:37][lightning_fabric.utilities.seed][INFO] - Seed set to 1234
+[20/04/26 23:11:37][__main__][INFO] - Loading the model
+[20/04/26 23:11:37][src.load][INFO] - The extracted model is not found. Split into submodules..
+[20/04/26 23:11:37][src.load][INFO] -     text_encoder loaded
+[20/04/26 23:11:37][src.load][INFO] -     motion_encoder loaded
+[20/04/26 23:11:37][src.load][INFO] -     motion_decoder loaded
+[20/04/26 23:11:37][src.load][INFO] - Loading previous checkpoint done
+[20/04/26 23:11:37][src.load][INFO] - Put the model on cuda
+[20/04/26 23:11:37][src.load][INFO] - Put the model in eval mode

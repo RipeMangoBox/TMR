@@ -1,0 +1,17 @@
+[21/04/26 12:02:43][lightning_fabric.utilities.seed][INFO] - Seed set to 1234
+[21/04/26 12:02:43][__main__][INFO] - Loading the model
+[21/04/26 12:02:43][src.load][INFO] - The extracted model is not found. Split into submodules..
+[21/04/26 12:02:44][src.load][INFO] -     text_encoder loaded
+[21/04/26 12:02:44][src.load][INFO] -     motion_encoder loaded
+[21/04/26 12:02:44][src.load][INFO] -     motion_decoder loaded
+[21/04/26 12:02:44][src.load][INFO] - Loading previous checkpoint done
+[21/04/26 12:02:44][src.load][INFO] - Put the model on cuda
+[21/04/26 12:02:44][src.load][INFO] - Put the model in eval mode
+[21/04/26 12:02:57][__main__][INFO] - Testing done, metrics saved in:
+outputs/humanml3d_e_mp_motion_repr_server/tmr/kimodo261/contrastive_metrics/normal.yaml
+[21/04/26 12:02:58][__main__][INFO] - Testing done, metrics saved in:
+outputs/humanml3d_e_mp_motion_repr_server/tmr/kimodo261/contrastive_metrics/threshold_0.95.yaml
+[21/04/26 12:03:04][__main__][INFO] - Testing done, metrics saved in:
+outputs/humanml3d_e_mp_motion_repr_server/tmr/kimodo261/contrastive_metrics/nsim.yaml
+[21/04/26 12:03:34][__main__][INFO] - Testing done, metrics saved in:
+outputs/humanml3d_e_mp_motion_repr_server/tmr/kimodo261/contrastive_metrics/guo.yaml

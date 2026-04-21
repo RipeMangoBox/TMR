@@ -1,4 +1,4 @@
-run_dir: outputs/humanml3d_e_mp_motion_repr_server/tmr/guo263
+run_dir: outputs/humanml3d_e_mp_motion_repr_server/tmr/pos66
 seed: 1234
 logger_level: INFO
 device: cuda

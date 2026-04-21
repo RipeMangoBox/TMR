@@ -1,8 +1,0 @@
-run_dir: outputs/humanml3d_e_mp_smoke_train/tmr_d1/pos66
-seed: 1234
-logger_level: INFO
-device: cuda
-protocol: all
-threshold: 0.95
-ckpt: last
-batch_size: 256

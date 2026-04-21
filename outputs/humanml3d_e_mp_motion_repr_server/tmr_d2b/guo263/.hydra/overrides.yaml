@@ -1,8 +1,0 @@
-- data=humanml3d_e_mp
-- data/motion_loader=emp_guo263
-- model=tmr_d2b
-- run_dir=outputs/humanml3d_e_mp_motion_repr_server/tmr_d2b/guo263
-- dataloader.batch_size=128
-- dataloader.num_workers=8
-- seed=42
-- trainer.max_epochs=1000

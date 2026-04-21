@@ -166,6 +166,9 @@ class TMR(TEMOS):
         return losses["loss"]
 
     def on_validation_epoch_end(self):
+        if not self.validation_step_t_latents:
+            return
+
         # Compute contrastive metrics on the whole batch
         t_latents = torch.cat(self.validation_step_t_latents)
         m_latents = torch.cat(self.validation_step_m_latents)

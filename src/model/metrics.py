@@ -67,54 +67,30 @@ def contrastive_metrics(
 
     if text_selfsim is not None and threshold is not None:
         real_threshold = 2 * threshold - 1
-        idx = np.argwhere(text_selfsim > real_threshold)
-        partition = np.unique(idx[:, 0], return_index=True)[1]
-        # take as GT the minimum score of similar values
-        gt_dists = np.minimum.reduceat(dists[tuple(idx.T)], partition)
-        gt_dists = gt_dists[:, None]
+        valid_matches = text_selfsim > real_threshold
+        np.fill_diagonal(valid_matches, True)
+        masked_dists = np.where(valid_matches, dists, np.nan)
+        gt_dists = np.nanmin(masked_dists, axis=1, keepdims=True)
 
-    rows, cols = np.where((sorted_dists - gt_dists) == 0)  # find column position of GT
+        if not np.all(np.isfinite(gt_dists)):
+            fallback_gt = np.diag(dists)[:, None]
+            gt_dists = np.where(np.isfinite(gt_dists), gt_dists, fallback_gt)
 
-    # if there are ties
-    if rows.size > num_queries:
-        assert np.unique(rows).size == num_queries, "issue in metric evaluation"
-        if break_ties == "optimistically":
-            opti_cols = break_ties_optimistically(sorted_dists, gt_dists)
-            cols = opti_cols
-        elif break_ties == "averaging":
-            avg_cols = break_ties_average(sorted_dists, gt_dists)
-            cols = avg_cols
+    if not np.all(np.isfinite(gt_dists)):
+        raise ValueError("Non-finite GT distances encountered during metric evaluation.")
 
-    msg = "expected ranks to match queries ({} vs {}) "
-    assert cols.size == num_queries, msg
+    if break_ties == "optimistically":
+        cols = np.sum(sorted_dists < gt_dists, axis=1)
+    elif break_ties == "averaging":
+        lower = np.sum(sorted_dists < gt_dists, axis=1)
+        upper = np.sum(sorted_dists <= gt_dists, axis=1) - 1
+        cols = (lower + upper) / 2
+    else:
+        raise ValueError(f"Unsupported tie-breaking strategy: {break_ties}")
 
     if return_cols:
         return cols2metrics(cols, num_queries, rounding=rounding), cols
     return cols2metrics(cols, num_queries, rounding=rounding)
-
-
-def break_ties_average(sorted_dists, gt_dists):
-    # fast implementation, based on this code:
-    # https://stackoverflow.com/a/49239335
-    locs = np.argwhere((sorted_dists - gt_dists) == 0)
-
-    # Find the split indices
-    steps = np.diff(locs[:, 0])
-    splits = np.nonzero(steps)[0] + 1
-    splits = np.insert(splits, 0, 0)
-
-    # Compute the result columns
-    summed_cols = np.add.reduceat(locs[:, 1], splits)
-    counts = np.diff(np.append(splits, locs.shape[0]))
-    avg_cols = summed_cols / counts
-    return avg_cols
-
-
-def break_ties_optimistically(sorted_dists, gt_dists):
-    rows, cols = np.where((sorted_dists - gt_dists) == 0)
-    _, idx = np.unique(rows, return_index=True)
-    cols = cols[idx]
-    return cols
 
 
 def cols2metrics(cols, num_queries, rounding=2):

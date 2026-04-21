@@ -1,4 +1,0 @@
-- run_dir=outputs/humanml3d_e_mp_motion_repr_server/tmr_d2b_retrieval_first/guo263
-- device=cuda
-- batch_size=256
-- protocol=all

@@ -22,6 +22,7 @@ DEFAULT_NSIM_SPLIT = (
     / "splits"
     / "nsim_test.txt"
 )
+MIN_STD_NORMALIZATION = 1.0e-3
 
 
 def _clean_text(text: Optional[str]) -> str:
@@ -200,6 +201,19 @@ class HumanML3DEventDataset(Dataset):
         self.std = _load_stat_vector(
             Path(std_path).expanduser().resolve() if std_path is not None else None
         )
+        self.safe_std: Optional[np.ndarray] = None
+        if self.std is not None:
+            self.safe_std = self.std.copy()
+            tiny_mask = self.safe_std < MIN_STD_NORMALIZATION
+            if np.any(tiny_mask):
+                tiny_count = int(np.sum(tiny_mask))
+                tiny_min = float(np.min(self.safe_std[tiny_mask]))
+                print(
+                    "[HumanML3DEventDataset] tiny std detected -> disable scaling for "
+                    f"{tiny_count} dims (motion_rep={motion_rep}, "
+                    f"threshold={MIN_STD_NORMALIZATION}, min_std={tiny_min:.3e})"
+                )
+                self.safe_std[tiny_mask] = 1.0
         self.motion_rep = motion_rep or "packaged_motion"
         self.strict_motion_length = strict_motion_length
         self.uses_external_motion = self.motion_dir is not None
@@ -389,9 +403,8 @@ class HumanML3DEventDataset(Dataset):
                 f"motion={motion.shape[-1]}, mean={self.mean.shape}, std={self.std.shape}, "
                 f"motion_rep={self.motion_rep}"
             )
-        normalized = (motion - self.mean[np.newaxis, :]) / np.clip(
-            self.std[np.newaxis, :], a_min=1.0e-12, a_max=None
-        )
+        assert self.safe_std is not None
+        normalized = (motion - self.mean[np.newaxis, :]) / self.safe_std[np.newaxis, :]
         return normalized.astype(np.float32, copy=False)
 
     def _load_motion_array_by_keyid(self, keyid: str) -> np.ndarray:

@@ -1,0 +1,4 @@
+- run_dir=outputs/humanml3d_e_mp_motion_repr_server/tmr/smpl135
+- device=cuda
+- batch_size=256
+- protocol=all

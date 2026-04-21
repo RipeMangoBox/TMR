@@ -1,18 +1,18 @@
 {
     "data": {
         "motion_loader": {
-            "schema": "guo263",
-            "nfeats": 263,
-            "motion_dir": "/data/public/ripemangobox/Motion/datasets/HumanML3D-E-MP/motion_formats/guo263",
-            "mean_path": "/data/public/ripemangobox/Motion/datasets/HumanML3D-E-MP/motion_format_stats/guo263/Mean.npy",
-            "std_path": "/data/public/ripemangobox/Motion/datasets/HumanML3D-E-MP/motion_format_stats/guo263/Std.npy"
+            "schema": "hy201_recon",
+            "nfeats": 201,
+            "motion_dir": "/data/public/ripemangobox/Motion/datasets/HumanML3D-E-MP/motion_formats/hy201_recon",
+            "mean_path": "/data/public/ripemangobox/Motion/datasets/HumanML3D-E-MP/motion_format_stats/hy201_recon/Mean.npy",
+            "std_path": "/data/public/ripemangobox/Motion/datasets/HumanML3D-E-MP/motion_format_stats/hy201_recon/Std.npy"
         },
         "_target_": "src.data.humanml3de_event.HumanML3DEventDataset",
         "dataset_root": "/data/public/ripemangobox/Motion/datasets/HumanML3D-E-MP",
-        "motion_dir": "/data/public/ripemangobox/Motion/datasets/HumanML3D-E-MP/motion_formats/guo263",
-        "mean_path": "/data/public/ripemangobox/Motion/datasets/HumanML3D-E-MP/motion_format_stats/guo263/Mean.npy",
-        "std_path": "/data/public/ripemangobox/Motion/datasets/HumanML3D-E-MP/motion_format_stats/guo263/Std.npy",
-        "motion_rep": "guo263",
+        "motion_dir": "/data/public/ripemangobox/Motion/datasets/HumanML3D-E-MP/motion_formats/hy201_recon",
+        "mean_path": "/data/public/ripemangobox/Motion/datasets/HumanML3D-E-MP/motion_format_stats/hy201_recon/Mean.npy",
+        "std_path": "/data/public/ripemangobox/Motion/datasets/HumanML3D-E-MP/motion_format_stats/hy201_recon/Std.npy",
+        "motion_rep": "hy201_recon",
         "strict_motion_length": false,
         "text_to_token_emb": {
             "_target_": "src.data.text.TokenEmbeddings",
@@ -36,7 +36,7 @@
         "_target_": "src.model.TMR",
         "motion_encoder": {
             "_target_": "src.model.ACTORStyleEncoder",
-            "nfeats": 263,
+            "nfeats": 201,
             "vae": true,
             "latent_dim": 256,
             "ff_size": 1024,
@@ -58,7 +58,7 @@
         },
         "motion_decoder": {
             "_target_": "src.model.ACTORStyleDecoder",
-            "nfeats": 263,
+            "nfeats": 201,
             "latent_dim": 256,
             "ff_size": 1024,
             "num_layers": 6,
@@ -121,11 +121,11 @@
         ],
         "logger": {
             "_target_": "pytorch_lightning.loggers.TensorBoardLogger",
-            "save_dir": "outputs/humanml3d_e_mp_motion_repr_server/tmr/guo263",
-            "name": "tmr_humanml3d_e_mp_emp_guo263"
+            "save_dir": "outputs/humanml3d_e_mp_motion_repr_server/tmr/hy201",
+            "name": "tmr_humanml3d_e_mp_emp_hy201_recon"
         }
     },
-    "run_dir": "outputs/humanml3d_e_mp_motion_repr_server/tmr/guo263",
+    "run_dir": "outputs/humanml3d_e_mp_motion_repr_server/tmr/hy201",
     "seed": 1234,
     "logger_level": "INFO",
     "ckpt": "last",

@@ -118,14 +118,14 @@ hydra:
     hydra:
     - hydra.mode=RUN
     task:
-    - run_dir=outputs/humanml3d_e_mp_motion_repr_server/tmr/guo263
+    - run_dir=outputs/humanml3d_e_mp_motion_repr_server/tmr/smpl135
     - device=cuda
     - batch_size=256
     - protocol=all
   job:
     name: retrieval
     chdir: null
-    override_dirname: batch_size=256,device=cuda,protocol=all,run_dir=outputs/humanml3d_e_mp_motion_repr_server/tmr/guo263
+    override_dirname: batch_size=256,device=cuda,protocol=all,run_dir=outputs/humanml3d_e_mp_motion_repr_server/tmr/smpl135
     id: ???
     num: ???
     config_name: retrieval
@@ -150,7 +150,7 @@ hydra:
     - path: ''
       schema: structured
       provider: schema
-    output_dir: /data/public/ripemangobox/Motion/TMR/outputs/humanml3d_e_mp_motion_repr_server/tmr/guo263
+    output_dir: /data/public/ripemangobox/Motion/TMR/outputs/humanml3d_e_mp_motion_repr_server/tmr/smpl135
     choices:
       hydra/env: default
       hydra/callbacks: null

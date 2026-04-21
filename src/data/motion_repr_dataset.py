@@ -10,6 +10,8 @@ import numpy as np
 import torch
 from torch.utils.data import Dataset
 
+MIN_STD_NORMALIZATION = 1.0e-3
+
 
 def _load_ids(split_file: Path) -> list[str]:
     if not split_file.exists():
@@ -75,6 +77,10 @@ class MotionReprDataset(Dataset):
         self.split_file = Path(split_file).expanduser().resolve()
         self.mean = _load_stat_vector(Path(mean_path).expanduser().resolve())
         self.std = _load_stat_vector(Path(std_path).expanduser().resolve())
+        self.safe_std = self.std.copy()
+        tiny_mask = self.safe_std < MIN_STD_NORMALIZATION
+        if np.any(tiny_mask):
+            self.safe_std[tiny_mask] = 1.0
         self.max_motion_length = int(max_motion_length)
         self.text_encoder = text_encoder
         self.is_training = self.split_file.stem.lower() == "train"
@@ -113,7 +119,7 @@ class MotionReprDataset(Dataset):
         return captions[0]
 
     def _normalize_motion(self, motion: np.ndarray) -> np.ndarray:
-        normalized = (motion - self.mean[np.newaxis, :]) / self.std[np.newaxis, :]
+        normalized = (motion - self.mean[np.newaxis, :]) / self.safe_std[np.newaxis, :]
         return normalized.astype(np.float32, copy=False)
 
     def _crop_or_pad(self, motion: np.ndarray) -> tuple[np.ndarray, int]:
