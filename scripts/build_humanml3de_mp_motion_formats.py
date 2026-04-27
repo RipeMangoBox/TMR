@@ -4,12 +4,8 @@ from __future__ import annotations
 import runpy
 from pathlib import Path
 
+from linked_codebases import MOTIONPATCHES_ROOT
 
-TARGET = (
-    Path(__file__).resolve().parents[1]
-    / "MotionPatches-main"
-    / "scripts"
-    / "build_humanml3de_mp_motion_formats.py"
-)
+TARGET = MOTIONPATCHES_ROOT / "scripts" / "build_humanml3de_mp_motion_formats.py"
 
 runpy.run_path(str(TARGET), run_name="__main__")

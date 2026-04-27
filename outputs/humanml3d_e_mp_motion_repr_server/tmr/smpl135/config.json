@@ -3,26 +3,26 @@
         "motion_loader": {
             "schema": "smpl_d135_recon",
             "nfeats": 135,
-            "motion_dir": "/data/public/ripemangobox/Motion/datasets/HumanML3D-E-MP/motion_formats/smpl_d135_recon",
-            "mean_path": "/data/public/ripemangobox/Motion/datasets/HumanML3D-E-MP/motion_format_stats/smpl_d135_recon/Mean.npy",
-            "std_path": "/data/public/ripemangobox/Motion/datasets/HumanML3D-E-MP/motion_format_stats/smpl_d135_recon/Std.npy"
+            "motion_dir": "/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E-MP/motion_formats/smpl_d135_recon",
+            "mean_path": "/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E-MP/motion_format_stats/smpl_d135_recon/Mean.npy",
+            "std_path": "/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E-MP/motion_format_stats/smpl_d135_recon/Std.npy"
         },
         "_target_": "src.data.humanml3de_event.HumanML3DEventDataset",
-        "dataset_root": "/data/public/ripemangobox/Motion/datasets/HumanML3D-E-MP",
-        "motion_dir": "/data/public/ripemangobox/Motion/datasets/HumanML3D-E-MP/motion_formats/smpl_d135_recon",
-        "mean_path": "/data/public/ripemangobox/Motion/datasets/HumanML3D-E-MP/motion_format_stats/smpl_d135_recon/Mean.npy",
-        "std_path": "/data/public/ripemangobox/Motion/datasets/HumanML3D-E-MP/motion_format_stats/smpl_d135_recon/Std.npy",
+        "dataset_root": "/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E-MP",
+        "motion_dir": "/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E-MP/motion_formats/smpl_d135_recon",
+        "mean_path": "/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E-MP/motion_format_stats/smpl_d135_recon/Mean.npy",
+        "std_path": "/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E-MP/motion_format_stats/smpl_d135_recon/Std.npy",
         "motion_rep": "smpl_d135_recon",
         "strict_motion_length": false,
         "text_to_token_emb": {
             "_target_": "src.data.text.TokenEmbeddings",
-            "path": "/data/public/ripemangobox/Motion/datasets/HumanML3D-E-MP",
+            "path": "/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E-MP",
             "modelname": "distilbert-base-uncased",
             "preload": true
         },
         "text_to_sent_emb": {
             "_target_": "src.data.text.SentenceEmbeddings",
-            "path": "/data/public/ripemangobox/Motion/datasets/HumanML3D-E-MP",
+            "path": "/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E-MP",
             "modelname": "sentence-transformers/all-mpnet-base-v2",
             "preload": true
         },
@@ -30,7 +30,7 @@
         "strict_event_parse": false,
         "nsim_subset_size": 100,
         "nsim_min_similarity": 0.75,
-        "nsim_split_path": "/data/public/ripemangobox/Motion/datasets/HumanML3D-E-MP/nsim_test.txt"
+        "nsim_split_path": "/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E-MP/nsim_test.txt"
     },
     "model": {
         "_target_": "src.model.TMR",

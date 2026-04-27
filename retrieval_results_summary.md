@@ -3,8 +3,8 @@
 ## Evaluation directories
 
 - **TMR**: `/home/ripemangobox/Coding/Github/Motion/TMR/RUN_DIR/contrastive_metrics`
-- **MotionPatches**: `/home/ripemangobox/Coding/Github/Motion/TMR/MotionPatches-main/checkpoints/pretrained/HumanML3D/contrastive_metrics`
-- **EventT2M**: `/home/ripemangobox/Coding/Github/Motion/TMR/EventT2M-codes-main/checkpoints/pretrained/HumanML3D/eval`
+- **MotionPatches**: `/data/Life Me/Obsidian Respository/ResearchWY/linkedCodebases/MotionPatches-main/checkpoints/pretrained/HumanML3D/contrastive_metrics`
+- **EventT2M**: `/data/Life Me/Obsidian Respository/ResearchWY/linkedCodebases/EventT2M-codes-main/checkpoints/pretrained/HumanML3D/eval`
 
 ## Native evaluation markers
 

@@ -195,8 +195,8 @@ bash run_retrieval_summary.sh
 
 By default it reads:
 - `RUN_DIR/contrastive_metrics`
-- `MotionPatches-main/checkpoints/pretrained/HumanML3D/contrastive_metrics`
-- `EventT2M-codes-main/checkpoints/pretrained/HumanML3D/eval`
+- `/data/Life Me/Obsidian Respository/ResearchWY/linkedCodebases/MotionPatches-main/checkpoints/pretrained/HumanML3D/contrastive_metrics`
+- `/data/Life Me/Obsidian Respository/ResearchWY/linkedCodebases/EventT2M-codes-main/checkpoints/pretrained/HumanML3D/eval`
 
 For EventT2M, the retrieval-style TMR-aligned exports are expected as `normal.yaml`, `threshold_0.95.yaml`, `nsim.yaml`, and `guo.yaml`, while its original diffusion/native report is expected as `E-native_normal.yaml`.
 
@@ -205,8 +205,8 @@ The summary is written to `retrieval_results_summary.md` in the TMR root. The wr
 ```bash
 bash run_retrieval_summary.sh \
   --eval-dir RUN_DIR/contrastive_metrics \
-  --eval-dir MotionPatches-main/checkpoints/pretrained/HumanML3D/contrastive_metrics \
-  --eval-dir EventT2M-codes-main/checkpoints/pretrained/HumanML3D/eval \
+  --eval-dir "/data/Life Me/Obsidian Respository/ResearchWY/linkedCodebases/MotionPatches-main/checkpoints/pretrained/HumanML3D/contrastive_metrics" \
+  --eval-dir "/data/Life Me/Obsidian Respository/ResearchWY/linkedCodebases/EventT2M-codes-main/checkpoints/pretrained/HumanML3D/eval" \
   --name TMR --name MotionPatches --name EventT2M \
   --output retrieval_results_summary.md
 ```

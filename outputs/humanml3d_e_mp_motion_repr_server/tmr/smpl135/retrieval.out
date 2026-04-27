@@ -1,9 +1,33 @@
-[20/04/26 23:11:37][lightning_fabric.utilities.seed][INFO] - Seed set to 1234
-[20/04/26 23:11:37][__main__][INFO] - Loading the model
-[20/04/26 23:11:37][src.load][INFO] - The extracted model is not found. Split into submodules..
-[20/04/26 23:11:37][src.load][INFO] -     text_encoder loaded
-[20/04/26 23:11:37][src.load][INFO] -     motion_encoder loaded
-[20/04/26 23:11:37][src.load][INFO] -     motion_decoder loaded
-[20/04/26 23:11:37][src.load][INFO] - Loading previous checkpoint done
-[20/04/26 23:11:37][src.load][INFO] - Put the model on cuda
-[20/04/26 23:11:37][src.load][INFO] - Put the model in eval mode
+[21/04/26 13:25:58] INFO   Seed set to 1234
+[21/04/26 13:25:58] INFO   Loading the model
+[21/04/26 13:25:58] INFO       motion_decoder loaded
+[21/04/26 13:25:58] INFO       text_encoder loaded
+[21/04/26 13:25:58] INFO       motion_encoder loaded
+[21/04/26 13:25:58] INFO   Loading previous checkpoint done
+[21/04/26 13:25:58] INFO   Put the model on cuda
+[21/04/26 13:25:58] INFO   Put the model in eval mode
+[HumanML3DEventDataset] tiny std detected -> disable scaling for 1 dims (motion_rep=smpl_d135_recon, threshold=0.001, min_std=1.000e-06)
+[HumanML3DEventDataset] split=test dataset_root=/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E-MP samples=4646 dropped=0 motion_rep=smpl_d135_recon nfeats=135 external_motion=True event_sources={'decomposed': 12535}
+{'t2m/R01': '0.09', 't2m/R02': '0.17', 't2m/R03': '0.41', 't2m/R05': '0.56', 't2m/R10': '1.08', 't2m/MedR': '2006.25', 'm2t/R01': '0.11', 'm2t/R02': '0.11', 'm2t/R03': '0.17', 'm2t/R05': '0.22', 'm2t/R10': '0.30', 'm2t/MedR': '2054.25'}
+Number of samples: 4646
+& 0.09 & 0.17 & 0.41 & 0.56 & 1.08 & 2006.25 & 0.11 & 0.11 & 0.17 & 0.22 & 0.30 & 2054.25 \\
+[21/04/26 13:26:13] INFO   Testing done, metrics saved in:
+outputs/humanml3d_e_mp_motion_repr_server/tmr/smpl135/contrastive_metrics/normal.yaml
+{'t2m/R01': '0.30', 't2m/R02': '0.60', 't2m/R03': '0.97', 't2m/R05': '1.42', 't2m/R10': '2.50', 't2m/MedR': '1196.0', 'm2t/R01': '0.13', 'm2t/R02': '0.13', 'm2t/R03': '0.22', 'm2t/R05': '0.26', 'm2t/R10': '0.37', 'm2t/MedR': '1766.0'}
+Number of samples: 4646
+& 0.30 & 0.60 & 0.97 & 1.42 & 2.50 & 1196.0 & 0.13 & 0.13 & 0.22 & 0.26 & 0.37 & 1766.0 \\
+[21/04/26 13:26:15] INFO   Testing done, metrics saved in:
+outputs/humanml3d_e_mp_motion_repr_server/tmr/smpl135/contrastive_metrics/threshold_0.95.yaml
+[HumanML3DEventDataset] tiny std detected -> disable scaling for 1 dims (motion_rep=smpl_d135_recon, threshold=0.001, min_std=1.000e-06)
+[HumanML3DEventDataset] nsim_test -> official split subset size=97/97 missing=0 path=/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E-MP/nsim_test.txt
+[HumanML3DEventDataset] split=nsim_test dataset_root=/home/ripemangobox/Coding/Github/Motion/datasets/HumanML3D-E-MP samples=97 dropped=0 motion_rep=smpl_d135_recon nfeats=135 external_motion=True event_sources={'decomposed': 12535}
+{'t2m/R01': '4.12', 't2m/R02': '6.19', 't2m/R03': '8.25', 't2m/R05': '11.34', 't2m/R10': '19.59', 't2m/MedR': '36.00', 'm2t/R01': '4.12', 'm2t/R02': '8.25', 'm2t/R03': '9.28', 'm2t/R05': '10.31', 'm2t/R10': '17.53', 'm2t/MedR': '44.00'}
+Number of samples: 97
+& 4.12 & 6.19 & 8.25 & 11.34 & 19.59 & 36.00 & 4.12 & 8.25 & 9.28 & 10.31 & 17.53 & 44.00 \\
+[21/04/26 13:26:21] INFO   Testing done, metrics saved in:
+outputs/humanml3d_e_mp_motion_repr_server/tmr/smpl135/contrastive_metrics/nsim.yaml
+{'t2m/R01': '6.90', 't2m/R02': '11.70', 't2m/R03': '15.73', 't2m/R05': '23.00', 't2m/R10': '38.94', 't2m/MedR': '14.43', 'm2t/R01': '5.17', 'm2t/R02': '9.63', 'm2t/R03': '13.58', 'm2t/R05': '20.80', 'm2t/R10': '36.81', 'm2t/MedR': '14.81'}
+Number of samples: 32
+& 6.90 & 11.70 & 15.73 & 23.00 & 38.94 & 14.43 & 5.17 & 9.63 & 13.58 & 20.80 & 36.81 & 14.81 \\
+[21/04/26 13:27:04] INFO   Testing done, metrics saved in:
+outputs/humanml3d_e_mp_motion_repr_server/tmr/smpl135/contrastive_metrics/guo.yaml

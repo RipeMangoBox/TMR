@@ -2,9 +2,10 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "${SCRIPT_DIR}/scripts/linked_codebases.sh"
 DEFAULT_TMR_EVAL_DIR="RUN_DIR/contrastive_metrics"
-DEFAULT_MOTIONPATCHES_EVAL_DIR="MotionPatches-main/checkpoints/pretrained/HumanML3D/contrastive_metrics"
-DEFAULT_EVENTT2M_EVAL_DIR="EventT2M-codes-main/checkpoints/pretrained/HumanML3D/eval"
+DEFAULT_MOTIONPATCHES_EVAL_DIR="${MOTIONPATCHES_DIR}/checkpoints/pretrained/HumanML3D/contrastive_metrics"
+DEFAULT_EVENTT2M_EVAL_DIR="${EVENTT2M_DIR}/checkpoints/pretrained/HumanML3D/eval"
 DEFAULT_OUTPUT="retrieval_results_summary.md"
 
 if [[ $# -eq 0 ]]; then

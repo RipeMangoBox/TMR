@@ -175,6 +175,7 @@ outputs/mdr_finedance_guoh3dfeats_fd
 *.pth 
 *.checkpoints
 *.ckpt
+.source_ckpt
 !stats
 # External repos cloned into workspace
 /MotionPatches-main/

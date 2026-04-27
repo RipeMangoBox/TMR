@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Dict, List
 
 import yaml
+from linked_codebases import EVENTT2M_ROOT, MOTIONPATCHES_ROOT
 
 PROTOCOLS = ["normal", "threshold_0.95", "nsim", "guo"]
 METRIC_ORDER = [
@@ -23,9 +24,9 @@ METRIC_ORDER = [
 ]
 DEFAULT_NAMES = ["TMR", "MotionPatches", "EventT2M"]
 DEFAULT_PATHS = [
-    "RUN_DIR/contrastive_metrics",
-    "MotionPatches-main/checkpoints/pretrained/HumanML3D/contrastive_metrics",
-    "EventT2M-codes-main/checkpoints/pretrained/HumanML3D/eval",
+    str(Path("RUN_DIR/contrastive_metrics")),
+    str(MOTIONPATCHES_ROOT / "checkpoints" / "pretrained" / "HumanML3D" / "contrastive_metrics"),
+    str(EVENTT2M_ROOT / "checkpoints" / "pretrained" / "HumanML3D" / "eval"),
 ]
 DEFAULT_OUTPUT = "retrieval_results_summary.md"
 SUMMARY_PROTOCOL_FILES = {
